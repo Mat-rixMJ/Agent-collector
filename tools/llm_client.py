@@ -1,12 +1,17 @@
 """LLM client. Supports OpenRouter, NVIDIA build, and local Ollama.
-All expose OpenAI-compatible /chat/completions endpoints, so one thin wrapper
-covers all — just swap LLM_PROVIDER in .env.
+All expose OpenAI-compatible /chat/completions endpoints.
+
+Rate limit strategy:
+- On 429, reads Retry-After header and sleeps that exact duration
+- Rotates between free models to spread load
+- 7 attempts with increasing backoff (covers ~3min of rate limiting)
+- Falls back to Ollama if all cloud attempts fail
 """
 import os
+import time
 
 import requests
 from dotenv import load_dotenv
-from tenacity import retry, stop_after_attempt, wait_exponential
 
 load_dotenv()
 
@@ -28,8 +33,7 @@ _PROVIDERS = {
     },
 }
 
-
-# Free models to rotate through when hitting rate limits on OpenRouter
+# Free models to rotate through on rate limits
 _FREE_MODELS = [
     "nousresearch/hermes-3-llama-3.1-405b:free",
     "nvidia/nemotron-3-super-120b-a12b:free",
@@ -37,16 +41,23 @@ _FREE_MODELS = [
     "google/gemma-4-31b-it:free",
     "qwen/qwen3-coder:free",
 ]
-_model_rotation_idx = 0
+_rotation_idx = 0
+
+MAX_RETRIES = 7
 
 
-@retry(stop=stop_after_attempt(5), wait=wait_exponential(multiplier=2, min=3, max=30))
+def _call_api(url: str, headers: dict, payload: dict) -> requests.Response:
+    """Single API call with timeout."""
+    return requests.post(url, headers=headers, json=payload, timeout=300)
+
+
 def chat(messages: list[dict], temperature: float = 0.7, max_tokens: int = 1200) -> str:
-    global _model_rotation_idx
+    global _rotation_idx
     provider = os.getenv("LLM_PROVIDER", "openrouter")
     cfg = _PROVIDERS[provider]
     api_key = os.getenv(cfg["key_env"]) if cfg["key_env"] else "ollama"
     model = os.getenv(cfg["model_env"])
+
     if cfg["key_env"] and not api_key:
         raise RuntimeError(f"{cfg['key_env']} not set in .env")
 
@@ -54,23 +65,48 @@ def chat(messages: list[dict], temperature: float = 0.7, max_tokens: int = 1200)
     if api_key != "ollama":
         headers["Authorization"] = f"Bearer {api_key}"
 
-    resp = requests.post(
-        cfg["url"],
-        headers=headers,
-        json={"model": model, "messages": messages, "temperature": temperature, "max_tokens": max_tokens},
-        timeout=300,
-    )
+    for attempt in range(MAX_RETRIES):
+        payload = {"model": model, "messages": messages, "temperature": temperature, "max_tokens": max_tokens}
+        resp = _call_api(cfg["url"], headers, payload)
 
-    # On rate limit (429), rotate to next free model and retry
-    if resp.status_code == 429 and provider == "openrouter":
-        _model_rotation_idx = (_model_rotation_idx + 1) % len(_FREE_MODELS)
-        new_model = _FREE_MODELS[_model_rotation_idx]
-        os.environ[cfg["model_env"]] = new_model
-        print(f"  [LLM] Rate limited, rotating to: {new_model}")
-        resp.raise_for_status()  # triggers tenacity retry
+        if resp.status_code == 200:
+            return resp.json()["choices"][0]["message"]["content"]
 
-    resp.raise_for_status()
-    return resp.json()["choices"][0]["message"]["content"]
+        if resp.status_code == 429:
+            # Read Retry-After header (seconds to wait)
+            retry_after = int(resp.headers.get("Retry-After", "30"))
+            # Cap at 60s to avoid endless waits
+            wait_time = min(retry_after + 2, 60)
+
+            # Rotate model for next attempt
+            if provider == "openrouter":
+                _rotation_idx = (_rotation_idx + 1) % len(_FREE_MODELS)
+                model = _FREE_MODELS[_rotation_idx]
+
+            print(f"  [LLM] 429 rate limited. Waiting {wait_time}s, then trying {model} (attempt {attempt+2}/{MAX_RETRIES})")
+            time.sleep(wait_time)
+            continue
+
+        # Other errors — raise immediately
+        resp.raise_for_status()
+
+    # All retries exhausted on cloud — try Ollama as fallback if available
+    if provider != "ollama":
+        ollama_model = os.getenv("OLLAMA_MODEL")
+        if ollama_model:
+            print(f"  [LLM] Cloud exhausted, falling back to Ollama ({ollama_model})")
+            try:
+                fallback_resp = _call_api(
+                    "http://localhost:11434/v1/chat/completions",
+                    {"Content-Type": "application/json"},
+                    {"model": ollama_model, "messages": messages, "temperature": temperature, "max_tokens": max_tokens},
+                )
+                if fallback_resp.status_code == 200:
+                    return fallback_resp.json()["choices"][0]["message"]["content"]
+            except Exception:
+                pass  # Ollama not running, fall through to error
+
+    raise RuntimeError(f"LLM failed after {MAX_RETRIES} attempts (rate limited). Try again in a few minutes or use LLM_PROVIDER=ollama.")
 
 
 def ask(system_prompt: str, user_prompt: str, **kwargs) -> str:
