@@ -1,22 +1,26 @@
-"""Telegram gateway. Two jobs:
+"""Telegram gateway. Three capabilities:
 1. push_summary() — send the kanban snapshot after every orchestration loop.
-2. run_listener() — long-poll for incoming messages so a human can chat with
-   the agent team ("what's the status of the ads pipeline?") — routes the text
-   straight to the LLM with kanban + latest outputs as context.
+2. Interactive chat — human asks questions, agent queries data and responds.
+3. On-demand commands — "/outreach @handle", "/score", "/status", "/changes"
+
+This is what makes the agent team *conversational*, not just a batch pipeline.
 """
+import json
 import os
+from pathlib import Path
 
 from dotenv import load_dotenv
-from telegram import Bot
-from telegram.ext import Application, ContextTypes, MessageHandler, filters
+from telegram import Bot, Update
+from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
 
-from tools import kanban
+from tools import kanban, memory
 from tools.llm_client import ask
 
 load_dotenv()
 
 TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
+VAULT = Path(os.getenv("OBSIDIAN_VAULT_PATH", "./obsidian_vault"))
 
 
 def push_summary(text: str | None = None) -> None:
@@ -35,26 +39,127 @@ def push_summary(text: str | None = None) -> None:
         print(f"[telegram_bot] Failed to send: {e}")
 
 
-async def _on_message(update, context: ContextTypes.DEFAULT_TYPE) -> None:
+# --- Interactive handlers ---
+
+async def cmd_status(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Show pipeline status + memory stats."""
+    board = kanban.snapshot()
+    stats = memory.get_stats()
+    msg = (
+        f"📊 *Pipeline Status*\n\n"
+        f"{board}\n\n"
+        f"🧠 *Memory:* {stats['total_processed']} items tracked | "
+        f"Run #{stats['run_count']} | Last: {stats['last_run']}"
+    )
+    await update.message.reply_text(msg, parse_mode="Markdown")
+
+
+async def cmd_score(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Show ad script scorecard."""
+    scorecard_path = VAULT / "Ads" / "_scorecard.md"
+    if scorecard_path.exists():
+        text = scorecard_path.read_text(encoding="utf-8")[:3000]
+        await update.message.reply_text(text)
+    else:
+        await update.message.reply_text("No scorecard yet. Run the pipeline first.")
+
+
+async def cmd_outreach(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Generate outreach for a specific handle on-demand."""
+    if not context.args:
+        await update.message.reply_text("Usage: /outreach <channel_name>")
+        return
+
+    handle = " ".join(context.args)
+    await update.message.reply_text(f"Drafting outreach for {handle}...")
+
+    draft = ask(
+        "You write short, genuine cold outreach messages (under 120 words) from "
+        "CrowdWisdomTrading to trading content creators, asking for their honest "
+        "opinion on crowdwisdomtrading.com. Not pitching a paid sponsorship.",
+        f"Creator: {handle}\nDraft a personalized cold outreach message.",
+    )
+    await update.message.reply_text(f"📨 *Outreach draft for {handle}:*\n\n{draft}", parse_mode="Markdown")
+
+
+async def cmd_changes(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Show what changed since last run."""
+    history = memory.get_run_history()
+    if len(history) < 2:
+        await update.message.reply_text("Need at least 2 runs to compare. Run the pipeline again.")
+        return
+
+    last = history[-1]
+    prev = history[-2]
+    msg = (
+        f"🔄 *Changes (Run #{last['run']} vs #{prev['run']})*\n\n"
+        f"Previous: {prev['timestamp'][:16]}\n"
+        f"Current: {last['timestamp'][:16]}\n\n"
+        f"Current board:\n{last['summary'][:500]}"
+    )
+    await update.message.reply_text(msg, parse_mode="Markdown")
+
+
+async def cmd_competitors(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Show competitor synthesis."""
+    synth_path = VAULT / "Competitors" / "_synthesis.md"
+    if synth_path.exists():
+        text = synth_path.read_text(encoding="utf-8")[:3000]
+        await update.message.reply_text(text)
+    else:
+        await update.message.reply_text("No competitor data yet. Run the pipeline first.")
+
+
+async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Free-form chat — agent answers questions using all available data as context."""
     user_text = update.message.text
     board = kanban.snapshot()
+    stats = memory.get_stats()
+
+    # Gather context from available data
+    context_parts = [f"Kanban board:\n{board}"]
+    context_parts.append(f"Memory: {stats['total_processed']} items tracked, {stats['run_count']} runs")
+
+    # Add competitor synthesis if available
+    synth_path = VAULT / "Competitors" / "_synthesis.md"
+    if synth_path.exists():
+        context_parts.append(f"Competitor synthesis:\n{synth_path.read_text(encoding='utf-8')[:1000]}")
+
+    # Add scorecard if available
+    scorecard_path = VAULT / "Ads" / "_scorecard.md"
+    if scorecard_path.exists():
+        context_parts.append(f"Ad scorecard:\n{scorecard_path.read_text(encoding='utf-8')[:500]}")
+
+    full_context = "\n\n".join(context_parts)
+
     reply = ask(
-        system_prompt=(
-            "You are the CrowdWisdomTrading marketing agent team's status assistant. "
-            "Answer questions about current progress using the kanban board context given. "
-            "Be concise."
-        ),
-        user_prompt=f"Kanban board:\n{board}\n\nQuestion: {user_text}",
+        "You are the CrowdWisdomTrading marketing agent team's assistant. "
+        "Answer questions about current progress, strategy, competitors, ads, "
+        "and influencers using the context given. Be concise and actionable. "
+        "If asked to do something (like draft an outreach), do it.",
+        f"Context:\n{full_context}\n\nQuestion: {user_text}",
     )
     await update.message.reply_text(reply)
 
 
 def run_listener() -> None:
-    """Blocking call — run this in its own process to let the team chat over Telegram."""
+    """Blocking call — run in its own process to let the team chat over Telegram."""
     if not TOKEN:
         raise RuntimeError("TELEGRAM_BOT_TOKEN not set in .env")
+
     app = Application.builder().token(TOKEN).build()
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, _on_message))
+
+    # Commands
+    app.add_handler(CommandHandler("status", cmd_status))
+    app.add_handler(CommandHandler("score", cmd_score))
+    app.add_handler(CommandHandler("outreach", cmd_outreach))
+    app.add_handler(CommandHandler("changes", cmd_changes))
+    app.add_handler(CommandHandler("competitors", cmd_competitors))
+
+    # Free-form chat
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, on_message))
+
+    print("🤖 Telegram bot running. Commands: /status /score /outreach /changes /competitors")
     app.run_polling()
 
 

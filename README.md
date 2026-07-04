@@ -3,7 +3,15 @@
 Multi-agent marketing system for crowdwisdomtrading.com, built on **Hermes Agent**
 (Nous Research's open-source agent runtime) using its native **skills**, **kanban
 board**, **Telegram gateway**, and an **Obsidian vault** as the human-readable
-knowledge base. Data collection uses **Apify**. LLM calls go through **OpenRouter**.
+knowledge base. Data collection uses **Apify**. LLM calls go through **OpenRouter**,
+**NVIDIA build**, or **local Ollama** (supports all three).
+
+## Key differentiators
+
+- **Agent Memory** — tracks what's been processed across runs. Detects when competitors change positioning. Never re-processes the same ad twice.
+- **A/B Script Scoring** — after generating ad scripts, a scoring agent evaluates each against direct-response criteria (hook/pain/mechanism/proof/CTA) and recommends which to produce first.
+- **Interactive Telegram Chat** — not just push notifications, but a conversational agent you can query: `/status`, `/score`, `/outreach @handle`, `/changes`, `/competitors`, or free-form questions.
+- **PDF Report Generator** — one command produces a clean executive summary PDF for non-technical stakeholders.
 
 ## Why this stack maps to the brief
 

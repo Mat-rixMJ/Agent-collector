@@ -6,6 +6,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from tools.apify_client import scrape_meta_ads
+from tools import memory
 
 OUT_DIR = Path("data/ads")
 OUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -65,9 +66,17 @@ def main() -> None:
 
     recent = [a for a in all_ads if within_last_30_days(a)]
     shortlist = rank(recent)[:20]
-    (OUT_DIR / "meta_ads_shortlist.json").write_text(json.dumps(shortlist, indent=2, default=str))
 
-    print(f"Total ads scraped: {len(all_ads)} | last-30-day: {len(recent)} | shortlisted: {len(shortlist)}")
+    # Memory: track new vs. already-seen ads
+    new_count = 0
+    for ad in shortlist:
+        ad_id = ad.get("id") or ad.get("adArchiveID") or str(ad.get("page_name", ""))[:30]
+        if not memory.was_processed(f"ad:{ad_id}"):
+            memory.mark_processed(f"ad:{ad_id}", {"advertiser": ad.get("page_name", "unknown")})
+            new_count += 1
+
+    (OUT_DIR / "meta_ads_shortlist.json").write_text(json.dumps(shortlist, indent=2, default=str))
+    print(f"Total ads scraped: {len(all_ads)} | last-30-day: {len(recent)} | shortlisted: {len(shortlist)} | new: {new_count}")
 
 
 if __name__ == "__main__":

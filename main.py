@@ -6,6 +6,7 @@ run standalone to test the pipeline end-to-end without Hermes in the loop, and
 mirrors what Hermes' kanban tool does under the hood.
 """
 from tools import kanban, telegram_bot
+from tools import memory
 
 # Skill -> ordered list of (script module path, human label)
 PIPELINE = {
@@ -16,6 +17,7 @@ PIPELINE = {
         ("skills.ads_manager.scripts.scrape_meta_ads", "Scrape Meta ads"),
         ("skills.ads_manager.scripts.extract_ad_concepts", "Extract ad concepts"),
         ("skills.ads_manager.scripts.generate_ad_script", "Generate ad script"),
+        ("skills.ads_manager.scripts.score_ad_scripts", "Score ad scripts"),
     ],
     "influencer_outreach": [
         ("skills.influencer_outreach.scripts.find_influencers", "Find influencers"),
@@ -62,6 +64,7 @@ def main() -> None:
         kanban.move(card["id"], "Review" if ok else "Blocked")
 
     print("\n" + kanban.snapshot())
+    memory.log_run(kanban.snapshot())
     telegram_bot.push_summary()
 
 
