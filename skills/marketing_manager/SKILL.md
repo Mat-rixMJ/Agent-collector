@@ -33,4 +33,9 @@ When Apify data is thin (site blocked, no results), say so explicitly in the not
 rather than filling gaps with guesses.
 
 ## Scripts
-- `scripts/competitor_research.py` — the only script this skill runs directly.
+- `scripts/competitor_research.py` — run with: `python -m skills.marketing_manager.scripts.competitor_research`
+- `scripts/generate_strategy.py` — run with: `python -m skills.marketing_manager.scripts.generate_strategy`
+
+## Tools available
+- Terminal: you can execute the scripts above
+- File system: you can read/write to obsidian_vault/ and data/

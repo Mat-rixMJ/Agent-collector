@@ -1,13 +1,22 @@
-# Paste/merge this into ~/.hermes/config.yaml
-# Docs: https://hermes-agent.org
+# Hermes Agent runtime configuration
+# Used by hermes_runner.py (Python library mode) and by standalone Hermes CLI
+# Docs: https://hermes-agent.nousresearch.com
 
 model:
-  provider: openrouter          # or nvidia
-  name: meta-llama/llama-3.1-70b-instruct
+  provider: openrouter
+  name: nousresearch/hermes-3-llama-3.1-405b:free
   api_key_env: OPENROUTER_API_KEY
+  context_length: 128000
+  # Fallback models for rate limit rotation
+  fallbacks:
+    - nvidia/nemotron-3-super-120b-a12b:free
+    - meta-llama/llama-3.3-70b-instruct:free
+    - google/gemma-4-31b-it:free
 
 skills:
-  path: ./skills                # this repo's skills/ dir, loaded at startup
+  path: ./skills
+  # Each skill has SKILL.md (system prompt) + scripts/ (executable tools)
+  auto_discover: true
 
 platforms:
   telegram:
@@ -30,7 +39,30 @@ integrations:
       - Ads
       - Outreach
       - Content
+      - Strategy
+      - HermesOutputs
+
+  apify:
+    enabled: true
+    token_env: APIFY_TOKEN
+
+  memory:
+    enabled: true
+    path: ./data/memory.json
 
 tools:
-  apify:
-    token_env: APIFY_TOKEN
+  terminal:
+    enabled: true
+    allowed_commands:
+      - "python -m skills.*"
+      - "python generate_pdf_report.py"
+      - "python generate_report.py"
+  file_system:
+    enabled: true
+    allowed_paths:
+      - ./obsidian_vault/
+      - ./data/
+      - ./kanban/
+      - ./output/
+  browser:
+    enabled: false  # Apify handles scraping instead

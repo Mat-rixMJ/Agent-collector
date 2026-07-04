@@ -33,3 +33,11 @@ Output → `obsidian_vault/Outreach/<handle>.md`.
 
 Move card to Review when both stages complete — a human reviews/sends, this
 agent never sends automatically.
+
+## Scripts (run in order)
+- `python -m skills.influencer_outreach.scripts.find_influencers`
+- `python -m skills.influencer_outreach.scripts.draft_outreach`
+
+## Tools available
+- Terminal: you can execute the scripts above
+- File system: you can read/write to obsidian_vault/Outreach/ and data/influencers/

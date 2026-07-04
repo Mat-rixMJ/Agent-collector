@@ -35,3 +35,14 @@ value props — never copies competitor copy verbatim. Output →
 
 Move the kanban card to Review after Stage 3 completes; a human approves before
 anything goes to production.
+
+## Scripts (run in order)
+- `python -m skills.ads_manager.scripts.scrape_meta_ads`
+- `python -m skills.ads_manager.scripts.extract_ad_concepts`
+- `python -m skills.ads_manager.scripts.generate_ad_script`
+- `python -m skills.ads_manager.scripts.score_ad_scripts`
+- `python -m skills.ads_manager.scripts.revise_ad_script`
+
+## Tools available
+- Terminal: you can execute the scripts above
+- File system: you can read/write to obsidian_vault/Ads/ and data/ads/

@@ -26,3 +26,10 @@ agent closes that loop end-to-end with no manual editing step.
 Never present a paraphrase as a direct quote from the video — attribute
 insights to "the video discusses..." rather than fabricated verbatim quotes,
 since transcript extraction can be imperfect.
+
+## Scripts
+- `python -m skills.content_repurposer.scripts.repurpose`
+
+## Tools available
+- Terminal: you can execute the script above
+- File system: you can read/write to obsidian_vault/Content/
