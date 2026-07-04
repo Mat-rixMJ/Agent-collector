@@ -8,7 +8,7 @@
 ## Draft message
 Hi Jdun Trades,
 
-I came across your recent video on 9 years of trading psychology and was really impressed by how you shared your insights so clearly. I’m a big fan of diving deep into the mental side of trading. Would love to hear your honest thoughts on crowdwisdomtrading.com—what aspects resonate with you or anything you think could be improved?
+I hope you're having a great day! I came across your recent video, "9 Years of Trading Psychology in 9 Minutes," and it resonated with me deeply. I was wondering if you'd be open to sharing your thoughts on crowdwisdomtrading.com? Your insights are valuable, and I believe our community would benefit from hearing your perspective.
 
 Best,
 [Your Name]

@@ -6,13 +6,9 @@
 - Contact: not public — use platform DM
 
 ## Draft message
-Hey TJR,
+Hi TJR,
 
-Hope this message finds you well! I came across your recent tutorial on how to start day trading in 2026. Your insights are really helpful for beginners like myself.
-
-I'd love your honest thoughts on crowdwisdomtrading.com. What do you think traders looking to get started would find most valuable there?
-
-Thanks so much!
+Hope this message finds you well! I noticed your recent video on starting day trading from scratch and was impressed by your straightforward approach. At crowdwisdomtrading.com, we share practical insights to help beginners like yourself. Would love to hear your honest thoughts on our content and see if there’s any way we can support the community you’re building.
 
 Best,
 [Your Name]

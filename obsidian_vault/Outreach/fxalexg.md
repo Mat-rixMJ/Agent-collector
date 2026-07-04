@@ -6,9 +6,9 @@
 - Contact: not public — use platform DM
 
 ## Draft message
-Hi fxalexg,
+Hi Alex,
 
-I hope this message finds you well! I was watching your recent guide on starting forex trading for beginners and found it incredibly helpful. Your insights are very appreciated. Would love to hear your thoughts on crowdwisdomtrading.com—how we can better serve our community of traders.
+I hope you’re doing well! I was watching your recent tutorial on how to trade forex for beginners and found it incredibly helpful. I would love your honest thoughts on crowdwisdomtrading.com. What do you think could make our platform even better for new traders like those following your channel?
 
-Best,  
-CrowdWisdomTrading
+Best,
+[Your Name]

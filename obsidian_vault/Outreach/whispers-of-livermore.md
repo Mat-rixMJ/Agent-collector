@@ -6,9 +6,11 @@
 - Contact: not public — use platform DM
 
 ## Draft message
-Hello Jesse,
+Hi Jesse,
 
-I hope this message finds you well. I recently watched your video on "Jesse Livermore's SECRET to Mastering Trading Patience" and was inspired by your insights. At CrowdWisdomTrading, we share similar passions for uncovering the art of trading. Would you be open to sharing your honest thoughts on our site? No obligation, just an opportunity to connect.
+I hope you’re doing well! I came across your recent video on Jesse Livermore’s secret to mastering trading patience. Your insights are always so insightful and helpful.
+
+Would love to hear your honest thoughts on crowdwisdomtrading.com—what do you think we could improve or what aspects resonate with you the most?
 
 Best,
 [Your Name]

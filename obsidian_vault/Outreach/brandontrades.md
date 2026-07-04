@@ -8,7 +8,7 @@
 ## Draft message
 Hi Brandon,
 
-I came across your recent video on the swing trading strategy and found it really insightful! I was wondering if you could take a moment to share your honest thoughts on crowdwisdomtrading.com. It would be great to hear your perspective.
+I hope you’re having a great day! I noticed your recent video on the swing trading strategy that caught my eye. As someone passionate about trading, I was wondering if you could take a moment to share your honest thoughts on crowdwisdomtrading.com. Your insights would be incredibly valuable!
 
 Best,
 [Your Name]

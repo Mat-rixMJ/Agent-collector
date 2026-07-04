@@ -8,7 +8,7 @@
 ## Draft message
 Hi Team BullTrack,
 
-Hope this message finds you well. I came across your recent video on the "₹1 Lac से Swing Trading" strategy and found it both informative and straightforward. Just wanted to reach out and ask for your honest thoughts on crowdwisdomtrading.com. We aim to provide valuable resources to traders like yourself.
+I came across your recent video on ₹1 Lac Swing Trading and was impressed by the clarity and simplicity of your approach. I’d love to hear your honest thoughts on crowdwisdomtrading.com — what you like or any suggestions for improvement. 
 
-Thanks, 
+Best,
 [Your Name]

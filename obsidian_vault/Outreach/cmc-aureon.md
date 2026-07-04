@@ -8,6 +8,7 @@
 ## Draft message
 Hi Aureon,
 
-I hope this message finds you well. I recently watched your insightful video on retail vs institutional trading and found it very compelling. At crowdwisdomtrading.com, we often explore these differences too. Would you mind sharing your honest thoughts on our site? It could help us better understand our audience.
+Hope you’re doing well! I came across your recent video on trading psychology and found it very insightful. I’d love to hear your honest thoughts about crowdwisdomtrading.com. What do you think makes a great resource for traders?
 
-Thanks!
+Best,
+[Your Name]

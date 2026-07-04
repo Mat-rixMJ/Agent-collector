@@ -6,4 +6,9 @@
 - Contact: not public — use platform DM
 
 ## Draft message
-Hello from CrowdWisdomTrading! I hope you’re having a great day. I recently watched your video on "How Smart Money Manipulates the Market | Trading Psychology Explained" and found it really insightful. Given that we both cover trading psychology, could I kindly ask for your honest thoughts on our site? It would mean a lot to hear your feedback. Thanks so much!
+Hi there,
+
+I hope you’re doing well! I recently watched your video on "How Smart Money Manipulates the Market" and found it both insightful and engaging. At CrowdWisdomTrading, we share similar views on trading psychology. Would you be open to sharing some honest thoughts about our site? 
+
+Best,
+[Your Name]

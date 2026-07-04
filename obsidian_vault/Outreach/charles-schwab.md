@@ -6,9 +6,9 @@
 - Contact: not public — use platform DM
 
 ## Draft message
-Hi Charles,
+Hey Charles,
 
-Hope this message finds you well! I came across your recent video on swing trading strategies and indicators. Your insights are fantastic, as always. At crowdwisdomtrading.com, we share similar interests in navigating the markets effectively. Would love to get your honest thoughts!
+I hope this message finds you well. I recently watched your intro to swing trading video and was impressed by your clear explanation of strategies and indicators. At crowdwisdomtrading.com, we share similar insights with our community. Would you mind sharing your honest thoughts on our platform? It would be great to hear your opinion!
 
 Best,
 [Your Name]

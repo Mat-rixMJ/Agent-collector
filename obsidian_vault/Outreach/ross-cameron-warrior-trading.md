@@ -8,7 +8,7 @@
 ## Draft message
 Hi Ross,
 
-I hope this message finds you well! I recently watched your detailed video on how to start day trading in 2026. Your insights are incredibly valuable, and I was wondering if you could take a quick moment to share your honest thoughts on crowdwisdomtrading.com. Any feedback would be greatly appreciated!
+I hope you’re doing well! I watched your recent video on "Day Trading: How to Start from Zero" and found it super helpful. At CrowdWisdomTrading, we share insights for beginners like you. Would love your thoughts on our site—what do you think could be really beneficial for traders starting out?
 
 Best,
 [Your Name]

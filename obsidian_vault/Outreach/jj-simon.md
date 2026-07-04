@@ -6,9 +6,9 @@
 - Contact: not public — use platform DM
 
 ## Draft message
-Hey JJ,
+Hi JJ,
 
-I was checking out your recent video on making $10k/month trading prop firms. I found it super insightful! At CrowdWisdomTrading, we’re always looking for ways to help traders grow their skills and profits. Would you be open to sharing some honest feedback about our platform? 
+I came across your recent video on making $10K/month trading prop firms easily. Your insights are really helpful! At crowdwisdomtrading.com, we share practical strategies for traders. Would you be open to sharing any tips or feedback about our content? 
 
-Thanks so much,
+Best,
 [Your Name]

@@ -1,20 +1,25 @@
 # FundedNext
 
-# Competitor Analysis: FundedNext
+# FundedNext Competitor Analysis
 
 ## Positioning
-FundedNext positions itself as a modern prop trading firm providing traders access to simulated trading capital, emphasizing reliability, transparency, and clear communication.
+FundedNext positions itself as a top prop trading firm, offering generous profit splits and quick payouts to its traders.
 
 ## Target Audience
-The target audience appears to be novice and experienced traders who are interested in participating in structured competitions with a reliable prop trading firm. They likely value transparency, fair rules, and clear communication.
+The target audience includes USA, UK, Spain, Japan, China, Saudi Arabia, France, Netherlands, and Portugal-based traders looking for prop trading services with competitive terms.
 
 ## Pricing Model
-Unclear from available data
+- **Account Sizes:** Starting at $25K and going up to $100K.
+- **Challenge Fees:** Ranging from $129 to $449.
+- **No Recurring Costs Apart from Challenge Fees.**
+- **One-Time Fee Only: No Recurring Costs.**
 
 ## Dominant Content Format/Channel
-FundedNext utilizes blog articles for detailed content, such as the "Is FundedNext a Reliable Prop Firm?" article, which provides comprehensive information and addresses potential concerns of traders. Additionally, they leverage YouTube for video content, though specific channels or videos are not mentioned in the provided snippets.
+The dominant content format is review articles and testimonials, primarily distributed through LinkedIn posts and sponsored content on their own website. They also utilize YouTube for promotional videos and community engagement.
 
-This analysis is based on the available web search snippets focusing mainly on their reliability claims and content formats.
+---
+
+*Note: The specific numerical values such as the 83/100 rating and 4.6 stars from over 32,500 traders are not confirmed in the provided data but are mentioned directly.*
 
 ---
 *Sources: 4 pages via apify/rag-web-browser*

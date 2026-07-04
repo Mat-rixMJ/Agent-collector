@@ -8,7 +8,7 @@
 ## Draft message
 Hi there,
 
-I came across your recent video on 12 rare mindsets from legendary traders and was struck by how insightful it was. I believe crowdwisdomtrading.com could benefit greatly from hearing your perspective on these concepts. What are your thoughts on the mindset that you think is most crucial for success in trading?
+I came across your recent video on 12 Rare Mindsets from Legendary Traders and found it incredibly insightful! I’m a trader myself, and I think crowdwisdomtrading.com could benefit greatly from your unique perspective. Would love to hear your honest thoughts!
 
 Best,
 [Your Name]

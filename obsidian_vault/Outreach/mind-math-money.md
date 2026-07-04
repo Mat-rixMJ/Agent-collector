@@ -6,9 +6,9 @@
 - Contact: not public — use platform DM
 
 ## Draft message
-Hi Mind,
+Hi Mind Math Money,
 
-I came across your recent video on the pullback trading strategy and found it very insightful! At CrowdWisdomTrading, we focus a lot on swing trading strategies. Would you be open to sharing your honest thoughts on our approach? It would mean a lot to us.
+I hope this message finds you well! I came across your recent video on the pullback trading strategy, and I was really impressed by your clear explanations. I’d love to get your honest opinion on crowdwisdomtrading.com—specifically how our site aligns with your audience’s interests in swing trading strategies.
 
 Best,
 [Your Name]

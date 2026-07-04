@@ -6,9 +6,8 @@
 - Contact: not public — use platform DM
 
 ## Draft message
-Hi there,
+Hi The Traveling Trader,
 
-I came across your recent video on how you overcame mental challenges in trading. Your journey resonates deeply with our mission at CrowdWisdomTrading. Could we get your honest thoughts on crowdwisdomtrading.com?
+I stumbled upon your recent video on beating the mental game of trading after years of failure. It resonated deeply with me. I was wondering if you could spare a moment to check out crowdwisdomtrading.com and share your honest thoughts? Your perspective would be incredibly valuable.
 
-Best,
-[Your Name]
+Thanks so much for your time!

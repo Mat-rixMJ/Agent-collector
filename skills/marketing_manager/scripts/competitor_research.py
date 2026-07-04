@@ -5,6 +5,7 @@ Usage: python -m skills.marketing_manager.scripts.competitor_research
 """
 import json
 import os
+from datetime import datetime, timezone
 from pathlib import Path
 
 from tools.apify_client import rag_web_search
@@ -14,14 +15,52 @@ from tools import memory
 VAULT = Path(os.getenv("OBSIDIAN_VAULT_PATH", "./obsidian_vault")) / "Competitors"
 VAULT.mkdir(parents=True, exist_ok=True)
 
-# Edit this list — direct competitors to crowdwisdomtrading.com's niche
-COMPETITORS = [
+# Fallback list — used when discovery hasn't run or is stale
+_DEFAULT_COMPETITORS = [
     "Warrior Trading",
     "Bullish Bears",
     "The Trading Channel",
     "Investors Underground",
-    "FundedNext",  # prop-firm angle overlap
+    "FundedNext",
 ]
+
+
+def _discover_competitors() -> list[str]:
+    """Use LLM to suggest 5 competitors based on NICHE env var."""
+    niche = os.getenv("NICHE", "retail trading, prop firm challenges, market commentary")
+    raw = ask(
+        "You are a competitive intelligence analyst. Given a niche description, "
+        "list exactly 5 direct competitors (company/brand names only, one per line, no numbering).",
+        f"Niche: {niche}",
+    )
+    # ponytail: naive line split — good enough for 5 names
+    names = [line.strip().strip("-•").strip() for line in raw.splitlines() if line.strip()]
+    return names[:5] if names else _DEFAULT_COMPETITORS
+
+
+def _get_competitors() -> list[str]:
+    """Return competitor list, auto-discovering every 7 days."""
+    prev = memory.get_previous_value("competitors_last_discovered")
+    if prev:
+        ts = prev.get("timestamp", "")
+        try:
+            last = datetime.fromisoformat(ts)
+            age_days = (datetime.now(timezone.utc) - last).days
+            if age_days < 7:
+                stored = prev.get("competitors")
+                if stored:
+                    print(f"  [MEMORY] Using cached competitors (discovered {age_days}d ago)")
+                    return stored
+        except (ValueError, TypeError):
+            pass
+
+    print("  [DISCOVERY] Auto-discovering competitors via LLM...")
+    competitors = _discover_competitors()
+    memory.mark_processed("competitors_last_discovered", {"competitors": competitors})
+    return competitors
+
+
+COMPETITORS = _DEFAULT_COMPETITORS  # module-level default; main() uses _get_competitors()
 
 SYSTEM_PROMPT = (
     "You are a marketing analyst. Given raw web search snippets about a trading-"
@@ -66,8 +105,9 @@ def synthesize(summaries: dict[str, str]) -> None:
 
 
 def main() -> None:
+    competitors = _get_competitors()
     summaries = {}
-    for name in COMPETITORS:
+    for name in competitors:
         print(f"Researching {name}...")
         try:
             summaries[name] = research_competitor(name)

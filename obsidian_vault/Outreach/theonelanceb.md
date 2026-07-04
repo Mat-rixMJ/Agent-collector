@@ -6,9 +6,9 @@
 - Contact: not public — use platform DM
 
 ## Draft message
-Hi @TheOneLanceB,
+Hi Lance,
 
-I hope you're well! I watched your recent video on 15 Years of Trading Psychology and found it incredibly insightful. Your unique perspective really resonated with me. At crowdwisdomtrading.com, we share similar views on the mental aspects of trading. Would you be open to sharing some honest feedback about our content?
+I came across your recent video on 15 years of trading psychology and was really impressed by the depth of insight you shared. I wonder if you’ve had any experience with crowdwisdomtrading.com? Your perspective would be invaluable.
 
-Best,
-[Your Name]
+Best,  
+CrowdWisdomTrading

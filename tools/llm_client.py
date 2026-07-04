@@ -46,7 +46,7 @@ def chat(messages: list[dict], temperature: float = 0.7, max_tokens: int = 1200)
         cfg["url"],
         headers=headers,
         json={"model": model, "messages": messages, "temperature": temperature, "max_tokens": max_tokens},
-        timeout=120,
+        timeout=300,
     )
     resp.raise_for_status()
     return resp.json()["choices"][0]["message"]["content"]

@@ -6,8 +6,9 @@
 - Contact: not public — use platform DM
 
 ## Draft message
-Hi there,
+Hi Team at InstituteofTrading,
 
-I came across your recent video on the biggest reasons why retail traders lose money. I found it really insightful! At CrowdWisdomTrading, we’re always looking for ways to help traders improve their strategies. Would you be open to sharing your thoughts on our site? No obligation to promote—just your honest opinion would be great.
+Hope this message finds you well! We’ve been following your insights on the challenges faced by retail traders. At CrowdWisdomTrading, we often discuss similar topics and would love to hear your thoughts on our approach. Any chance for a chat or write-up?
 
-Thanks so much!
+Best,
+[Your Name]

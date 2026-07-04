@@ -8,7 +8,9 @@
 ## Draft message
 Hi Einstein,
 
-I hope this message finds you well! I recently watched your insightful video on why trading psychology is key to success. Your take on the mental aspects really resonated with me. Would you be open to sharing your honest thoughts about crowdwisdomtrading.com? Any feedback would greatly help us improve.
+I hope this message finds you well. I recently watched your insightful video "Why Trading Psychology Separates Winners From Losers" and was inspired by your take on the mental aspects of trading.
 
-Best,  
-CrowdWisdomTrading
+At CrowdWisdomTrading, we focus a lot on the psychological side too. Would you be open to sharing your thoughts on our approach? Your perspective would be incredibly valuable.
+
+Best,
+[Your Name]

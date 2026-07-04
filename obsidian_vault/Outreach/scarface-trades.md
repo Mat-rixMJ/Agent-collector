@@ -6,9 +6,9 @@
 - Contact: not public — use platform DM
 
 ## Draft message
-Hey Scarface Trades,
+Hi Scarface Trades,
 
-I hope this message finds you well! I recently watched your video on how to start day trading with only $50. Your approach was really clear and inspiring. At CrowdWisdomTrading, we admire creators who share valuable insights like yours. Would you be open to sharing your thoughts on our website? It would mean a lot to us.
+I hope this message finds you well! I recently watched your video "How To Start Day Trading With Only $50" and was really impressed by your clear and concise approach. At CrowdWisdomTrading, we value transparency and education in the trading community. Would you be open to sharing your thoughts on our website? It would mean a lot to us!
 
 Best,
 [Your Name]

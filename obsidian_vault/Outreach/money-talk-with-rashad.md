@@ -8,7 +8,7 @@
 ## Draft message
 Hi Rashad,
 
-I hope this message finds you well! I came across your recent video on your super easy swing trading strategy and was really impressed by how clearly you explained the concept. At crowdwisdomtrading.com, we share a passion for simplifying complex trading ideas. Would love to hear your honest thoughts!
+I hope this message finds you well! I watched your recent video on your super easy swing trading strategy and was impressed by the detailed proof. At CrowdWisdomTrading, we share similar interests in making trading accessible. Would you be open to giving us a quick, honest opinion on our platform? No strings attached.
 
 Best,
 [Your Name]

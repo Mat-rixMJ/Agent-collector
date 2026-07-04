@@ -6,9 +6,9 @@
 - Contact: not public — use platform DM
 
 ## Draft message
-Hi Two Side Traders,
+Hi there,
 
-Hope you’re doing well! I came across your recent video on operator psychology in the stock market. Your insights are always so insightful. Curious to hear your honest thoughts on crowdwisdomtrading.com and how our platform aligns with what you share about trading mindsets and strategies.
+I enjoyed your recent video on operator psychology in the stock market! Your insights are really insightful. I was wondering if you had a moment to check out crowdwisdomtrading.com? We'd love to hear your honest thoughts on it.
 
-Best,
+Best,  
 [Your Name]

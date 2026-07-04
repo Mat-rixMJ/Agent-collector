@@ -8,7 +8,7 @@
 ## Draft message
 Hi Pat,
 
-I came across your recent Forex Trading for Beginners video and really appreciated how clear and concise you made the content. I’d love to hear your thoughts on crowdwisdomtrading.com—what do you think sets us apart for new traders?
+I hope you’re enjoying your journey into the world of forex trading! I watched your recent course and was impressed by how clearly you explained the basics. At crowdwisdomtrading.com, we strive to provide valuable insights for beginners like yourself. Would love your honest thoughts on our content!
 
 Best,
 [Your Name]

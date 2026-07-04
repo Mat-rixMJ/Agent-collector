@@ -8,7 +8,6 @@
 ## Draft message
 Hi there,
 
-I came across your recent video on "How to Swing Trade Profitably & Systematically" and really appreciated the detailed steps you shared. I’m curious if you’ve had a chance to check out crowdwisdomtrading.com? Would love to hear your honest thoughts!
+I noticed your recent video on "How to Swing Trade Profitably & Systematically" really resonated with a lot of traders. I was wondering if you could spare a moment to check out crowdwisdomtrading.com and share your thoughts? 
 
-Best,
-[Your Name]
+Thanks!

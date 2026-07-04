@@ -8,7 +8,7 @@
 ## Draft message
 Hi Sean,
 
-I hope this message finds you well! I recently watched your video on "Prop Firm Trading: The Complete Guide for Beginners (2026)" and was impressed by how comprehensive it was. At CrowdWisdomTrading, we’re always looking to improve our content and resources for traders. Would you be open to sharing your thoughts on crowdwisdomtrading.com? Your insights would be incredibly valuable.
+I came across your recent video on prop firm trading and really enjoyed the insights! At CrowdWisdomTrading, we’re passionate about helping beginners understand the space. Would you be open to sharing some honest thoughts on our platform?
 
 Best,
 [Your Name]

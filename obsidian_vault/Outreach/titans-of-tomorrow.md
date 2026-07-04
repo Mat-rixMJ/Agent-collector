@@ -6,11 +6,11 @@
 - Contact: not public — use platform DM
 
 ## Draft message
-Hi there,
+Hi Justin,
 
-I hope this message finds you well! I recently watched your video "The Genius Who Outsmarted The Prop Firm Game, And Made $1.5M In Payouts" and was really impressed by how you shared insights into trading strategies.
+I hope you’re doing well! I came across your recent video on the man behind 157 prop firms and why traders fail. Your insights are spot-on, as always. We at CrowdWisdomTrading really appreciate your honesty in the industry.
 
-At CrowdWisdomTrading, we're passionate about helping traders succeed through knowledge sharing. Would love to hear your honest thoughts on our platform!
+Would it be okay to get your honest opinion on our site? It would mean a lot!
 
 Best,
 [Your Name]

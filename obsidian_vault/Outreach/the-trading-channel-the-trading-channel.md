@@ -8,7 +8,7 @@
 ## Draft message
 Hi there,
 
-I came across your recent Forex Trading for Beginners course and found it really helpful! I was wondering if you could share your thoughts on crowdwisdomtrading.com. Any insights or feedback would be greatly appreciated!
+I came across your recent video on "Forex Trading For Beginners (In Under 27 Minutes...)" and really appreciated how you made complex concepts clear. At CrowdWisdomTrading, we aim to provide valuable insights for both beginners and experienced traders. Would you be open to sharing your thoughts on our platform? 
 
 Best,
 [Your Name]

@@ -6,9 +6,11 @@
 - Contact: not public — use platform DM
 
 ## Draft message
-Hi PB,
+Hey PB,
 
-I hope this message finds you well! I came across your recent video on how to trade prop firms and was really impressed by your insights. At CrowdWisdomTrading, we aim to provide valuable resources for traders like yourself. Would you be open to sharing your thoughts on our website?
+I came across your recent video on "How to ACTUALLY Trade Prop Firms" and was really impressed by how detailed and informative it was. I think our community at crowdwisdomtrading.com could benefit greatly from seeing different perspectives on the topic.
+
+Would you be open to sharing your thoughts or insights? It would mean a lot!
 
 Best,
 [Your Name]

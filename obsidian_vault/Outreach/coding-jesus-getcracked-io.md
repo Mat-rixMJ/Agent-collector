@@ -6,9 +6,8 @@
 - Contact: not public — use platform DM
 
 ## Draft message
-Hey Coding Jesus,
+Hi Coding Jesus,
 
-I hope you’re doing well! I just watched your recent video on "Fake trading is hard work" and was impressed by how you break down the realities of trading. At CrowdWisdomTrading, we share insights that align with your approach to transparency. Could I get your honest thoughts on our site? No pressure at all—just curious if it matches what you’re sharing.
+I hope you're well! I came across your recent video on "Fake Trading is Hard Work" and found it super insightful. At CrowdWisdomTrading, we create resources to help traders navigate the complexities of the market. Would you be open to sharing a few thoughts on crowdwisdomtrading.com? Your perspective would really add value.
 
-Best,
-[Your Name]
+Thanks so much!

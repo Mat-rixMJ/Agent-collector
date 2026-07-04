@@ -8,7 +8,7 @@
 ## Draft message
 Hi Sierra,
 
-I hope this message finds you well! I came across your recent video on how to start trading as a beginner in 2026. Your clarity and enthusiasm really resonated with me. I’d love to hear your honest thoughts about crowdwisdomtrading.com—what aspects stood out or what you think could be even better.
+I came across your recent video on how to read candlesticks and was really impressed! Your breakdown was clear and easy to follow. I’d love to get your honest thoughts on crowdwisdomtrading.com. How’s it looking for beginners like in your video?
 
 Best,
 [Your Name]

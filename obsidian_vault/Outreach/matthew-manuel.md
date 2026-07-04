@@ -8,7 +8,7 @@
 ## Draft message
 Hi Matthew,
 
-I came across your recent video on swing trading for beginners and found it really helpful! I was wondering if you could take a moment to check out crowdwisdomtrading.com and share your thoughts. Any feedback would be greatly appreciated.
+I noticed your recent video on swing trading for beginners and found it really insightful! At CrowdWisdomTrading, we focus a lot on making trading accessible for everyone. Would you be open to sharing some honest thoughts about our site?
 
 Best,
 [Your Name]

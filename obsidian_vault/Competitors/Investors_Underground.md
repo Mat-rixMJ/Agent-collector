@@ -1,16 +1,19 @@
 # Investors Underground
 
 # Positioning
-Investors Underground is positioned as one of the largest and best day trading communities, offering a suite of resources including chat rooms, DVD courses, and mentorship for traders seeking to improve their skills in momentum trading.
+Investors Underground positions itself as one of the largest and best day trading communities, offering a comprehensive suite of resources including chat rooms, DVD courses, and mentorship.
 
 # Target Audience
-The target audience includes individual traders interested in day trading, particularly those looking for community support, educational resources, and mentorship. The community is suitable for both beginners and more experienced traders.
+The target audience is primarily individuals interested in day trading and those looking to enhance their trading skills through community support and structured educational content.
 
 # Pricing Model
-Investors Underground offers a membership model with different subscription options: monthly ($297), quarterly ($697), and annually ($1897). Additionally, there's an option to bundle education courses with the monthly subscription at $1497 (recurring at $297/month).
+- Monthly: $297/month
+- Quarterly: $697 every three months ($891 with 22% discount)
+- Annual: $1,897/year ($3564 with 44% discount)
+- Bundle Course + Membership: Recurs at $297/month starting from $1,497 (includes 20+ hours of educational content)
 
 # Dominant Content Format/Channel
-The dominant content format is video lessons, as evidenced by the mention of "1000+ Video Lessons" and specific course offerings like the Legends Playbook Course and Momentum Playbook Course. The channel through which these are delivered includes membership access via their website.
+The dominant content format is a combination of membership access to chat rooms and video lessons. Additionally, they offer courses that can be purchased alongside the membership for structured learning experiences.
 
 ---
 *Sources: 4 pages via apify/rag-web-browser*

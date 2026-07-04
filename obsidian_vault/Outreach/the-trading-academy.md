@@ -8,7 +8,7 @@
 ## Draft message
 Hi there,
 
-I hope this message finds you well! I recently watched your video on the 4-Hour Trading Strategy and was impressed by how clearly you explained the concept. At CrowdWisdomTrading, we believe in sharing valuable insights to help traders improve their strategies. Would love to hear your honest thoughts on our website!
+I came across your recent video on copying a 4-hour trading strategy and was impressed by your clear explanation. At CrowdWisdomTrading, we're always looking for insights from the community. Would you be open to sharing your thoughts on our platform? 
 
-Best,
+Best,  
 [Your Name]

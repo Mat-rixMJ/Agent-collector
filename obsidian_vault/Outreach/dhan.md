@@ -6,9 +6,9 @@
 - Contact: not public — use platform DM
 
 ## Draft message
-Hey Dhan,
+Hi Dhan,
 
-I hope you’re doing well! I came across your recent video on the advanced swing trading strategy and found it very informative. At CrowdWisdomTrading, we focus on helping traders like yourself improve their skills. Would you mind sharing your thoughts on our site? It would mean a lot to us.
+I hope you’re doing well! I noticed your recent video on the advanced swing trading strategy and was impressed by how detailed it was. At crowdwisdomtrading.com, we focus on providing in-depth strategies for traders like yourself. Would love to hear your honest thoughts on our site!
 
 Best,
 [Your Name]

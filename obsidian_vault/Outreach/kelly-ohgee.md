@@ -8,7 +8,7 @@
 ## Draft message
 Hi Kelly,
 
-I came across your recent video on how to trade forex and was impressed by your clear explanation! I’d love to hear your honest thoughts on crowdwisdomtrading.com. What do you think sets it apart for beginners?
+I hope you’re doing well! I just watched your recent video “Exposing The Prop Firm Trading Industry,” and it was great to see your insights on the topic. At CrowdWisdomTrading, we value honest perspectives like yours. Would you be open to sharing your thoughts on our platform? We’d love to hear what you think!
 
 Best,
 [Your Name]

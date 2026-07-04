@@ -8,7 +8,7 @@
 ## Draft message
 Hi there,
 
-I noticed you recently did a great job explaining what forex is in just two minutes! I was wondering if you could take a quick look at our site, crowdwisdomtrading.com, and share your honest thoughts. Any feedback would be incredibly helpful!
+I hope this message finds you well! I recently watched your recent video "What is Forex - 2 Minute Explanation" and was impressed by how clearly you break down complex topics. At CrowdWisdomTrading, we aim to provide valuable insights for traders. Would you be open to sharing your honest thoughts on our site?
 
 Best,
 [Your Name]

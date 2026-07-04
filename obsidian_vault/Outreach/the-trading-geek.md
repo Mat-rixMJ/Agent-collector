@@ -6,9 +6,8 @@
 - Contact: not public — use platform DM
 
 ## Draft message
-Hi there,
+Hi Alex,
 
-I came across your recent video "How I Would Learn Forex Trading FAST (if I Could Start Over)" and was impressed by your insights. As a trader myself, I was wondering if you've had the chance to check out crowdwisdomtrading.com? Any thoughts or feedback would be greatly appreciated!
+I hope you’re having a great day! I came across your recent ULTIMATE Guide to Pass Prop Firm Challenge video and was really impressed by the depth of information. At CrowdWisdomTrading, we focus on providing valuable resources for traders like yourself. Would it be okay to share a quick thought or two about our site in the comments section? 
 
-Best,
-[Your Name]
+Thanks so much for your amazing content!

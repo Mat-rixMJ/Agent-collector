@@ -12,12 +12,14 @@ from tools import memory
 PIPELINE = {
     "marketing_manager": [
         ("skills.marketing_manager.scripts.competitor_research", "Competitor research"),
+        ("skills.marketing_manager.scripts.generate_strategy", "Generate strategy brief"),
     ],
     "ads_manager": [
         ("skills.ads_manager.scripts.scrape_meta_ads", "Scrape Meta ads"),
         ("skills.ads_manager.scripts.extract_ad_concepts", "Extract ad concepts"),
-        ("skills.ads_manager.scripts.generate_ad_script", "Generate ad script"),
+        ("skills.ads_manager.scripts.generate_ad_script", "Generate ad scripts (3 variants)"),
         ("skills.ads_manager.scripts.score_ad_scripts", "Score ad scripts"),
+        ("skills.ads_manager.scripts.revise_ad_script", "Auto-revise weak scripts"),
     ],
     "influencer_outreach": [
         ("skills.influencer_outreach.scripts.find_influencers", "Find influencers"),

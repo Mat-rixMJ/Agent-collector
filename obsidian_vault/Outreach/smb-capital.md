@@ -6,9 +6,11 @@
 - Contact: not public — use platform DM
 
 ## Draft message
-Hi SMB Capital,
+Hi there,
 
-I hope you’re having a great day! I noticed your recent video on trader psychology with Dr. Brett Steenbarger and was inspired by the insights shared. At CrowdWisdomTrading, we focus on helping traders develop the mental edge needed for success. Would it be okay to share our perspective on this topic with your audience? No obligations—just an open conversation.
+I hope this message finds you well! I recently watched your video on trader psychology with Dr. Brett Steenbarger and was really impressed by your insights. At CrowdWisdomTrading, we focus a lot on the mental aspects of trading too. Would you be open to sharing your honest thoughts about our site? 
+
+Thanks so much!
 
 Best,
 [Your Name]

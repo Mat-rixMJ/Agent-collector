@@ -8,6 +8,9 @@
 ## Draft message
 Hi there,
 
-I hope you’re having a great day! I watched your recent video on prop firms and was impressed by how clearly you explained such an important topic. At CrowdWisdomTrading, we’re always looking for ways to help beginners understand the market better. Would you be open to sharing your honest thoughts about our platform? 
+I hope this message finds you well. I was watching your recent video "Prop Firms EXPLAINED! (Beginners Must-Watch)" and found it incredibly insightful, especially for beginners like myself.
 
-Thanks so much!
+Would love to hear your thoughts on crowdwisdomtrading.com. It would be great if we could discuss how our platforms can complement each other.
+
+Best,
+[Your Name]

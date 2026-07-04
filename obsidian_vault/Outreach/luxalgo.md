@@ -6,9 +6,9 @@
 - Contact: not public — use platform DM
 
 ## Draft message
-Hi LuxAlgo,
+Hey LuxAlgo,
 
-Hope this message finds you well! I came across your recent video on "How to Actually Win at Trading" and was impressed by the insightful content. At CrowdWisdomTrading, we share similar goals of helping traders improve their strategies. Would love to get your honest thoughts on our site—what aspects do you feel could benefit from additional clarity or support?
+I noticed you recently posted "How to Actually Win at Trading (Best Swing Trading Strategy)." Your content is great! I was wondering if you could take a quick look at crowdwisdomtrading.com and share your honest thoughts. It would be really helpful for our community.
 
-Best,
+Thanks,
 [Your Name]

@@ -8,7 +8,7 @@
 ## Draft message
 Hi Jem,
 
-I hope this message finds you well! I watched your recent video on prop firms and found it incredibly insightful. At CrowdWisdomTrading, we’re always looking for ways to improve our content and better serve our community. Would you mind sharing your honest thoughts on crowdwisdomtrading.com? Any feedback would be greatly appreciated.
+I hope you’re doing well! I noticed your recent video on prop firms and it was great to see such a clear explanation. At CrowdWisdomTrading, we focus on providing valuable insights for traders like yourself. Would you be open to sharing your honest thoughts about our site? 
 
 Best,
 [Your Name]

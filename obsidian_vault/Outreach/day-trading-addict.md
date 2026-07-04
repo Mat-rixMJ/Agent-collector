@@ -6,9 +6,4 @@
 - Contact: not public — use platform DM
 
 ## Draft message
-Hi Michael,
-
-I came across your recent video on day trading and was impressed by the depth of knowledge you shared. I wondered if you had a moment to check out crowdwisdomtrading.com and share any thoughts or feedback. Your insights are highly valued!
-
-Best,  
-[Your Name]
+Hi there! I came across your recent course on "The Only Day Trading Video You Should Watch..." and was really impressed by the detail you put into explaining everything from beginner to advanced levels. At CrowdWisdomTrading, we're big fans of breaking down complex topics in a straightforward way. Could we get your honest thoughts on our platform? We’d love to learn more about what you think makes for great day trading resources.

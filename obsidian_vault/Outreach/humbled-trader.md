@@ -6,9 +6,9 @@
 - Contact: not public — use platform DM
 
 ## Draft message
-Hi Humbled Trader,
+Hey Humbled Trader,
 
-I came across your recent guide on the ultimate swing trading strategy for beginners and found it incredibly insightful! I was wondering if you had a moment to share your honest thoughts on crowdwisdomtrading.com? It would mean a lot.
+I noticed you recently released the "Ultimate Guide to Swing Trading for Beginners 2026." Your insights are always so valuable! I was wondering if you have a moment to honestly share your thoughts on crowdwisdomtrading.com. It would really help our community grow.
 
-Best,
+Best,  
 [Your Name]

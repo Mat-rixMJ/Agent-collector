@@ -6,11 +6,9 @@
 - Contact: not public — use platform DM
 
 ## Draft message
-Hi The Friendly Bear,
+Hey Friendly Bear,
 
-I hope you’re doing great! I was really interested in your recent video with the world’s top trading psychologist. Your insights are fantastic, and I value your take on the mentality of professionals versus retail traders.
-
-Would you mind sharing your honest thoughts about crowdwisdomtrading.com? It would be great to hear how you perceive our approach and resources.
+Hope you’re doing well! I came across your recent video with the top trading psychologist and found it incredibly insightful. I’d love to get your honest thoughts on crowdwisdomtrading.com. How do you think our platform can better support traders like yourself?
 
 Best,
 [Your Name]

@@ -1,10 +1,63 @@
 {
-  "processed": {},
+  "processed": {
+    "competitor:Warrior Trading": {
+      "timestamp": "2026-07-04T17:45:45.396257+00:00",
+      "content_hash": "2cfb7f14834b"
+    },
+    "competitor:Bullish Bears": {
+      "timestamp": "2026-07-04T17:47:17.410383+00:00",
+      "content_hash": "8a3aad31b86a"
+    },
+    "competitor:The Trading Channel": {
+      "timestamp": "2026-07-04T17:48:03.233139+00:00",
+      "content_hash": "cb346307ee46"
+    },
+    "competitor:Investors Underground": {
+      "timestamp": "2026-07-04T17:48:58.630387+00:00",
+      "content_hash": "9e61e7d669c8"
+    },
+    "competitor:FundedNext": {
+      "timestamp": "2026-07-04T17:50:04.162256+00:00",
+      "content_hash": "29c571ee6a49"
+    },
+    "ad:1022599626820630": {
+      "timestamp": "2026-07-04T17:59:39.003659+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:1042263205131008": {
+      "timestamp": "2026-07-04T17:59:39.011618+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:1351618180182924": {
+      "timestamp": "2026-07-04T17:59:39.019813+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:1533884051758099": {
+      "timestamp": "2026-07-04T17:59:39.029387+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:1332999332265506": {
+      "timestamp": "2026-07-04T17:59:39.039205+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:1011996407903441": {
+      "timestamp": "2026-07-04T17:59:39.049149+00:00",
+      "advertiser": "unknown"
+    },
+    "video:JFMxDgmW8cw": {
+      "timestamp": "2026-07-04T18:46:29.920255+00:00",
+      "url": "https://www.youtube.com/watch?v=JFMxDgmW8cw"
+    },
+    "video:8nFTkjPk80k": {
+      "timestamp": "2026-07-04T18:48:42.453675+00:00",
+      "url": "https://www.youtube.com/watch?v=8nFTkjPk80k"
+    }
+  },
   "history": [
     {
       "run": 1,
-      "timestamp": "2026-07-04T17:40:22.857165+00:00",
-      "summary": "test"
+      "timestamp": "2026-07-04T18:31:43.841025+00:00",
+      "summary": "**Backlog** (4): Marketing strategy brief for crowdwisdomtrading.com, Extract pain/hook/offer concepts from top ads, Draft ad script from best concept, Draft personalized cold outreach per influencer\n**In Progress** (0): \n**Review** (4): Competitor research: top 5 trading-education competitors, Scrape Meta Ads Library \u2014 retail trading niche, last 30 days, Find retail-trading influencers 200K+ subs, Repurpose provided YouTube sources into social content\n**Blocked** (0): \n**Done** (0): "
     }
   ],
   "run_count": 1

@@ -8,7 +8,7 @@
 ## Draft message
 Hi JeaFx,
 
-I hope this message finds you well! I watched your recent video on "How to Make Profits Trading Forex as a Beginner" and found it very insightful. At CrowdWisdomTrading, we also strive to help beginners navigate the forex market. Would you be open to sharing some honest thoughts about our platform?
+I hope this message finds you well! I recently watched your recent forex trading course and found it very helpful for beginners. I was wondering if you could share your honest thoughts on crowdwisdomtrading.com? Any insights would be greatly appreciated!
 
 Best,
 [Your Name]

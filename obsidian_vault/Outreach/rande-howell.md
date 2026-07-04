@@ -6,11 +6,9 @@
 - Contact: not public — use platform DM
 
 ## Draft message
-Hello Rande,
+Hi Rande,
 
-I hope you're doing well! I noticed you recently published the "Build a Winning Trading Psychology Mindset" video. It’s great to see such insightful content on this topic.
+Hope this message finds you well! I recently watched your video on building a winning trading psychology mindset and found it incredibly insightful. At CrowdWisdomTrading, we’re big fans of the mental side of trading. Would love to hear your thoughts on our approach!
 
-At CrowdWisdomTrading, we focus on helping traders improve their mental game too. Would you be open to sharing your thoughts on our platform? Your perspective would be incredibly valuable!
-
-Best regards,
+Best,
 [Your Name]

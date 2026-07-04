@@ -8,7 +8,7 @@
 ## Draft message
 Hi Rayner,
 
-I hope you’re doing well! I came across your recent review on the "Ultimate Forex Trading Course" and found it incredibly helpful. At CrowdWisdomTrading, we strive to provide valuable insights for beginners like yourself. Would you mind sharing your thoughts on our platform? Your opinion would be greatly appreciated.
+I hope you’re doing well! I recently watched your video on the "Ultimate Forex Trading Course (For Beginners)" and found it really insightful. At CrowdWisdomTrading, we focus on providing valuable resources for traders like yourself. Would you be open to sharing your honest thoughts about our site? Your perspective would be greatly appreciated.
 
 Best,
 [Your Name]

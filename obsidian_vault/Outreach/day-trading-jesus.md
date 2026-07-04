@@ -8,9 +8,7 @@
 ## Draft message
 Hi Day Trading & Jesus,
 
-I hope you're having a great day! I recently watched your video on the best prop firms for beginner day traders. Your insights are really helpful, and we appreciate how you break down complex topics.
+I hope this message finds you well! I recently watched your video on "Best Prop Firms For Beginner Day Traders (2026)" and found it incredibly insightful. At CrowdWisdomTrading, we share a similar passion for helping beginners navigate the market. Would you be open to sharing some honest feedback about our platform?
 
-Would you mind sharing your honest thoughts about crowdwisdomtrading.com? It would mean a lot to us to hear your perspective!
-
-Best,
+Thanks so much,
 [Your Name]

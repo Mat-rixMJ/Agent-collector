@@ -6,9 +6,8 @@
 - Contact: not public — use platform DM
 
 ## Draft message
-Hello ImanTradingLive,
+Hey Iman,
 
-I hope this message finds you well! I recently watched your in-depth guide on trading prop firms and was impressed by the detailed insights. Would you mind sharing your honest thoughts on crowdwisdomtrading.com? It would be great to hear your perspective.
+I came across your recent in-depth guide on trading prop firms and found it really insightful. Your approach is clear and well-explained. At CrowdWisdomTrading, we’re always looking for new perspectives that can help our community grow. Would you be open to sharing some honest thoughts about crowdwisdomtrading.com?
 
-Best,
-[Your Name]
+Thanks!

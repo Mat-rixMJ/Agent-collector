@@ -6,9 +6,8 @@
 - Contact: not public — use platform DM
 
 ## Draft message
-Hi Brian,
+Hi Alex,
 
-I hope this message finds you well! I recently watched your video on "Forex Trading/Investing Explained" and found it really helpful. At CrowdWisdomTrading, we’re passionate about providing valuable resources for traders like yourself. Could you share your thoughts on our site? It would mean a lot!
+I hope you’re doing well! I came across your recent video on Forex Trading/Investing Explained and truly appreciated the clarity you brought to the topic. At CrowdWisdomTrading, we strive to provide insightful content for our community. Would you be open to sharing your honest thoughts about our site? Your perspective would be incredibly valuable.
 
-Best,
-[Your Name]
+Thanks so much!

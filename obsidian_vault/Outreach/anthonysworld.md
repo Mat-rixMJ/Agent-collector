@@ -6,9 +6,9 @@
 - Contact: not public — use platform DM
 
 ## Draft message
-Hey Anthony,
+Hi Anthony,
 
-I came across your recent video on "Forex Trading For Dummies... (Free Course)" and really appreciated how you broke down the basics so clearly! I wonder if you've had a chance to check out crowdwisdomtrading.com. We offer resources for beginners too, and I’d love to hear your thoughts. No pressure at all—just curious!
+I hope this message finds you well. I recently watched your “Ultimate Beginners Guide to FOREX!” and was impressed by how clearly you break down complex topics. At CrowdWisdomTrading, we aim to provide valuable insights for beginners too. Would you be open to sharing your thoughts on our site?
 
 Best,
 [Your Name]
