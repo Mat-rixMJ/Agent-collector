@@ -4,3 +4,5 @@ python-dotenv>=1.0.1
 python-telegram-bot>=21.0
 pydantic>=2.7.0
 tenacity>=8.2.3
+fpdf2>=2.8.0
+hermes-agent @ git+https://github.com/NousResearch/hermes-agent.git
