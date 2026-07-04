@@ -1,41 +1,58 @@
 ---
-name: marketing_manager
-description: >
-  Use when a kanban card has skill "marketing_manager" — competitor research,
-  marketing strategy briefs, or prioritizing/assigning work to the ads_manager
-  and influencer_outreach skills for crowdwisdomtrading.com.
+name: marketing-manager
+description: Competitor research and strategy briefs for crowdwisdomtrading.com
+version: 1.0.0
+metadata:
+  hermes:
+    tags: [marketing, research, strategy, competitor-analysis]
+    category: marketing
+    requires_toolsets: [terminal]
 ---
 
 # Marketing Manager Agent
 
-You are the marketing lead for crowdwisdomtrading.com (retail trading education /
-market commentary / signals). Your job each loop:
+## When to Use
+Use when you need to: research competitors in the retail trading education space, write a marketing strategy brief, or prioritize tasks for the ads and influencer teams.
 
-1. **Competitor research** — run `scripts/competitor_research.py` with a list of
-   3–5 direct competitors (other retail-trading education / signals / prop-firm
-   content brands). It uses Apify's `rag-web-browser` to pull each competitor's
-   positioning, pricing, and content strategy, and writes
-   `obsidian_vault/Competitors/<name>.md` per competitor plus a synthesis note
-   `obsidian_vault/Competitors/_synthesis.md`.
+## Procedure
 
-2. **Strategy brief** — after research lands, write/refresh
-   `obsidian_vault/Strategy/brief.md`: target audience segments, funnel stage
-   priorities (top-of-funnel awareness vs. bottom-of-funnel conversion), and
-   this week's single most important message.
+### Step 1: Competitor Research
+Run the competitor research script to scrape and analyze competitors:
+```bash
+python -m skills.marketing_manager.scripts.competitor_research
+```
+This will:
+- Search 5 competitors via Apify's rag-web-browser
+- Extract positioning, pricing, and content strategy per competitor
+- Detect changes from previous runs using agent memory
+- Write notes to `obsidian_vault/Competitors/<name>.md`
+- Write synthesis to `obsidian_vault/Competitors/_synthesis.md`
 
-3. **Prioritize** — read `kanban/board.json`. If ads_manager or
-   influencer_outreach cards are stuck in Backlog with no clear brief, add a
-   one-line note to the card's context field pointing them at the relevant
-   Obsidian note before moving on.
+### Step 2: Strategy Brief
+Generate the strategy brief from the research:
+```bash
+python -m skills.marketing_manager.scripts.generate_strategy
+```
+This produces `obsidian_vault/Strategy/brief.md` with:
+- Target audience segments
+- Funnel priorities (TOFU/MOFU/BOFU)
+- This week's key message
+- Positioning statements vs. named competitors
 
-Always ground claims in the scraped data — don't invent competitor numbers.
-When Apify data is thin (site blocked, no results), say so explicitly in the note
-rather than filling gaps with guesses.
+### Step 3: Review Outputs
+Read the synthesis and brief:
+```bash
+cat obsidian_vault/Competitors/_synthesis.md
+cat obsidian_vault/Strategy/brief.md
+```
+Summarize the key findings for the user.
 
-## Scripts
-- `scripts/competitor_research.py` — run with: `python -m skills.marketing_manager.scripts.competitor_research`
-- `scripts/generate_strategy.py` — run with: `python -m skills.marketing_manager.scripts.generate_strategy`
+## Pitfalls
+- Apify free-tier can't access Trustpilot/Reddit (403 blocks) — this is expected, use other sources
+- If LLM rate-limits, the scripts auto-retry with exponential backoff
+- Don't invent competitor numbers — if data is thin, say "unclear from available data"
 
-## Tools available
-- Terminal: you can execute the scripts above
-- File system: you can read/write to obsidian_vault/ and data/
+## Verification
+- `obsidian_vault/Competitors/` should have 5+ .md files
+- `obsidian_vault/Competitors/_synthesis.md` should list 3 gaps and 3 threats
+- `obsidian_vault/Strategy/brief.md` should have audience segments and positioning

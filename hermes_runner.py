@@ -111,33 +111,18 @@ def gather_context(completed_skills: dict[str, str]) -> str:
 
 
 def build_task_for_skill(skill_name: str, kanban_card: dict | None, context: str) -> str:
-    """Build the task message from kanban card + inter-agent context."""
-    # Base task from kanban card title, or fall back to defaults
+    """Build the task message — simple instruction to execute the skill procedure."""
+    task = f"Execute the full procedure described in your skill instructions. Run each step in order using the terminal."
+
     if kanban_card:
-        base_task = kanban_card.get("title", "")
-    else:
-        defaults = {
-            "marketing_manager": "Research competitors and write a strategy brief for crowdwisdomtrading.com",
-            "ads_manager": "Find working ads in the retail trading niche, extract concepts, and write ad scripts",
-            "influencer_outreach": "Find retail-trading influencers and draft personalized outreach messages",
-            "content_repurposer": "Repurpose the YouTube data sources into social media content",
-        }
-        base_task = defaults.get(skill_name, f"Execute the {skill_name} skill")
+        task += f"\n\nKanban card: {kanban_card.get('title', '')}"
 
-    # Add project context
-    project_context = (
-        "\n\nProject: CrowdWisdomTrading.com — institutional-grade market commentary "
-        "and trade alerts for retail traders.\n"
-        f"Working directory: {Path.cwd()}\n"
-        f"Obsidian vault: {VAULT}\n"
-        f"Available scripts: skills/{skill_name}/scripts/\n"
-    )
+    task += f"\n\nWorking directory: {Path.cwd()}"
 
-    # Add inter-agent context
     if context:
-        project_context += f"\n{context}\n"
+        task += f"\n\n{context}"
 
-    return base_task + project_context
+    return task
 
 
 def run_skill_with_hermes(skill_name: str, task: str, model: str) -> str:
@@ -158,7 +143,8 @@ def run_skill_with_hermes(skill_name: str, task: str, model: str) -> str:
         max_iterations=10,
         skip_context_files=True,
         skip_memory=True,
-        # Enable terminal so Hermes can run our scripts
+        # Enable terminal so Hermes can execute our Python scripts
+        # Disable browser since Apify handles scraping
         disabled_toolsets=["browser"],
     )
 

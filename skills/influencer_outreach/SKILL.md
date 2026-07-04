@@ -1,43 +1,56 @@
 ---
-name: influencer_outreach
-description: >
-  Use when a kanban card has skill "influencer_outreach" — finding retail-
-  trading influencers with 200K+ subscribers and drafting personalized cold
-  outreach asking their opinion on crowdwisdomtrading.com.
+name: influencer-outreach
+description: Find retail-trading influencers and draft personalized cold outreach for crowdwisdomtrading.com
+version: 1.0.0
+metadata:
+  hermes:
+    tags: [marketing, influencer, outreach, youtube, cold-email]
+    category: marketing
+    requires_toolsets: [terminal]
 ---
 
 # Influencer Cold Outreach Agent
 
-## Stage 1 — Find influencers
-Run `scripts/find_influencers.py`. Searches YouTube (primary; extend the same
-pattern to X/IG/TikTok with additional Apify actors) for "retail trading" /
-"day trading" / "swing trading" creators, filters to 200K+ subscribers, and
-saves a full dossier per influencer to `data/influencers/influencers.json`:
-handle, platform, subscriber count, average views, engagement rate if
-derivable, recent video topics, public contact email if listed in their
-channel "About" page, and a one-line note on their content angle (technical
-analysis vs. psychology vs. signals vs. news commentary).
+## When to Use
+Use when you need to: discover retail-trading content creators, build influencer dossiers, or draft personalized cold outreach asking their opinion about crowdwisdomtrading.com.
 
-## Stage 2 — Draft outreach
-Run `scripts/draft_outreach.py`. For each influencer, writes a short,
-non-salesy cold email/DM that:
-- References something specific and recent from their content (proves it's
-  not a mass blast)
-- Asks for their honest opinion on crowdwisdomtrading.com — framed as wanting
-  feedback, not pitching a sponsorship
-- Is under 120 words
+## Procedure
 
-Never fabricate a "recent video" reference — if the dossier has no specific
-recent content, the draft must be generic rather than inventing a fake detail.
-Output → `obsidian_vault/Outreach/<handle>.md`.
+### Stage 1 — Find Influencers
+```bash
+python -m skills.influencer_outreach.scripts.find_influencers
+```
+Searches YouTube for "retail trading" / "day trading" / "swing trading" / "forex trading" / "prop firm trading" creators. Saves dossiers to `data/influencers/influencers.json` with:
+- Channel name, URL, platform
+- Recent video titles (for personalization)
+- View counts
+- Description/content angle
 
-Move card to Review when both stages complete — a human reviews/sends, this
-agent never sends automatically.
+### Stage 2 — Draft Outreach
+```bash
+python -m skills.influencer_outreach.scripts.draft_outreach
+```
+For each influencer (capped at 15 per run):
+- Checks memory — skips already-drafted influencers
+- Generates 2 variants: email format + short DM format
+- References recent video titles when available
+- Saves to `obsidian_vault/Outreach/<handle>.md`
+- Marks as "drafted" in memory for next-run dedup
 
-## Scripts (run in order)
-- `python -m skills.influencer_outreach.scripts.find_influencers`
-- `python -m skills.influencer_outreach.scripts.draft_outreach`
+### Review Outputs
+```bash
+cat data/influencers/influencers.json | python -c "import sys,json; d=json.load(sys.stdin); print(f'{len(d)} influencers found')"
+ls obsidian_vault/Outreach/
+```
 
-## Tools available
-- Terminal: you can execute the scripts above
-- File system: you can read/write to obsidian_vault/Outreach/ and data/influencers/
+## Pitfalls
+- YouTube search actor returns videos, not channels — we extract channel info from video results
+- Subscriber counts aren't available from search results (would need separate channel scrape)
+- NEVER fabricate a "recent video" reference — if no specific content is available, write a generic but warm opener
+- Keep emails under 120 words, DMs under 60 words
+- This agent never sends messages automatically — human reviews and sends
+
+## Verification
+- `data/influencers/influencers.json` should have 50+ unique channels
+- `obsidian_vault/Outreach/` should have .md files with both Email and DM sections
+- No outreach should mention a video title that doesn't exist in the dossier
