@@ -224,8 +224,20 @@ def main():
     print(f"Outputs: {VAULT / 'HermesOutputs'}")
     print(kanban.snapshot())
 
-    # Final Telegram summary
+    # Generate PDF report
+    print("\n=== Generating PDF report ===")
+    try:
+        sys.path.insert(0, str(Path(__file__).parent))
+        from generate_pdf_report import build_pdf
+        build_pdf()
+    except Exception as e:
+        print(f"[PDF] Failed to generate: {e}")
+
+    # Final Telegram summary + PDF
     telegram_bot.push_run_report()
+    pdf_path = Path("output/marketing_report.pdf")
+    if pdf_path.exists():
+        telegram_bot.send_document(str(pdf_path), caption="Marketing Intelligence Report — Hermes Agent run complete")
 
 
 if __name__ == "__main__":
