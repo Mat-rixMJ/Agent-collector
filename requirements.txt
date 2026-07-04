@@ -1,0 +1,6 @@
+apify-client>=1.7.1
+requests>=2.31.0
+python-dotenv>=1.0.1
+python-telegram-bot>=21.0
+pydantic>=2.7.0
+tenacity>=8.2.3

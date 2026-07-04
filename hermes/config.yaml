@@ -1,0 +1,36 @@
+# Paste/merge this into ~/.hermes/config.yaml
+# Docs: https://hermes-agent.org
+
+model:
+  provider: openrouter          # or nvidia
+  name: meta-llama/llama-3.1-70b-instruct
+  api_key_env: OPENROUTER_API_KEY
+
+skills:
+  path: ./skills                # this repo's skills/ dir, loaded at startup
+
+platforms:
+  telegram:
+    enabled: true
+    token_env: TELEGRAM_BOT_TOKEN
+    allowed_chat_ids:
+      - ${TELEGRAM_CHAT_ID}
+
+kanban:
+  enabled: true
+  board_path: ./kanban/board.json
+  columns: [Backlog, In Progress, Review, Blocked, Done]
+
+integrations:
+  obsidian:
+    enabled: true
+    vault_path: ./obsidian_vault
+    write_folders:
+      - Competitors
+      - Ads
+      - Outreach
+      - Content
+
+tools:
+  apify:
+    token_env: APIFY_TOKEN
