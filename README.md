@@ -345,6 +345,146 @@ After a full run, the system produces:
 
 ---
 
+## Full Working Sequence (Start to End)
+
+Below is the exact terminal output sequence when running `python main.py` from a clean state:
+
+```
+$ python main.py
+
+=== marketing_manager :: Competitor research ===
+  [DISCOVERY] Auto-discovering competitors via LLM...
+Researching Warrior Trading...
+  [apify.rag-web-browser] → SUCCEEDED: Scraped 3 pages
+Researching Bullish Bears...
+  [apify.rag-web-browser] → SUCCEEDED: Scraped 2 pages
+Researching The Trading Channel...
+  [apify.rag-web-browser] → SUCCEEDED: Scraped 2 pages
+Researching Investors Underground...
+  [apify.rag-web-browser] → SUCCEEDED: Scraped 3 pages
+Researching FundedNext...
+  [apify.rag-web-browser] → SUCCEEDED: Scraped 3 pages
+Done. Notes written to obsidian_vault\Competitors
+
+=== marketing_manager :: Generate strategy brief ===
+Strategy brief written to obsidian_vault\Strategy\brief.md
+
+=== ads_manager :: Scrape Meta ads ===
+Searching Meta Ads Library: 'trading signals'
+  [apify.meta-ads-library-scraper] → Done! 50 ads from 1 search.
+Searching Meta Ads Library: 'prop firm challenge'
+  [apify.meta-ads-library-scraper] → Done! 58 ads from 1 search.
+Searching Meta Ads Library: 'learn day trading'
+  [apify.meta-ads-library-scraper] → Done! 55 ads from 1 search.
+Searching Meta Ads Library: 'forex trading course'
+  [apify.meta-ads-library-scraper] → Done! 54 ads from 1 search.
+Searching Meta Ads Library: 'trading bot'
+  [apify.meta-ads-library-scraper] → Done! 57 ads from 1 search.
+Total ads scraped: 274 | last-30-day: 9 | shortlisted: 9 | new: 9
+
+=== ads_manager :: Extract ad concepts ===
+Extracted 9 concepts -> data\ads\ad_concepts.json
+
+=== ads_manager :: Generate ad scripts (3 variants) ===
+  [fear] Written to 2026-07-05_concept-slug_fear.md
+  [aspiration] Written to 2026-07-05_concept-slug_aspiration.md
+  [social_proof] Written to 2026-07-05_concept-slug_social_proof.md
+3 ad script variants generated in obsidian_vault\Ads
+
+=== ads_manager :: Score ad scripts ===
+Scoring: 2026-07-05_concept-slug_fear.md
+Scoring: 2026-07-05_concept-slug_aspiration.md
+Scoring: 2026-07-05_concept-slug_social_proof.md
+Scorecard written to obsidian_vault\Ads\_scorecard.md
+Top script: 2026-07-05_concept-slug_aspiration.md (43/50)
+
+=== ads_manager :: Auto-revise weak scripts ===
+Revising: 2026-07-05_concept-slug_fear.md (scored 38/50)
+  Revised version saved: 2026-07-05_concept-slug_fear_revised.md
+Auto-revision complete.
+
+=== influencer_outreach :: Find influencers ===
+Searching YouTube channels: 'day trading'
+  [apify.youtube-channel-scraper] → SUCCEEDED
+Searching YouTube channels: 'swing trading strategy'
+  [apify.youtube-channel-scraper] → SUCCEEDED
+Searching YouTube channels: 'retail trading psychology'
+  [apify.youtube-channel-scraper] → SUCCEEDED
+Searching YouTube channels: 'forex trading'
+  [apify.youtube-channel-scraper] → SUCCEEDED
+Searching YouTube channels: 'prop firm trading'
+  [apify.youtube-channel-scraper] → SUCCEEDED
+Found 71 unique channels -> data\influencers\influencers.json
+
+=== influencer_outreach :: Draft outreach ===
+Drafted: 15 | Skipped (already done): 0 | Remaining: 56
+Outreach files in obsidian_vault\Outreach
+
+=== content_repurposer :: Repurpose content ===
+Processing JFMxDgmW8cw...
+  [apify.youtube-transcript-scraper] → SUCCEEDED
+Processing 8nFTkjPk80k...
+  [apify.youtube-transcript-scraper] → SUCCEEDED
+Processing bpM9D1kQaAs...
+  [apify.youtube-transcript-scraper] → SUCCEEDED
+Processing g-qW8fQimyg...
+  [apify.youtube-transcript-scraper] → SUCCEEDED
+Processing vqFUuLO06qc...
+  [apify.youtube-transcript-scraper] → SUCCEEDED
+Done. 5 new videos processed. Notes in obsidian_vault\Content
+
+=== Generating PDF report ===
+Generating executive summary via LLM...
+==================================================
+PDF Report generated: output\marketing_report.pdf
+==================================================
+
+**Backlog** (0):
+**In Progress** (0):
+**Review** (8): Competitor research, Strategy brief, Scrape Meta Ads,
+  Extract concepts, Generate scripts, Find influencers, Draft outreach,
+  Repurpose content
+**Blocked** (0):
+**Done** (0):
+
+[telegram_bot] Sent document: output/marketing_report.pdf
+```
+
+### Second Run (Incremental — Memory Skips Processed Items)
+
+```
+$ python main.py
+
+=== marketing_manager :: Competitor research ===
+  [MEMORY] Using cached competitors (discovered 0d ago)
+Researching Warrior Trading...
+  [MEMORY] Warrior Trading positioning changed!
+Researching Bullish Bears...
+Researching The Trading Channel...
+...
+Done. Notes written to obsidian_vault\Competitors
+
+=== ads_manager :: Scrape Meta ads ===
+Total ads scraped: 274 | last-30-day: 9 | shortlisted: 9 | new: 0
+                                                              ^^^^
+                                                        (all already seen)
+
+=== influencer_outreach :: Draft outreach ===
+Drafted: 15 | Skipped (already done): 15 | Remaining: 41
+                                           ^^^^^^^^^^^^^
+                                    (previous 15 skipped via memory)
+
+=== content_repurposer :: Repurpose content ===
+  [SKIP] JFMxDgmW8cw already processed (in memory)
+  [SKIP] 8nFTkjPk80k already processed (in memory)
+  [SKIP] bpM9D1kQaAs already processed (in memory)
+  [SKIP] g-qW8fQimyg already processed (in memory)
+  [SKIP] vqFUuLO06qc already processed (in memory)
+Done. 0 new videos processed.
+```
+
+---
+
 ## License
 
 Built for the CrowdWisdomTrading Marketing Agent Intern assessment.
