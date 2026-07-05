@@ -6,4 +6,6 @@
 Working directory: D:\crowdwisdom-marketing-agents  
 
 ## Response
-API call failed after 3 retries: HTTP 429: Provider returned error
+Ollama loaded `qwen2.5:7b` with only 32,768 tokens of runtime context, but Hermes needs at least 64,000 tokens for reliable tool use.
+
+Increase the Ollama context for this model and restart/reload the model before trying again. A known-good starting point is 65,536 tokens. In Hermes config, set `model.ollama_num_ctx: 65536` (and `model.context_length: 65536` if you also override the displayed model context). If you manage the model through an Ollama Modelfile, set `PARAMETER num_ctx 65536` there instead.

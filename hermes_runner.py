@@ -134,20 +134,40 @@ def run_skill_with_hermes(skill_name: str, task: str, model: str) -> str:
     print(f"Model: {model}")
     print(f"{'='*60}")
 
-    agent = AIAgent(
-        model=os.getenv("OLLAMA_MODEL", "qwen2.5-64k"),
-        base_url="http://localhost:11434/v1",
-        api_key="ollama",
-        quiet_mode=True,
-        ephemeral_system_prompt=system_prompt,
-        max_iterations=10,
-        skip_context_files=True,
-        skip_memory=True,
-        disabled_toolsets=["browser"],
-    )
+    # LLM fallback sequence: NVIDIA → OpenRouter → Ollama
+    providers = [
+        ("https://integrate.api.nvidia.com/v1", os.getenv("NVIDIA_API_KEY"), os.getenv("NVIDIA_MODEL", "meta/llama-3.3-70b-instruct")),
+        ("https://openrouter.ai/api/v1", os.getenv("OPENROUTER_API_KEY"), os.getenv("OPENROUTER_MODEL", "nousresearch/hermes-3-llama-3.1-405b:free")),
+        ("http://localhost:11434/v1", "ollama", os.getenv("OLLAMA_MODEL", "qwen2.5-64k")),
+    ]
 
-    result = agent.run_conversation(user_message=task)
-    response = result.get("final_response", "No response")
+    for base_url, api_key, model_name in providers:
+        if not api_key:
+            continue
+        try:
+            print(f"  Trying: {model_name} via {base_url.split('/')[2]}")
+            agent = AIAgent(
+                model=model_name,
+                base_url=base_url,
+                api_key=api_key,
+                quiet_mode=True,
+                ephemeral_system_prompt=system_prompt,
+                max_iterations=10,
+                skip_context_files=True,
+                skip_memory=True,
+                disabled_toolsets=["browser"],
+            )
+            result = agent.run_conversation(user_message=task)
+            response = result.get("final_response", "No response")
+            print(f"\n[{skill_name}] Done via {base_url.split('/')[2]}")
+            break
+        except Exception as e:
+            print(f"  Failed ({base_url.split('/')[2]}): {e}")
+            response = None
+            continue
+
+    if not response:
+        return "All LLM providers failed"
 
     # Save Hermes output to vault
     out_dir = VAULT / "HermesOutputs"
