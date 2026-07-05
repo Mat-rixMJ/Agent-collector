@@ -1,14 +1,13 @@
-# Outreach draft — PB Blake Trades
+# Outreach — PB Blake Trades
 
 - Platform: youtube
-- Subscribers: 0
 - URL: https://www.youtube.com/@PBBlakeTrades
 - Contact: not public — use platform DM
 
-## Draft message
-Hi PB,
+## Email Version
+Subject_line: Hey PB! Quick Q on Your Recent Trade Video
 
-I came across your recent video on how you made $31,704 day trading in just 20 minutes! Your insights are really valuable. At crowdwisdomtrading.com, we’re passionate about sharing knowledge and strategies for success. Would love to hear your thoughts on our site.
+Body: Hey PB! Just watched your recent video "How I Made $31,704 Day Trading In 20 Minutes" and it was epic! I’m curious—what do you think about crowdwisdomtrading.com? Any tips for our audience would be super appreciated!
 
-Best,
-[Your Name]
+## DM Version
+Hey PB! Impressive gains in such a short time. What do you think about the strategies on crowdwisdomtrading.com? Do they align with your methods? 🤔

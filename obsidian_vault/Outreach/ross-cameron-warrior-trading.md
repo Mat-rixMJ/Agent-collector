@@ -1,14 +1,18 @@
-# Outreach draft — Ross Cameron - Warrior Trading
+# Outreach — Ross Cameron - Warrior Trading
 
 - Platform: youtube
-- Subscribers: 0
 - URL: https://www.youtube.com/@DaytradeWarrior
 - Contact: not public — use platform DM
 
-## Draft message
-Hi Ross,
+## Email Version
+Subject: Quick Q&A on Your Upcoming Day Trading Guide, Ross!
 
-I hope you’re doing well! I watched your recent video on "Day Trading: How to Start from Zero" and found it super helpful. At CrowdWisdomTrading, we share insights for beginners like you. Would love your thoughts on our site—what do you think could be really beneficial for traders starting out?
+Hey Ross,
 
-Best,
+Just watched your "How To Start Day Trading in 2026" video. Great job! I was wondering if you've had a chance to check out CrowdWisdomTrading yet. Any initial thoughts or insights you could share would be super helpful.
+
+Thanks,
 [Your Name]
+
+## DM Version
+Hey Ross! I checked out your recent video on starting day trading in 2026. Thoughts on how crowdwisdomtrading.com fits into that strategy? 🤔

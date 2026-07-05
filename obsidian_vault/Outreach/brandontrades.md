@@ -1,14 +1,20 @@
-# Outreach draft — BrandonTrades
+# Outreach — BrandonTrades
 
 - Platform: youtube
-- Subscribers: 0
 - URL: https://www.youtube.com/@BrandonTrades
 - Contact: not public — use platform DM
 
-## Draft message
-Hi Brandon,
+## Email Version
+Subject line: Quick Q&A on Your Recent Video!
 
-I hope you’re having a great day! I noticed your recent video on the swing trading strategy that caught my eye. As someone passionate about trading, I was wondering if you could take a moment to share your honest thoughts on crowdwisdomtrading.com. Your insights would be incredibly valuable!
+Hey Brandon,
+
+Hope you're doing well! I stumbled upon your recent video, "The Only Swing Trading Strategy You Need To Make Money," and found it very insightful. I was wondering if you have a moment to share your honest thoughts on crowdwisdomtrading.com? It would be great to hear your perspective.
+
+Thanks so much!
 
 Best,
 [Your Name]
+
+## DM Version
+Hey BrandonTrades! Love your recent swing trading strategy vid. What do you think about the crowd insights on that approach? 🧐

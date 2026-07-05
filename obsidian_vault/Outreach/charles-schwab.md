@@ -1,14 +1,19 @@
-# Outreach draft — Charles Schwab
+# Outreach — Charles Schwab
 
 - Platform: youtube
-- Subscribers: 0
 - URL: https://www.youtube.com/@CharlesSchwab
 - Contact: not public — use platform DM
 
-## Draft message
-Hey Charles,
+## Email Version
+Subject_line: Hey Charles! Quick Q on Swing Trading
 
-I hope this message finds you well. I recently watched your intro to swing trading video and was impressed by your clear explanation of strategies and indicators. At crowdwisdomtrading.com, we share similar insights with our community. Would you mind sharing your honest thoughts on our platform? It would be great to hear your opinion!
+Body: Hi Charles,
 
+Hope you're doing well! Just watched your recent swing trading intro. I noticed you covered strategies and indicators really well. Curious—what do you think about crowdwisdomtrading.com? Any tips for beginners in the space?
+
+Thanks!
 Best,
 [Your Name]
+
+## DM Version
+Hey Charles! Love your recent swing trading intro. What do you think about the crowd's insights on key indicators for swing traders? #TradingOpinions

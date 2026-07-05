@@ -1,14 +1,18 @@
-# Outreach draft — TJR
+# Outreach — TJR
 
 - Platform: youtube
-- Subscribers: 0
 - URL: https://www.youtube.com/@TJRTrades
 - Contact: not public — use platform DM
 
-## Draft message
-Hi TJR,
+## Email Version
+Subject: Hey TJR – Quick Question About Your Video!
 
-Hope this message finds you well! I noticed your recent video on starting day trading from scratch and was impressed by your straightforward approach. At crowdwisdomtrading.com, we share practical insights to help beginners like yourself. Would love to hear your honest thoughts on our content and see if there’s any way we can support the community you’re building.
+Body: Hey TJR,
+
+Hope you’re doing well! I watched your recent video on "How To Start Day Trading In 2026" and found it super helpful. Just wanted to ask—what do you think about crowdwisdomtrading.com as a resource for beginners like in your tutorial? Any feedback would be amazing!
 
 Best,
 [Your Name]
+
+## DM Version
+Hey TJR! Love your recent tutorial. What do you think about crowdwisdomtrading.com as a resource for beginners like in your video?

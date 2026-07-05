@@ -1,14 +1,15 @@
-# Outreach draft — Jdub Trades
+# Outreach — Jdub Trades
 
 - Platform: youtube
-- Subscribers: 0
 - URL: https://www.youtube.com/@JdubTrades
 - Contact: not public — use platform DM
 
-## Draft message
+## Email Version
+Subject Line: Quick Question About Your Recent Swing Trading Video
+
 Hi Jdub,
 
-I noticed you recently shared your thoughts on the "Only Swing Trading Strategy" for beginners. Your straightforward approach really resonated with me. I’d love to hear your honest opinion about crowdwisdomtrading.com. What do you think makes our site stand out for traders?
+Hope this message finds you well! I came across your recent video on the simplest swing trading strategy for beginners, and it was super helpful. I’d love to get your honest opinion on crowdwisdomtrading.com — does anything stand out or could we improve in areas relevant to beginner traders?
 
-Best,
-[Your Name]
+## DM Version
+Hey Jdub! Love the recent swing trading strategy vid—super simple and practical. What do you think makes this strategy work best for beginners? 🤔

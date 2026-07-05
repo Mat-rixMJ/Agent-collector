@@ -3,46 +3,61 @@
 Source: https://www.youtube.com/watch?v=8nFTkjPk80k
 
 ## Extracted insights
-1. The video discusses how Hermes agent and Codex significantly enhance marketing strategies by automating complex tasks like building lead lists and optimizing campaigns.
-2. The video argues that using Codex as a brain for automation tasks, such as browser automation through repositories like BrowserUseHarness, can provide unique data points not available in traditional databases.
-3. The video explains how Hermes acts as a junior employee, learning from instructions to write skill files, thereby reducing the need for manual training of new tools and processes.
-
-These summaries capture key insights about the capabilities and benefits of using Hermes and Codex in marketing automation, highlighting their unique features and use cases.
+1. The video discusses how Hermes and Codex significantly enhance marketing strategies by automating tasks such as building lead lists and optimizing campaigns.
+2. The video argues that using Codex's computer use feature allows for seamless automation of tasks on other applications, making it a must-have in the marketing stack.
+3. The video highlights Hermes' capability to remember taught skills indefinitely, allowing marketers to continuously optimize their campaigns over time.
+4. The video demonstrates launching a complex cold email campaign with unique data points using Codex's browser automation and Hermes for orchestration.
+5. The video explains setting up Hermes agents to automate the creation of marketing campaigns in tools like Instantly by researching and writing skill files based on instructions.
 
 ## Repurposed assets
-```markdown
-# Twitter Thread
-1. 🚀 **Hook: Revolutionizing Marketing Automation!** 🚀 Using Hermes agent & Codex can transform your strategy by automating complex tasks like lead list building & campaign optimization. #MarketingAutomation #TechInnovation
-2. Automate like a pro with **Hermes Agent & Codex**. These tools are game changers, streamlining processes and freeing up time for more strategic work. 🛠️💻 #TechForMarketers #AutomatedTasks
-3. Boost your marketing efficiency by integrating **Codex**, the brain of automation tasks like browser automation through BrowserUseHarness repositories. Get unique data points not found in traditional databases! 🔍📊 #DataDriven #MarketingAutomation
-4. Simplify complex processes with **Hermes Agent** as a junior employee, learning from instructions to write skill files. No more manual training on new tools & processes! 💡👩‍💻 #TechSolutions #EfficiencyBoost
-5. Join the future of marketing automation today with Hermes & Codex! Experience unparalleled efficiency and data-driven insights in your campaigns. 🌟🚀 #MarketingTech #InnovateNow
-```
+### Twitter Thread
+
+**Tweet 1:**
+🚀 Boost your marketing game with Hermes & Codex! 🚀 These platforms streamline campaign optimization, build lead lists, and automate tasks—making every marketer's life easier. #MarketingAutomation #TechForMarketers [Visual Cues: Logo of Hermes and Codex]
+
+**Tweet 2:**
+🛠 With Codex’s computer use feature, you can effortlessly automate tasks across different apps. No more manual work; let automation do the heavy lifting! #AutomateWithCodex #EffortlessMarketing [Visual Cues: Screenshot of Codex in action]
+
+**Tweet 3:**
+🧠 Hermes remembers your skills forever, ensuring continuous optimization. Perfect for those who want their strategies to evolve and adapt over time. #InfiniteLearning #HermesForMarketers [Visual Cues: GIF showing Hermes remembering instructions]
+
+**Tweet 4:**
+🚀 Build a complex cold email campaign using Codex's browser automation & Hermes for orchestration. Personalize every message with unique data points! #EmailMarketing #CampaignAutomation [Visual Cues: Screenshot of a Codex-controlled browser window]
+
+**Tweet 5:**
+🛠 Set up Hermes agents to automate marketing campaigns in tools like Instantly. Research, write, and optimize—let the bots handle it all! #InstantAutomation #CampaignOptimization [Visual Cues: Diagram showing automation flow between Codex and Instantly]
 
 ---
 
-# LinkedIn Post
-In today's dynamic market environment, leveraging advanced tools like Hermes Agent and Codex can significantly enhance your marketing strategies by automating complex tasks such as building lead lists and optimizing campaigns.
+### LinkedIn Post
 
-Hermes Agent acts as a junior employee, learning from instructions to write skill files, thereby reducing the need for manual training of new tools and processes. This not only saves time but also ensures consistency and accuracy in task execution.
+In today's fast-paced digital landscape, marketers need robust tools to stay agile and efficient. Enter Hermes and Codex—a powerful duo that transforms marketing strategies through advanced automation.
 
-Codex, on the other hand, serves as the brain behind automation tasks like browser automation through repositories such as BrowserUseHarness. By integrating these platforms, you gain access to unique data points that traditional databases might lack, providing a competitive edge in your marketing efforts.
+**Hermes**' unique feature allows it to remember taught skills indefinitely, ensuring continuous optimization of campaigns over time. This means your strategies can evolve as you learn new techniques without the need for manual updates.
 
-Embrace the future of marketing with Hermes Agent and Codex. Streamline your operations, enhance efficiency, and drive better results in your campaigns. #MarketingAutomation #TechInnovation #DataDriven
+On the other hand, **Codex’s computer use feature** enables seamless automation across different applications, making tedious tasks like building lead lists and optimizing campaigns a breeze. By integrating Hermes with Codex, marketers can achieve a truly streamlined workflow that saves time and boosts productivity.
+
+For instance, our recent project involved launching a complex cold email campaign using Codex's browser automation capabilities and orchestrating it with Hermes. The result was a highly personalized series of emails, each tailored to unique data points—a testament to the power of these tools in action.
+
+Investing in Hermes and Codex is no longer just an option; it’s a necessity for any marketer looking to stay ahead of the curve. #MarketingAutomation #TechForMarketers
 
 ---
 
-# Short-Form Video Script
-**[Opening shot: A busy office scene]**
-Narrator: "Are you tired of manual training for new tools and processes?"
+### Short-Form Video Script
 
-**[Cut to visuals showing Hermes Agent learning from instructions, writing skill files]**
-Narrator: "Introducing Hermes Agent—your virtual junior employee. It automates complex tasks like a pro, saving time and ensuring consistency."
+**Hook:**
+Introducing Hermes and Codex—two game-changing tools that revolutionize marketing automation!
 
-**[Transition to Codex with data points visualizing unique insights]**
-Narrator: "And don't forget Codex—the brain behind automation. By integrating repositories like BrowserUseHarness, it provides unique data points not found in traditional databases."
+**Body:**
+Imagine building a complex cold email campaign with personalized data points, all while seamlessly integrating across different applications. That's exactly what we did using Codex’s browser automation and Hermes for orchestration.
 
-**[Closing shot: A marketer smiling while working on a streamlined campaign]**
-Narrator: "Join the future of marketing with Hermes and Codex! Experience unparalleled efficiency and data-driven insights in your campaigns. #MarketingTech #InnovateNow"
+![Visual Cues: Screenshot of a Codex-controlled browser window]
 
-**[End screen with hashtags and links to learn more]**
+Hermes remembers taught skills forever, ensuring your campaigns continuously evolve. And Codex automates tasks like lead list building and campaign optimization with ease.
+
+![Visual Cues: Diagram showing automation flow between Codex and Hermes]
+
+**CTA:**
+Join the many marketers who have transformed their strategies with Hermes and Codex. Start optimizing today!
+
+#MarketingAutomation #TechForMarketers [Visual Cues: Logo of Hermes and Codex appearing on screen]

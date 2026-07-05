@@ -1,14 +1,18 @@
-# Outreach draft — Dhan ⚡
+# Outreach — Dhan ⚡
 
 - Platform: youtube
-- Subscribers: 0
 - URL: https://www.youtube.com/@DhanHQ
 - Contact: not public — use platform DM
 
-## Draft message
-Hi Dhan,
+## Email Version
+Subject: Hey Dhan! Quick Question About Your Recent Video
 
-I hope you’re doing well! I noticed your recent video on the advanced swing trading strategy and was impressed by how detailed it was. At crowdwisdomtrading.com, we focus on providing in-depth strategies for traders like yourself. Would love to hear your honest thoughts on our site!
+Hey Dhan,
 
-Best,
+Hope this message finds you well! Just watched your recent video on finding winning swing stocks. I was curious—what did you think of our free screener? Any thoughts or tips to share would be super helpful for our community.
+
+Thanks!
 [Your Name]
+
+## DM Version
+Hey Dhan! Love your recent screener video. What do you think about crowdwisdomtrading.com for finding swing stocks? 🤔

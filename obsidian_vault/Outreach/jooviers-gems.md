@@ -1,14 +1,20 @@
-# Outreach draft — Jooviers Gems
+# Outreach — Jooviers Gems
 
 - Platform: youtube
-- Subscribers: 0
 - URL: https://www.youtube.com/@JooviersGems
 - Contact: not public — use platform DM
 
-## Draft message
-Hi Jooviers Gems,
+## Email Version
+Subject Line: Hey Jooviers! Quick Question About Your Recent Video
 
-I came across your recent course on making money trading prop firms as a beginner. Your detailed approach really resonated with me! I’d love to get your honest thoughts on crowdwisdomtrading.com. What do you think makes our platform unique for new traders?
+Body: Hi Jooviers,
+
+Hope you’re doing well! I watched your recent video on “How to Make Money Trading Prop Firms as a Beginner” and it was awesome. I’d love to hear your thoughts on crowdwisdomtrading.com—what did you think of our approach and content? 
+
+Thanks so much!
 
 Best,
 [Your Name]
+
+## DM Version
+Hey Jooviers Gems! Just checked out your prop firms trading guide—it's super helpful. What do you think about the crowdwisdomtrading.com approach? Same vibe, or different?

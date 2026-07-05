@@ -3,73 +3,58 @@
 Source: https://www.youtube.com/watch?v=g-qW8fQimyg
 
 ## Extracted insights
-1. **The video discusses** how using a dashboard like Hermes Agent can significantly enhance productivity by allowing users to manage AI agents more intuitively and efficiently.
-2. **The video argues** that setting up Hermes Agent on a virtual private server (VPS) enhances security while providing continuous availability of the service.
-3. **The video highlights** the importance of creating a "meta prompt" when setting up Hermes Agent, as it ensures the AI has sufficient context to be more helpful and effective.
-4. **The video suggests** using the Open Router API key for easy switching between different models and potentially saving on API credits through cost optimization techniques discussed later in the video.
+1. **The video discusses** how using a dashboard interface for Hermes Agent significantly enhances its usability without requiring coding knowledge.
+2. **The video argues** that setting up Hermes Agent on a virtual private server (VPS) in the cloud is safer and more scalable than running it locally.
+3. **The video highlights** the importance of entering multiple API keys, such as Anthropic, OpenAI, or Open Router, to leverage different models effectively.
+4. **The video suggests** using the Open Router API key for easier model switching and potentially saving on API credits by selecting cost-effective models like DeepSeek V4 Flash.
 
 ## Repurposed assets
 ### Twitter Thread
 
-1. **Hook Tweet:**
-   🚀 Boost your productivity with Hermes Agent! Discover how this intuitive dashboard can help you manage AI agents more efficiently. #ProductivityBoost #HermesAgent [Show a screenshot of the Hermes Agent dashboard]
+1. **Tweet 1:**
+   🚀 Boosting your trading efficiency with Hermes Agent! Learn how a user-friendly dashboard can make it easy to set up and use without coding know-how. #TradingTools #HermesAgent
 
 2. **Tweet 2:**
-   💡 Setting up Hermes Agent on a VPS not only enhances security but also ensures continuous availability. Don't miss out! #VPSSetup [Highlight key benefits like security and uptime]
+   🔒 Security and scalability are key when setting up Hermes Agent. We recommend using a virtual private server (VPS) in the cloud for enhanced protection and flexibility. #CloudSecurity #HermesAgent
 
 3. **Tweet 3:**
-   📝 Create a "meta prompt" to give your AI agents context for better performance. It's a game-changer! #MetaPrompt [Show a brief example of what a meta prompt might look like]
+   💡 Unlock diverse AI models by entering multiple API keys! Whether it's Anthropic, OpenAI, or Open Router, this setup allows you to switch between models seamlessly. #APIKeys #HermesAgent
 
 4. **Tweet 4:**
-   💰 Want to save on API credits? Use the Open Router API key with Hermes Agent to switch between models seamlessly and optimize costs. #CostOptimization [Mention cost-saving benefits]
+   🔄 Need flexibility in your trading models? Consider using the Open Router API key for effortless model switching and potentially saving on credits with cost-effective options like DeepSeek V4 Flash. #TradingTech #HermesAgent
 
 5. **Tweet 5:**
-   💪 Ready to supercharge your workflow with Hermes Agent? Join us now for a demo! 🎬 [Include a link to sign up or watch the demo video]
+   🎯 Ready to take your trading skills up a notch? Dive into Hermes Agent today! Experience improved usability, enhanced security, and versatile AI tools. #StartTrading #HermesAgent
+
+---
 
 ### LinkedIn Post
 
-In today's digital age, streamlining workflows and enhancing productivity is crucial. One powerful tool that can significantly boost your efficiency is Hermes Agent. This intuitive dashboard allows users to manage AI agents more effectively, making it an indispensable asset for anyone looking to optimize their operations.
+Setting up Hermes Agent on a virtual private server (VPS) in the cloud is a crucial step for any trader looking to enhance their trading efficiency while ensuring safety and scalability. By leveraging a VPS, you can benefit from robust security features and the ability to scale resources as needed without the limitations of local setups.
 
-However, setting up Hermes Agent on a virtual private server (VPS) offers several advantages. By doing so, you not only enhance the security of your data but also ensure that the service remains continuously available, minimizing downtime and maximizing productivity.
+Moreover, entering multiple API keys—such as Anthropic, OpenAI, or Open Router—is essential for flexibility in AI model selection. This approach not only broadens your options but also allows for cost-effective management by choosing models like DeepSeek V4 Flash that offer better value for your budget.
 
-Another key aspect highlighted in our video is the importance of creating a "meta prompt." This contextual setup helps AI agents understand their environment better, leading to more accurate and helpful responses. For instance, by including relevant details such as project scope or specific user requirements, you can significantly improve the efficacy of your AI interactions.
+Whether you're a seasoned trader or new to the market, Hermes Agent with its user-friendly dashboard and advanced setup options can significantly improve your trading strategies. Explore these features today to take your trading game to the next level!
 
-Lastly, we discussed how using the Open Router API key with Hermes Agent can help in cost optimization. This allows for easy switching between different models without consuming too many credits, ensuring that you get the best performance at a lower cost.
+#TradingTools #HermesAgent #CloudComputing
 
-If you're ready to take your productivity and efficiency to the next level, join us now to explore Hermes Agent further! 🚀 [Include a link to sign up or learn more]
+---
 
 ### Short-Form Video Script
 
-**[Scene: Introduction with the Hermes Agent logo on screen]**
+**[Visual: Introduction scene showing a person using a computer]**
 
-**Voiceover (VO):**
-"Hey there, productivity enthusiasts! Today, we're diving into how you can supercharge your workflow with Hermes Agent."
+**Hook:**
+Hey there, traders! Today, we're diving into how to boost your trading efficiency with Hermes Agent.
 
-**[Cut to a dashboard interface of Hermes Agent]**
+**Body:**
+First up, setting up Hermes Agent on a virtual private server (VPS) in the cloud is key. [Text appears on screen: "Use VPS for Security & Scalability"]
 
-**VO:**
-"Hermes Agent is an intuitive tool that allows you to manage AI agents more efficiently. But did you know setting it up on a VPS enhances security and ensures continuous availability?"
+Next, entering multiple API keys like Anthropic, OpenAI, or Open Router unlocks diverse AI models, making it easy to switch between them as needed. [Visual cue shows a dashboard with different API keys]
 
-**[Visual cue: A screenshot or animation showing the VPS setup process]**
+Lastly, consider using the cost-effective DeepSeek V4 Flash model via Open Router to save on credits and enhance your trading toolkit.
 
-**VO:**
-"By hosting Hermes Agent on a virtual private server, you not only protect your data but also ensure uninterrupted service. It's like having a dedicated workspace for your AI agents."
+**CTA:**
+Ready to level up? Check out Hermes Agent today! #HermesAgent
 
-**[Cut to a meta prompt example]**
-
-**VO:**
-"To get even more out of Hermes Agent, create a 'meta prompt.' This provides the AI with crucial context, making its responses more accurate and helpful. For instance, by including project details or user requirements, you can significantly improve performance."
-
-**[Visual cue: A text overlay showing an example meta prompt]**
-
-**VO:**
-"Lastly, using the Open Router API key allows you to switch between different models effortlessly while saving on API credits. It's a win-win for both efficiency and cost savings!"
-
-**[Cut back to the Hermes Agent logo with a call-to-action banner]**
-
-**VO:**
-"So, what are you waiting for? Sign up now and take your productivity to the next level with Hermes Agent! 🚀"
-
-**[End screen with sign-up link and social media handles]**
-
-**[Fade out]**
+[Screen fades to the Hermes Agent logo]

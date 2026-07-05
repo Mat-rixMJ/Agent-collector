@@ -1,16 +1,20 @@
-# Outreach draft — SMB Capital
+# Outreach — SMB Capital
 
 - Platform: youtube
-- Subscribers: 0
 - URL: https://www.youtube.com/@smbcapital
 - Contact: not public — use platform DM
 
-## Draft message
-Hi there,
+## Email Version
+Subject: Quick Chat About Your Recent Video!
 
-I hope this message finds you well! I recently watched your video on trader psychology with Dr. Brett Steenbarger and was really impressed by your insights. At CrowdWisdomTrading, we focus a lot on the mental aspects of trading too. Would you be open to sharing your honest thoughts about our site? 
+Hi SMB Capital,
 
-Thanks so much!
+I came across your recent video on trader psychology, and I found it incredibly insightful! I was wondering if you could share your honest thoughts on crowdwisdomtrading.com? It would be great to hear what you think about our platform.
+
+Thanks so much for considering!
 
 Best,
 [Your Name]
+
+## DM Version
+Hey SMB Capital! What do you think about the key traits highlighted in your recent video with Dr. Steenbarger? Totally resonant with your trading ethos, right? 🧐

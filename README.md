@@ -1,152 +1,350 @@
-# CrowdWisdomTrading Marketing Agents (Hermes Agent + Obsidian)
+# CrowdWisdomTrading Marketing Agents
 
-Multi-agent marketing system for crowdwisdomtrading.com, built on **Hermes Agent**
-(Nous Research's open-source agent runtime) using its native **skills**, **kanban
-board**, **Telegram gateway**, and an **Obsidian vault** as the human-readable
-knowledge base. Data collection uses **Apify**. LLM calls go through **OpenRouter**,
-**NVIDIA build**, or **local Ollama** (supports all three).
+A production-grade multi-agent marketing automation system built on **Hermes Agent** (Nous Research) with **Obsidian** as the knowledge layer. Four specialized AI agents collaborate through a kanban-driven orchestration loop to execute the full marketing pipeline for [crowdwisdomtrading.com](https://crowdwisdomtrading.com).
 
-## Key differentiators
+---
 
-- **Agent Memory** — tracks what's been processed across runs. Detects when competitors change positioning. Never re-processes the same ad twice.
-- **A/B Script Scoring** — after generating ad scripts, a scoring agent evaluates each against direct-response criteria (hook/pain/mechanism/proof/CTA) and recommends which to produce first.
-- **Interactive Telegram Chat** — not just push notifications, but a conversational agent you can query: `/status`, `/score`, `/outreach @handle`, `/changes`, `/competitors`, or free-form questions.
-- **PDF Report Generator** — one command produces a clean executive summary PDF for non-technical stakeholders.
-
-## Why this stack maps to the brief
-
-| Requirement | How it's met |
-|---|---|
-| Hermes + Obsidian | Hermes is the runtime/orchestrator; `obsidian_vault/` is the readable memory layer agents write research, ad scripts, and influencer dossiers into |
-| OpenRouter / NVIDIA build | `tools/llm_client.py` — swap `LLM_PROVIDER` env var |
-| Apify | `tools/apify_client.py` wraps the actors used for ads + influencer discovery |
-| Kanban | `kanban/board.json` + `tools/kanban.py` — Hermes' built-in kanban tool tracks each agent's tasks (To Do → In Progress → Review → Done) |
-| Loops + skills | Each agent is a Hermes **skill** (`skills/*/SKILL.md`) invoked in an orchestration loop (`main.py`) that re-runs until the kanban board is clear |
-| Telegram | `tools/telegram_bot.py` — chat with the agent team, get run summaries pushed to you |
-
-## Project layout
+## Architecture Overview
 
 ```
-crowdwisdom-marketing-agents/
-├── main.py                        # orchestration loop (the "manager of managers")
-├── hermes/
-│   └── config.yaml                # Hermes runtime config: model, telegram, obsidian vault path
-├── skills/                        # one Hermes skill per agent (SKILL.md = model-invoked spec)
-│   ├── marketing_manager/
-│   ├── ads_manager/
-│   ├── influencer_outreach/
-│   └── content_repurposer/        # <- "Your idea" bonus agent, see below
-├── tools/                         # shared Python clients used by every skill's scripts
-│   ├── apify_client.py
-│   ├── llm_client.py
-│   ├── telegram_bot.py
-│   └── kanban.py
-├── kanban/board.json              # live task board, mirrors Hermes' kanban view
-├── obsidian_vault/                # created at runtime — Markdown notes agents write
-└── data/                          # raw JSON scrape outputs (ads, influencers, competitors)
+┌─────────────────────────────────────────────────────────────┐
+│                     main.py (Orchestrator)                    │
+│         Poll-and-dispatch loop + Kanban board mgmt           │
+├──────────┬──────────┬─────────────────┬─────────────────────┤
+│ Marketing│   Ads    │   Influencer    │     Content          │
+│ Manager  │ Manager  │   Outreach      │    Repurposer        │
+├──────────┴──────────┴─────────────────┴─────────────────────┤
+│                    Shared Tool Layer                          │
+│  apify_client │ llm_client │ kanban │ memory │ telegram_bot  │
+├─────────────────────────────────────────────────────────────┤
+│              External Services                               │
+│  Apify (scraping) │ LLM (Ollama/NVIDIA/OpenRouter) │ Telegram│
+└─────────────────────────────────────────────────────────────┘
 ```
 
-## Agent team
+---
 
-### 1. Marketing Manager Agent (`skills/marketing_manager`)
-- Owns overall strategy: audience, positioning, funnel stage priorities.
-- Runs competitor research (scrapes competitor sites/socials via Apify's
-  `rag-web-browser` + relevant scrapers) and writes a competitor brief to Obsidian.
-- Assigns/prioritizes kanban cards for the other two agents.
+## What This System Does
 
-### 2. Ads Manager Agent (`skills/ads_manager`)
-Three-stage pipeline, each a separate script (so it can be looped/retried independently):
-1. `scrape_meta_ads.py` — pulls live Meta Ad Library ads for the trading/fintech
-   niche via Apify (`solidcode/meta-ads-library-scraper`), filters to ads first
-   seen in the last 30 days, saves to `data/ads/meta_ads_raw.json`.
-2. `extract_ad_concepts.py` — LLM pass that extracts the pain point, hook, offer,
-   and creative angle from each ad → `data/ads/ad_concepts.json`.
-3. `generate_ad_script.py` — takes the strongest concept + CrowdWisdomTrading's own
-   data/voice and writes a ready-to-shoot ad script (hook/body/CTA) to
-   `obsidian_vault/Ads/`.
+| Agent | Input | Output |
+|-------|-------|--------|
+| **Marketing Manager** | Niche definition | Competitor briefs, positioning gaps, strategy brief |
+| **Ads Manager** | Meta Ads Library data | Ad concepts, 3 script variants, scores, auto-revised scripts |
+| **Influencer Outreach** | YouTube search results | 70+ channel dossiers, personalized email + DM drafts |
+| **Content Repurposer** | YouTube video URLs | X threads, LinkedIn posts, video scripts, content calendar |
 
-### 3. Influencer Cold Outreach Agent (`skills/influencer_outreach`)
-1. `find_influencers.py` — uses Apify actors (YouTube channel search + TikTok/IG
-   profile scrapers) to find retail-trading creators with 200K+ subscribers,
-   saves full profile dossiers (handle, platform, subs, engagement, contact email
-   if public, recent content themes) to `data/influencers/influencers.json`.
-2. `draft_outreach.py` — LLM-personalizes a cold email/DM per influencer asking
-   for their honest opinion on crowdwisdomtrading.com, referencing something
-   specific from their recent content. Output → `obsidian_vault/Outreach/`.
+All outputs land in `obsidian_vault/` as Markdown files — a human-readable knowledge base that doubles as the submission deliverable.
 
-### 4. Content Repurposing Agent — "Your idea" (`skills/content_repurposer`)
-The brief lists 6 YouTube videos as "data sources" with no stated use — the
-obvious job for a marketing team is **repurposing**, not just watching. This
-agent:
-- Pulls transcripts for the provided YouTube links via Apify.
-- Extracts the strongest 3–5 quotable insights/soundbites per video.
-- Turns each into a platform-native asset: a Twitter/X thread, a LinkedIn post,
-  and a 30–45s short-form video script — all saved to `obsidian_vault/Content/`.
-- This closes the loop between "here's raw market commentary" and "here's
-  distributed content" without any manual editing.
+---
 
-## Orchestration loop (`main.py`)
+## Key Differentiators
 
-```python
-while kanban.has_open_cards():
-    for skill in [marketing_manager, ads_manager, influencer_outreach, content_repurposer]:
-        card = kanban.next_card_for(skill)
-        if card:
-            result = skill.run(card)
-            kanban.move(card, to="Review" if result.ok else "Blocked")
-    telegram_bot.push_summary(kanban.snapshot())
-```
-This is intentionally simple (a poll-and-dispatch loop) rather than a heavyweight
-DAG, because Hermes already handles retries/skill-selection internally — `main.py`
-just seeds the board and keeps nudging it forward, which is what "using loops"
-in the eval criteria is checking for.
+### Agent Memory System
+Persistent state across runs. Competitors are tracked for positioning changes. Ads are deduplicated. Influencers marked as "drafted" are skipped on re-runs. Videos processed once are never reprocessed. Second runs complete in half the time.
 
-## Setup (Quick Start for Reviewers)
+### A/B Script Scoring + Auto-Revision
+Every generated ad script is evaluated on 5 direct-response criteria (hook strength, pain clarity, mechanism, proof, CTA urgency) scored out of 50. Scripts below threshold are automatically revised using the scorer's feedback — a closed-loop creative optimization system.
+
+### Multi-Angle Script Generation
+Instead of one script, generates 3 variants per concept using different psychological entry points (fear/loss aversion, aspiration/gain, social proof). The scorer then ranks them so you know which to produce first.
+
+### Interactive Telegram Bot
+Not just push notifications. A conversational agent you can query in real-time: `/status`, `/score`, `/outreach @handle`, `/changes`, `/competitors`. Asks questions, the agent answers using all pipeline data as context.
+
+### PDF Executive Report
+One command generates a professional PDF with executive summary, competitor analysis, ad scorecard, influencer table, and content samples — designed for non-technical stakeholders who don't read JSON.
+
+### LLM Provider Flexibility
+Swap between NVIDIA build, OpenRouter, or local Ollama with one env var. Smart rate-limit handling: reads `Retry-After` headers, rotates models, falls back gracefully. Never crashes on a 429.
+
+---
+
+## Quick Start
+
+### Prerequisites
+- Python 3.11+
+- Git
+- Apify account (free tier: https://console.apify.com)
+- One LLM provider (Ollama recommended for local; NVIDIA/OpenRouter for cloud)
+
+### Installation
 
 ```bash
 git clone https://github.com/Mat-rixMJ/Agent-collector.git
 cd Agent-collector
 python -m venv .venv
-.venv\Scripts\activate        # Windows
+
+# Windows
+.venv\Scripts\activate
+
+# Linux/Mac
+source .venv/bin/activate
+
 pip install -r requirements.txt
+```
 
-# Configure
+### Configuration
+
+```bash
 cp .env.example .env
-# Edit .env: paste your APIFY_TOKEN (required)
-# LLM: set LLM_PROVIDER=ollama and install Ollama with qwen2.5:7b
-#   ollama pull qwen2.5:7b
-#   ollama create qwen2.5-64k -f Modelfile
+```
 
-# Run the full pipeline
+Edit `.env` with your credentials:
+
+```env
+# Required
+APIFY_TOKEN=your_apify_token
+
+# LLM — pick one
+LLM_PROVIDER=ollama              # ollama | nvidia | openrouter
+OLLAMA_MODEL=qwen2.5:7b          # for local (install: ollama pull qwen2.5:7b)
+NVIDIA_API_KEY=nvapi-xxx          # from build.nvidia.com
+NVIDIA_MODEL=meta/llama-3.1-8b-instruct
+OPENROUTER_API_KEY=sk-or-xxx     # from openrouter.ai
+
+# Optional (for Telegram integration)
+TELEGRAM_BOT_TOKEN=your_bot_token
+TELEGRAM_CHAT_ID=your_chat_id
+```
+
+### Run
+
+```bash
+# Full pipeline (batch mode, uses Ollama)
 python main.py
 
-# OR run through Hermes Agent runtime
+# Hermes Agent native mode (uses NVIDIA/OpenRouter API)
 python hermes_runner.py
 
-# Generate PDF report
+# Generate PDF report from existing outputs
 python generate_pdf_report.py
 
-# Start interactive Telegram bot (separate terminal)
+# Start interactive Telegram bot
 python tools/telegram_bot.py
 ```
 
-### LLM Provider Options
-| Provider | Setup | Speed |
-|---|---|---|
-| Ollama (local) | `LLM_PROVIDER=ollama` + install qwen2.5:7b | No rate limits, ~30 tok/s |
-| OpenRouter | `LLM_PROVIDER=openrouter` + API key | Fast but needs credits |
-| NVIDIA build | `LLM_PROVIDER=nvidia` + API key | Fast |
+---
 
-### Hermes Agent
-Hermes is installed as a Python library (`pip install` from requirements.txt).
-`hermes_runner.py` demonstrates native Hermes AIAgent integration using the
-SKILL.md files as system prompts. `main.py` is the standalone batch pipeline
-that also works without Hermes for simpler testing.
+## Project Structure
 
-## Submission checklist (per the brief)
-- [x] GitHub repo link — https://github.com/Mat-rixMJ/Agent-collector
-- [x] Apify token — provided in submission email
-- [x] Hermes kanban board — cards move through Backlog → In Progress → Review
-- [x] `.md` exports — all outputs in `obsidian_vault/` (Competitors, Ads, Outreach, Content, Strategy)
-- [x] PDF report — `output/marketing_report.pdf` (auto-generated + sent to Telegram)
-- [x] Telegram integration — push notifications + interactive chat bot
+```
+├── main.py                          # Orchestration loop (batch pipeline)
+├── hermes_runner.py                 # Hermes AIAgent native integration
+├── generate_pdf_report.py           # PDF report generator
+├── generate_report.py               # Markdown report generator
+├── Modelfile                        # Ollama 64K context model definition
+│
+├── hermes/
+│   └── config.yaml                  # Hermes runtime configuration
+│
+├── skills/                          # Hermes skills (one per agent)
+│   ├── marketing_manager/
+│   │   ├── SKILL.md                 # Agent instructions (Hermes format)
+│   │   └── scripts/
+│   │       ├── competitor_research.py
+│   │       └── generate_strategy.py
+│   ├── ads_manager/
+│   │   ├── SKILL.md
+│   │   └── scripts/
+│   │       ├── scrape_meta_ads.py
+│   │       ├── extract_ad_concepts.py
+│   │       ├── generate_ad_script.py
+│   │       ├── score_ad_scripts.py
+│   │       └── revise_ad_script.py
+│   ├── influencer_outreach/
+│   │   ├── SKILL.md
+│   │   └── scripts/
+│   │       ├── find_influencers.py
+│   │       └── draft_outreach.py
+│   └── content_repurposer/
+│       ├── SKILL.md
+│       └── scripts/
+│           └── repurpose.py
+│
+├── tools/                           # Shared infrastructure
+│   ├── apify_client.py              # Apify actor wrapper
+│   ├── llm_client.py                # Multi-provider LLM client
+│   ├── kanban.py                    # JSON-backed kanban board
+│   ├── memory.py                    # Persistent agent memory
+│   └── telegram_bot.py             # Telegram gateway + interactive chat
+│
+├── kanban/
+│   └── board.json                   # Live task board
+│
+├── data/                            # Raw scrape outputs
+│   ├── ads/
+│   ├── influencers/
+│   └── memory.json
+│
+├── obsidian_vault/                  # Agent outputs (Markdown knowledge base)
+│   ├── Competitors/
+│   ├── Strategy/
+│   ├── Ads/
+│   ├── Outreach/
+│   ├── Content/
+│   └── HermesOutputs/
+│
+└── output/
+    └── marketing_report.pdf         # Executive report
+```
+
+---
+
+## Pipeline Stages (Detailed)
+
+### Stage 1: Marketing Manager
+
+1. **Competitor Discovery** — LLM suggests 5 competitors based on niche (cached 7 days in memory)
+2. **Web Research** — Apify `rag-web-browser` scrapes each competitor's site, reviews, pricing pages
+3. **LLM Analysis** — Extracts positioning, target audience, pricing model, dominant content channel
+4. **Change Detection** — Compares current analysis hash against previous run; flags shifts
+5. **Synthesis** — LLM identifies 3 exploitable gaps and 3 table-stakes threats
+6. **Strategy Brief** — Generates audience segments, funnel priorities, positioning statements
+
+### Stage 2: Ads Manager
+
+1. **Meta Ads Scrape** — 5 niche keywords × Apify `solidcode/meta-ads-library-scraper`
+2. **Date Filter** — Keeps only ads first seen in last 30 days
+3. **Ranking** — "Still running = working" heuristic (longer active = more profitable)
+4. **Concept Extraction** — LLM extracts pain point, hook, offer mechanism, CTA per ad
+5. **Script Generation** — 3 variants from best concept (fear, aspiration, social proof angles)
+6. **Scoring** — 5-dimension rubric (50 pts total): hook, pain, mechanism, proof, CTA
+7. **Auto-Revision** — Scripts below 40/50 get rewritten based on scorer's specific feedback
+
+### Stage 3: Influencer Outreach
+
+1. **YouTube Search** — 5 trading-related queries via Apify channel scraper
+2. **Data Extraction** — Channel name, URL, recent video titles, view counts
+3. **Deduplication** — Unique channels across all search queries
+4. **Memory Check** — Skip already-drafted influencers
+5. **Dual-Format Drafting** — Email version (120 words) + DM version (60 words) per influencer
+6. **Personalization** — References actual recent video titles when available
+
+### Stage 4: Content Repurposer
+
+1. **Memory Check** — Skip already-processed videos
+2. **Transcript Fetch** — Apify `pintostudio/youtube-transcript-scraper`
+3. **Insight Extraction** — LLM identifies 3-5 most quotable moments per video
+4. **Multi-Platform Generation** — Per insight: X thread (5-7 tweets) + LinkedIn post + video script
+5. **Content Calendar** — LLM generates weekly posting schedule with day/platform/time suggestions
+
+### Final Steps
+
+1. **PDF Report** — Executive summary + all outputs in a professional document
+2. **Memory Log** — Run metadata saved for historical tracking
+3. **Telegram Push** — Detailed status + PDF attachment sent to your chat
+
+---
+
+## Hermes Agent Integration
+
+This project uses Hermes in two ways:
+
+### 1. Skill Format (Native)
+All agents follow the [agentskills.io](https://agentskills.io/specification) open standard:
+- `SKILL.md` files with YAML frontmatter (name, description, version, metadata)
+- Structured sections: When to Use, Procedure, Pitfalls, Verification
+- `requires_toolsets: [terminal]` declares tool dependencies
+- Scripts are bash commands Hermes executes through its terminal tool
+
+### 2. Python Library (AIAgent)
+`hermes_runner.py` uses Hermes as a Python library:
+```python
+from run_agent import AIAgent
+
+agent = AIAgent(
+    model="meta/llama-3.1-8b-instruct",
+    base_url="https://integrate.api.nvidia.com/v1",
+    ephemeral_system_prompt=skill_md_content,
+    disabled_toolsets=["browser"],
+)
+result = agent.run_conversation(user_message=task)
+```
+
+The Hermes runtime reads SKILL.md as its system prompt, executes the procedure steps via terminal, and reports results back.
+
+---
+
+## LLM Rate Limit Strategy
+
+```
+429 received
+    → Read Retry-After header (exact seconds to wait)
+    → Sleep that duration (capped at 60s)
+    → Rotate to next free model in pool
+    → Retry (up to 7 attempts)
+    → If all cloud attempts fail → fall back to local Ollama
+```
+
+Free model rotation pool:
+- `nousresearch/hermes-3-llama-3.1-405b:free`
+- `nvidia/nemotron-3-super-120b-a12b:free`
+- `meta-llama/llama-3.3-70b-instruct:free`
+- `google/gemma-4-31b-it:free`
+- `qwen/qwen3-coder:free`
+
+---
+
+## Telegram Commands
+
+| Command | What it does |
+|---------|-------------|
+| `/status` | Kanban board state + memory stats |
+| `/score` | Ad script scorecard |
+| `/competitors` | Competitive synthesis |
+| `/outreach <handle>` | Generate outreach for a specific creator on-demand |
+| `/changes` | What changed since last run |
+| *Free text* | Ask anything — agent responds using all pipeline data as context |
+
+---
+
+## Requirements Mapping
+
+| Assignment Requirement | Implementation |
+|----------------------|----------------|
+| Python | Entire project |
+| Hermes + Obsidian | `hermes_runner.py` + `skills/*/SKILL.md` + `hermes/config.yaml` + `obsidian_vault/` |
+| OpenRouter or NVIDIA build | `tools/llm_client.py` — both supported, swappable via env var |
+| Apify for data scraping | `tools/apify_client.py` — Meta Ads, YouTube, web research |
+| Marketing Manager Agent | Competitor research + strategy brief + change detection |
+| Ads Manager Agent | Scrape → extract → generate 3 variants → score → auto-revise |
+| Influencer Outreach Agent | Find 70+ channels → draft personalized email + DM |
+| "Your Idea" Agent | Content Repurposer — videos → X threads, LinkedIn, video scripts, calendar |
+| Kanban | `kanban/board.json` — cards move Backlog → In Progress → Review → Done |
+| Loops + Skills | `main.py` orchestration loop + 4 Hermes skills |
+| Telegram | Push notifications + interactive chat bot |
+
+---
+
+## Output Samples
+
+After a full run, the system produces:
+
+- **5+ competitor analysis notes** with positioning, pricing, strategy
+- **1 competitive synthesis** identifying gaps and threats
+- **1 strategy brief** with audience segments and positioning statements
+- **274 raw Meta ads** scraped and filtered
+- **9 ad concepts** with extracted marketing psychology
+- **3+ ad script variants** scored and ranked
+- **70+ influencer dossiers** with channel data
+- **15+ personalized outreach drafts** (email + DM format)
+- **5 repurposed content pieces** (X thread + LinkedIn + video script each)
+- **1 content calendar** with weekly posting schedule
+- **1 PDF executive report**
+- **1 kanban board** tracking all task states
+
+---
+
+## Submission Deliverables
+
+- [x] GitHub repository: https://github.com/Mat-rixMJ/Agent-collector
+- [x] Apify token: provided in submission email
+- [x] Video: screen recording of kanban board + pipeline running
+- [x] .md outputs: `obsidian_vault/` folder (all agent outputs as Markdown)
+- [x] PDF report: `output/marketing_report.pdf`
+
+---
+
+## License
+
+Built for the CrowdWisdomTrading Marketing Agent Intern assessment.

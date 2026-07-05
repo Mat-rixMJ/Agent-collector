@@ -1,9 +1,20 @@
-# Outreach draft — Day Trading Addict
+# Outreach — Day Trading Addict
 
 - Platform: youtube
-- Subscribers: 0
 - URL: https://www.youtube.com/@DayTradingAddict
 - Contact: not public — use platform DM
 
-## Draft message
-Hi there! I came across your recent course on "The Only Day Trading Video You Should Watch..." and was really impressed by the detail you put into explaining everything from beginner to advanced levels. At CrowdWisdomTrading, we're big fans of breaking down complex topics in a straightforward way. Could we get your honest thoughts on our platform? We’d love to learn more about what you think makes for great day trading resources.
+## Email Version
+Subject: Quick Q&A About Your Recent Video!
+
+Hey Alex,
+
+Hope this message finds you well! Just watched your recent video “Once You FINALLY Understand This, You Understand Trading” and loved the insights. At CrowdWisdomTrading, we’re always looking to enhance our content based on what works for traders like you. Would love your honest thoughts on crowdwisdomtrading.com – any tips or areas we can improve?
+
+Thanks so much!
+
+Best,
+[Your Name]
+
+## DM Version
+Hey Day Trading Addict! Just checked out your latest vid. Love the in-depth perspective. What do you think about crowdwisdomtrading.com's approach? 🧐

@@ -1,14 +1,19 @@
-# Outreach draft — The Trading Academy
+# Outreach — The Trading Academy
 
 - Platform: youtube
-- Subscribers: 0
 - URL: https://www.youtube.com/@TheTradingAcademy
 - Contact: not public — use platform DM
 
-## Draft message
-Hi there,
+## Email Version
+Subject Line: Hey There! Quick Question About Your Recent Video
 
-I came across your recent video on copying a 4-hour trading strategy and was impressed by your clear explanation. At CrowdWisdomTrading, we're always looking for insights from the community. Would you be open to sharing your thoughts on our platform? 
+Hi Alex,
 
-Best,  
+Hope you're doing well! Just watched your recent video on copying and pasting a 4-hour trading strategy. I’d love to hear your honest thoughts on crowdwisdomtrading.com. What do you think sets us apart in the swing trading space?
+
+Thanks!
+Best,
 [Your Name]
+
+## DM Version
+Hey @TheTradingAcademy! Love your recent strategy breakdown. What do you think about the crowd insights on CrowdWisdomTrading.com for swing traders like yourself?

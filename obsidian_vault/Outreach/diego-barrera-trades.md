@@ -1,14 +1,20 @@
-# Outreach draft — Diego Barrera Trades
+# Outreach — Diego Barrera Trades
 
 - Platform: youtube
-- Subscribers: 0
 - URL: https://www.youtube.com/@DiegoBarreraTrades
 - Contact: not public — use platform DM
 
-## Draft message
+## Email Version
+Subject Line: Quick Feedback on Your Recent Journey, Diego!
+
 Hi Diego,
 
-I came across your recent video about your journey as a day trader over the past three years. Your honesty really resonated with me! At crowdwisdomtrading.com, we share similar stories and insights from experienced traders like yourself. Would you be open to sharing your thoughts on our site? 
+I just watched your “3 Years Day Trading | How Much Money Have I Made?! (Don’t Quit)” video. It was super inspiring! I’d love to get your honest thoughts on crowdwisdomtrading.com—what you think we’re doing well and areas for improvement. 
+
+Thanks so much!
 
 Best,
 [Your Name]
+
+## DM Version
+Hey Diego! Love your hustle in the videos. How do you think CrowdWisdomTrading aligns with your trading strategy from that recent vid?

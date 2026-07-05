@@ -1,14 +1,18 @@
-# Outreach draft — Money Talk With Rashad
+# Outreach — Money Talk With Rashad
 
 - Platform: youtube
-- Subscribers: 0
 - URL: https://www.youtube.com/@moneytalkrashad
 - Contact: not public — use platform DM
 
-## Draft message
-Hi Rashad,
+## Email Version
+Subject line: Quick Feedback Request | CrowdWisdomTrading
 
-I hope this message finds you well! I watched your recent video on your super easy swing trading strategy and was impressed by the detailed proof. At CrowdWisdomTrading, we share similar interests in making trading accessible. Would you be open to giving us a quick, honest opinion on our platform? No strings attached.
+Hey Rashad,
 
-Best,
+Hope this email finds you well! I recently watched your video on your super easy swing trading strategy and was curious—what did you think of how crowdwisdomtrading.com presents similar ideas? Any honest feedback would be super helpful!
+
+Thanks so much,
 [Your Name]
+
+## DM Version
+Hey Rashad! Love your swing trading strategy video. Thoughts on crowdwisdomtrading.com? Any insights to share? 🧐

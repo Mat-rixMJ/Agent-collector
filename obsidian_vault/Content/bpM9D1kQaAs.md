@@ -3,56 +3,58 @@
 Source: https://www.youtube.com/watch?v=bpM9D1kQaAs
 
 ## Extracted insights
-1. **The video discusses how creating an AI employee can automate end-to-end workflows for businesses**, emphasizing that starting with a single use case is simpler and helps focus on specific tasks before scaling.
-2. **The video argues that having 10 AI employees can provide significant business leverage, comparable to talent or code**, highlighting the potential of AI in automating repetitive tasks and generating revenue.
-3. **The video explains the process of setting up an AI employee with tools like Agent Mail for email management and Hermes as a harness for the AI model**, detailing how these components work together to automate customer re-engagement sequences.
-4. **The video discusses the affordability and reliability of GLM 5.2, an open-source AI model, compared to other commercial options**, noting its cost-effectiveness and performance in various use cases.
+1. **The video discusses/argues that creating an AI employee is straightforward and can significantly boost business operations.**  
+   (Nick demonstrates how to build a fully functional AI that can handle end-to-end workflows and communicate like a regular team member.)
+
+2. **The video discusses/argues the importance of starting with a single use case for building an AI employee before scaling up.**  
+   (Nick recommends initiating with a specific workflow, then gradually expanding the AI’s responsibilities as it proves its value.)
+
+3. **The video discusses/argues that GLM 5.2 is a highly affordable and effective model suitable for businesses of all sizes to leverage AI automation.**  
+   (Nick highlights GLM 5.2 as an open-source, cost-effective, and powerful model that can be easily integrated into business operations.)
+
+4. **The video discusses/argues the benefits of using Hermes for AI automation, noting its reliability and purpose-built design for scaling applications.**  
+   (Nick emphasizes Hermes as a reliable alternative to OpenClaw with features tailored specifically for handling large-scale agent tasks.)
 
 ## Repurposed assets
 ### Twitter Thread
 
-1. **Tweet 1:**
-   🤖 Are you ready to revolutionize your business with AI? Start small by automating a single task! #AIemployee #BusinessAutomation [Add an image of a simple workflow]
+1. 🚀 **Hook Tweet:** Building your dream team just got easier! Introducing AI employees that can handle end-to-end workflows and communicate like real team members. #AIinBusiness #FutureOfWork
 
-2. **Tweet 2:**
-   💡 Creating just one AI employee can streamline your operations and increase efficiency. Focus on a specific use case first, then scale up. #TechTrends [Use an infographic showing the process from initial setup to scaling]
+2. 💡 **Tweet 2:** Start by identifying a single use case—maybe customer service chatbots or data entry—to see how an AI can seamlessly integrate into your operations. #SmallStepsLeadToBigChanges
 
-3. **Tweet 3:**
-   📊 With 10 AI employees, you could unlock substantial business leverage—think of them as your virtual workforce! #AIWorkforce [Include a chart comparing productivity before and after implementing AI]
+3. 📊 **Tweet 3:** GLM 5.2 is the affordable hero you need! This open-source model offers powerful AI automation without breaking the bank, perfect for businesses of all sizes. #AffordableAI #GLM5_2
 
-4. **Tweet 4:**
-   🏃‍♂️ Automate repetitive tasks and boost customer engagement with tools like Agent Mail & Hermes. Get more done, faster! #AutomationTools [Show screenshots of these tools in action]
+4. 👩‍💻 **Tweet 4:** Ease into AI with Hermes, a purpose-built solution designed for reliability and scaling in applications. Say goodbye to OpenClaw's limitations! #ReliableAI #HermesSolutions
 
-5. **Tweet 5:**
-   💰 GLM 5.2 is a cost-effective solution that delivers reliable results across various use cases—affordable AI for your business needs! #AffordableAI [Add a comparison chart between GLM 5.2 and other commercial models]
+5. 🎯 **Tweet 5:** Scaling your business? Add an AI employee that handles complex tasks and frees up human resources for strategic initiatives. Time to level up! #ScaleWithAI #FutureOfWork
 
 ---
 
 ### LinkedIn Post
 
-As businesses seek to enhance their operational efficiency, the integration of artificial intelligence (AI) has become an indispensable tool. In today's video, we explore how creating a single AI employee can revolutionize your business by automating end-to-end workflows.
+Starting a journey with Artificial Intelligence (AI) can be daunting, but the key is to begin with a single use case. As demonstrated in our video, businesses can significantly boost their operations by integrating AI employees that handle end-to-end workflows and communicate like regular team members.
 
-Starting with one use case is not only simpler but also provides a solid foundation. By focusing on specific tasks, you can gradually scale up and leverage the full potential of AI. For instance, an AI-powered email management system like Agent Mail paired with Hermes as a harness for the AI model can significantly streamline customer re-engagement sequences.
+GLM 5.2 stands out as an affordable and powerful option for businesses looking to leverage AI automation without breaking the budget. This open-source model is ideal for those seeking reliable and cost-effective solutions.
 
-Moreover, the affordability and reliability of GLM 5.2 make it an attractive option compared to other commercial solutions. This open-source AI model offers cost-effective yet robust performance in various use cases, providing businesses with a powerful tool at a fraction of the cost.
+Another reliable alternative, Hermes, offers a purpose-built design specifically tailored for handling large-scale agent tasks. It complements GLM 5.2 by providing a robust solution that scales with your business needs.
 
-In conclusion, whether you're looking to automate repetitive tasks or generate significant business leverage through virtual employees, adopting AI can transform your operations for the better. Consider integrating an AI employee today and witness the impact firsthand!
+By starting small and scaling strategically, you can effectively integrate AI into your operations, improving efficiency and driving growth. Whether it's through GLM 5.2 or Hermes, the path to an AI-powered future is clear and promising.
 
-#AIemployee #BusinessAutomation #GLM5_2 [Include images of workflows and tools]
+#AIinBusiness #AffordableAI #GLM5_2
 
 ---
 
 ### Short-Form Video Script
 
-**Hook:**
-Welcome to our video! Are you tired of repetitive tasks holding back your business? Let's explore how creating a single AI employee can revolutionize your operations.
+**HOOK:** 
+[Visual: A bustling office with employees working on computers]
 
-**Body:**
-Imagine automating just one task, like customer re-engagement emails. With tools like Agent Mail and Hermes, you can set up an AI employee that works 24/7 to ensure no email goes unanswered. This not only saves time but also increases efficiency across the board.
+**BODY:** 
+[Voiceover] "Imagine adding a new team member that handles tasks 24/7 without breaks. That's the power of AI employees."
 
-Moving on, we see a dashboard showing how GLM 5.2 performs in various use cases. Its affordability and reliability make it a game-changer for businesses looking to scale up without breaking the bank.
+[Visual: Nick demonstrating how to build an AI employee using GLM 5.2 and Hermes]
 
-**Call-to-Action:**
-Ready to start your journey with AI? Contact us today to set up your first AI employee and witness the transformation! #AIemployee [Show a visual cue of contacting support or visiting a website]
+**CTA:**  
+[Text on screen] "Start small with a single use case, then scale up for bigger impact. Learn more in our next video!"
 
-[End with a logo and social media handles]
+[Visual: A call-to-action button with the text "Watch Now"]

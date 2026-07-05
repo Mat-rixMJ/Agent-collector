@@ -1,14 +1,20 @@
-# Outreach draft — Lander Schlessinger
+# Outreach — Lander Schlessinger
 
 - Platform: youtube
-- Subscribers: 0
 - URL: https://www.youtube.com/@LanderSchlessinger
 - Contact: not public — use platform DM
 
-## Draft message
-Hi Lander,
+## Email Version
+Subject Line: Feedback Requested on Our Website, Lander!
 
-I watched your recent video on turning $10 into a supercar through day trading. Your passion for the markets is inspiring! At CrowdWisdomTrading, we share similar interests. Could I get your honest thoughts on our site and approach? 
+Hey Lander,
 
-Thanks,
+I loved your recent video where you turned $10 into a supercar! We noticed and wondered if our website, crowdwisdomtrading.com, resonated with your audience. Any honest thoughts would be super helpful!
+
+Thanks for creating such engaging content!
+
+Best,
 [Your Name]
+
+## DM Version
+Hey Lander! Loved your recent video. What do you think about the crowdwisdomtrading.com strategy in relation to your supercar challenge?

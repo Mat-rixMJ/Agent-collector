@@ -1,14 +1,20 @@
-# Outreach draft — Trade with Pat
+# Outreach — Trade with Pat
 
 - Platform: youtube
-- Subscribers: 0
 - URL: https://www.youtube.com/@TradewithPat
 - Contact: not public — use platform DM
 
-## Draft message
+## Email Version
+Subject Line: Hey Pat! Quick Question About Your Forex Video
+
 Hi Pat,
 
-I hope you’re enjoying your journey into the world of forex trading! I watched your recent course and was impressed by how clearly you explained the basics. At crowdwisdomtrading.com, we strive to provide valuable insights for beginners like yourself. Would love your honest thoughts on our content!
+Hope you’re doing well! I watched your recent “Forex Trading For Beginners” video and found it super helpful. Just wanted to get your honest opinion on crowdwisdomtrading.com—does it align with what you share for beginners? 
+
+Thanks a lot!
 
 Best,
 [Your Name]
+
+## DM Version
+Hey Pat! Just watched your forex intro vid—it was super helpful. What do you think about the crowd wisdom trading platform? Does it align with what you're teaching in your content? 🤔

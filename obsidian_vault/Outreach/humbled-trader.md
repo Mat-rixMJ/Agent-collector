@@ -1,14 +1,20 @@
-# Outreach draft — Humbled Trader
+# Outreach — Humbled Trader
 
 - Platform: youtube
-- Subscribers: 0
 - URL: https://www.youtube.com/@HumbledTraderOfficial
 - Contact: not public — use platform DM
 
-## Draft message
+## Email Version
+Subject Line: 🌟 Feedback Requested | Swing Trading Enthusiast Here!
+
 Hey Humbled Trader,
 
-I noticed you recently released the "Ultimate Guide to Swing Trading for Beginners 2026." Your insights are always so valuable! I was wondering if you have a moment to honestly share your thoughts on crowdwisdomtrading.com. It would really help our community grow.
+Just watched your recent "Ultimate Guide to Swing Trading for Beginners 2026" and loved how you covered the nitty-gritties of swing trading. I’d be super grateful if you could spare a minute to check out crowdwisdomtrading.com and share any thoughts or feedback you have.
 
-Best,  
+Thanks so much!
+
+Best,
 [Your Name]
+
+## DM Version
+Hey Humbled Trader! Just checking in after watching your swing trading guide. What do you think about integrating crowdwisdomtrading.com insights into it? 🧐
