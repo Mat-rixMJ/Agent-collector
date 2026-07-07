@@ -62,10 +62,16 @@ def main() -> None:
         if not card:
             continue
         kanban.move(card["id"], "In Progress")
+        print(f"\n[KANBAN] '{card['title']}' → In Progress")
         ok = run_skill(skill)
-        kanban.move(card["id"], "Review" if ok else "Blocked")
+        new_status = "Review" if ok else "Blocked"
+        kanban.move(card["id"], new_status)
+        print(f"[KANBAN] '{card['title']}' → {new_status}")
 
-    print("\n" + kanban.snapshot())
+    print("\n" + "="*50)
+    print("KANBAN BOARD FINAL STATE:")
+    print("="*50)
+    print(kanban.snapshot())
     memory.log_run(kanban.snapshot())
 
     # Generate PDF report
