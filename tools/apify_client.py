@@ -30,7 +30,6 @@ def run_actor(actor_id: str, run_input: dict[str, Any], timeout_secs: int = 300)
     run = client.actor(actor_id).call(
         run_input=run_input,
         run_timeout=timedelta(seconds=timeout_secs),
-        log_level="WARNING",
     )
     if not run:
         return []
