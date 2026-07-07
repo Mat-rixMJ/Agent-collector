@@ -33,21 +33,31 @@ PIPELINE = {
 
 def run_module(module_path: str) -> bool:
     import importlib
+    import io
+    import sys
 
+    # Suppress verbose Apify log streaming — capture stdout noise
+    old_stderr = sys.stderr
+    sys.stderr = io.StringIO()
     try:
         mod = importlib.import_module(module_path)
         mod.main()
         return True
     except Exception as e:
-        print(f"[FAILED] {module_path}: {e}")
+        print(f"    ✗ Failed: {e}")
         return False
+    finally:
+        sys.stderr = old_stderr
 
 
 def run_skill(skill: str) -> bool:
     ok = True
-    for module_path, label in PIPELINE[skill]:
-        print(f"\n=== {skill} :: {label} ===")
-        ok = run_module(module_path) and ok
+    total = len(PIPELINE[skill])
+    for i, (module_path, label) in enumerate(PIPELINE[skill], 1):
+        print(f"  [{i}/{total}] {label}...", end=" ", flush=True)
+        result = run_module(module_path)
+        print("✓" if result else "✗")
+        ok = ok and result
     return ok
 
 
@@ -108,20 +118,32 @@ def main() -> None:
     if not Path(kanban.BOARD_PATH).exists():
         kanban.seed_default_board()
 
-    for skill in PIPELINE:
+    print()
+    print("─" * 50)
+    print("PIPELINE RUNNING")
+    print("─" * 50)
+
+    skills_list = list(PIPELINE.keys())
+    for idx, skill in enumerate(skills_list, 1):
         card = kanban.next_card_for(skill)
         if not card:
             continue
+
+        print(f"\n┌─ Agent {idx}/{len(skills_list)}: {skill.replace('_', ' ').title()}")
+        print(f"│  Card: {card['title']}")
         kanban.move(card["id"], "In Progress")
-        print(f"\n[KANBAN] '{card['title']}' → In Progress")
+        print(f"│  Status: Backlog → In Progress")
+
         ok = run_skill(skill)
+
         new_status = "Review" if ok else "Blocked"
         kanban.move(card["id"], new_status)
-        print(f"[KANBAN] '{card['title']}' → {new_status}")
+        print(f"└─ Status: In Progress → {new_status} {'✓' if ok else '✗'}")
 
-    print("\n" + "="*50)
-    print("KANBAN BOARD FINAL STATE:")
-    print("="*50)
+    print()
+    print("═" * 50)
+    print("KANBAN BOARD — FINAL STATE")
+    print("═" * 50)
     print(kanban.snapshot())
     memory.log_run(kanban.snapshot())
 

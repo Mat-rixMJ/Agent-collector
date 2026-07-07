@@ -23,10 +23,14 @@ def _client() -> ApifyClient:
 
 def run_actor(actor_id: str, run_input: dict[str, Any], timeout_secs: int = 300) -> list[dict]:
     """Runs an Apify actor to completion and returns its dataset items as a list of dicts."""
+    import logging
+    logging.getLogger("apify_client").setLevel(logging.WARNING)
+
     client = _client()
     run = client.actor(actor_id).call(
         run_input=run_input,
         run_timeout=timedelta(seconds=timeout_secs),
+        log_level="WARNING",
     )
     if not run:
         return []
