@@ -1,6 +1,16 @@
 # CrowdWisdomTrading Marketing Agents
 
-A production-grade multi-agent marketing automation system built on **Hermes Agent** (Nous Research) with **Obsidian** as the knowledge layer. Four specialized AI agents collaborate through a kanban-driven orchestration loop to execute the full marketing pipeline for [crowdwisdomtrading.com](https://crowdwisdomtrading.com).
+> **4 AI agents that automate the full marketing pipeline** — from competitor research to ad creation to influencer outreach to content distribution. Built on Hermes Agent + Obsidian + Apify. Runs end-to-end with one command.
+
+### What it produces in a single run:
+- 5 competitor intelligence briefs with positioning gaps identified
+- 274 Meta ads analyzed, 3 original ad scripts generated and scored
+- 70+ influencer channels discovered, 15 personalized outreach drafts written
+- 5 YouTube videos repurposed into Twitter threads, LinkedIn posts, and video scripts
+- 1 executive PDF report delivered to Telegram
+
+### Built with:
+`Python` · `Hermes Agent (Nous Research)` · `Apify` · `Ollama / NVIDIA / OpenRouter` · `Telegram` · `Obsidian Vault`
 
 ---
 
