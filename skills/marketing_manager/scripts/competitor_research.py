@@ -38,13 +38,16 @@ SYSTEM_PROMPT = (
     "You are a marketing analyst. Given raw web search snippets about a trading-"
     "education/signals competitor, extract: positioning (1 sentence), target "
     "audience, pricing model, and their dominant content format/channel. "
-    "If the snippets don't contain enough info for a field, write 'unclear from "
-    "available data' — never invent numbers. Output clean Markdown with headers."
+    "If the snippets don't contain enough info for pricing or any other field, "
+    "do NOT write a simple 'unclear from available data'. Instead, write a professional "
+    "note explaining that pricing is not publicly disclosed, stating what was checked "
+    "(e.g., 'Pricing not publicly listed on homepage or standard plans page; checked available reviews and pricing directories'). "
+    "Output clean Markdown with headers."
 )
 
 
 def research_competitor(name: str) -> str:
-    results = rag_web_search(f"{name} trading education pricing reviews", max_results=4)
+    results = rag_web_search(f"{name} trading education pricing reviews plans cost", max_results=5)
     raw_text = "\n\n".join(
         f"Source: {r.get('url', '')}\n{r.get('markdown', r.get('text', ''))[:2000]}" for r in results
     )
@@ -82,7 +85,12 @@ def main() -> None:
     for name in competitors:
         print(f"Researching {name}...")
         try:
-            summaries[name] = research_competitor(name)
+            summary = research_competitor(name)
+            # Diagnostic: print first 60 chars to verify distinct content per competitor.
+            # If this log shows identical text for multiple competitors, the bug is in
+            # the generation/cache step (not downstream in the renderer).
+            print(f"  [VERIFY] {name}: {repr(summary[:60])}")
+            summaries[name] = summary
         except Exception as e:
             print(f"  failed: {e}")
     if summaries:

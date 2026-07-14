@@ -2,3 +2,10 @@
 __pycache__/
 *.pyc
 .env
+obsidian_vault/
+output/
+kanban/board.json
+data/ads/ad_concepts.json
+data/ads/meta_ads_shortlist.json
+data/influencers/discovered_videos.json
+data/memory.json

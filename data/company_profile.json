@@ -1,0 +1,31 @@
+{
+  "company_name": "CrowdWisdomTrading",
+  "verified_claims": {
+    "product_offering": "Provides real-time retail trading alerts, daily pre-market analysis, and market commentary.",
+    "pricing": "$49 per month for premium access.",
+    "key_benefits": [
+      "Real-time trading alerts delivered directly via Telegram",
+      "Daily pre-market charts and technical commentary",
+      "Access to an interactive Discord community of retail day and swing traders"
+    ],
+    "prohibited_claims": [
+      "DO NOT claim the analyst team has a 'sell-side background' or worked at major investment banks.",
+      "DO NOT claim a 'transparent track record' or quote audited success percentages unless supported by specific historical sheets.",
+      "DO NOT promise guaranteed profits, specific returns, or risk-free trading."
+    ]
+  },
+  "positioning_guidelines": "Focus on empowerment, retail-level community support, clear technical chart patterns, and actionable daily ideas. Ground all ad script copy in real, verified features only. Use aspirational trading imagery and disclaimers instead of making unverified team/performance claims.",
+  "hard_blocked_patterns": [
+    "Trader \\d+[:\\-]",
+    "I passed my",
+    "\\d{1,3},\\d{3}\\+\\s*(members|traders|subscribers|users)",
+    "in (?:just\\s*)?\\d+\\s*weeks",
+    "win rate",
+    "% success",
+    "\\d+% of our members",
+    "guaranteed",
+    "risk-?free",
+    "100%"
+  ],
+  "_blocked_patterns_note": "These regex patterns are checked post-generation in generate_ad_script.py. Any script matching one of these patterns is blocked from being written to disk or included in the report. Named customer quotes (Trader 1:, Trader 2:), specific unverified member counts, and performance claims fall under FTC endorsement/testimonial guidelines and financial-services marketing regulations."
+}
