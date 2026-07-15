@@ -1,20 +1,29 @@
 # Investors Underground
 
-# Positioning
-Investors Underground positions itself as one of the top day trading communities and resources, offering membership access to a variety of educational tools and chat room interactions.
 
-# Target Audience
-The target audience is primarily individual traders interested in day trading, particularly those seeking community support, mentorship, and comprehensive training programs.
+> ⚠️ **CHANGE DETECTED** — this competitor's positioning has shifted since our last analysis.
 
-# Pricing Model
-- Monthly: $297 per month
-- Quarterly: $697 (45% discount off annual)
-- Annual: $1897 (74% discount off three quarterly payments)
+# Competitor Analysis: Investors Underground
 
-Additional education bundle courses are available for recurring monthly payments starting at $1497, which includes access to over 20 hours of educational content.
+## Positioning
+Investors Underground is positioned as a comprehensive trading education platform offering various courses, membership options, and tools to help traders improve their skills and performance.
 
-# Dominant Content Format/Channel
-The dominant content format is video lessons; Investors Underground offers a significant number of video lessons as part of their membership. The platform also features blog reviews and articles from various contributors like WallStreetZen and TradingReviewers.
+## Target Audience
+The target audience includes both beginner and experienced traders interested in mastering day trading strategies, utilizing video lessons, and participating in a supportive community through chat rooms.
+
+## Pricing Model
+Investors Underground offers multiple pricing plans for its memberships and educational courses:
+- **Monthly Membership:** $297 per month.
+- **Quarterly Membership:** $697 per quarter (48% discount).
+- **Annual Membership:** $1,897 per year (44% discount).
+- **Education + Monthly Membership Bundle:** Recurs at $297 per month with an initial cost of $1,497.
+
+Pricing is publicly disclosed on the website and includes various features such as access to chat rooms, scanners, tools, pre-market broadcasts, trade recaps, watch lists, trader's lounge chat room, weekly study sessions, and over 1000 video lessons.
+
+## Dominant Content Format/Channel
+The dominant content format is video courses. Investors Underground offers a wide range of educational videos covering various trading strategies and methods, with the option for users to access these through their monthly or bundle membership plans.
+
+Additionally, there are blog posts and articles available on the platform's website, providing further resources and insights into day trading and other related topics.
 
 ---
-*Sources: 4 pages via apify/rag-web-browser*
+*Sources: 5 pages via apify/rag-web-browser*

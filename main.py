@@ -5,6 +5,14 @@ the actual model-invoked reasoning inside each stage; this script is what you'd
 run standalone to test the pipeline end-to-end without Hermes in the loop, and
 mirrors what Hermes' kanban tool does under the hood.
 """
+import sys
+# Force UTF-8 encoding for stdout and stderr on Windows
+try:
+    sys.stdout.reconfigure(encoding='utf-8')
+    sys.stderr.reconfigure(encoding='utf-8')
+except AttributeError:
+    pass
+
 from tools import kanban, telegram_bot
 from tools import memory
 
@@ -44,7 +52,7 @@ def run_module(module_path: str) -> bool:
         mod.main()
         return True
     except Exception as e:
-        print(f"    ✗ Failed: {e}")
+        print(f"    [FAIL] Failed: {e}")
         return False
     finally:
         sys.stderr = old_stderr
@@ -56,7 +64,7 @@ def run_skill(skill: str) -> bool:
     for i, (module_path, label) in enumerate(PIPELINE[skill], 1):
         print(f"  [{i}/{total}] {label}...", end=" ", flush=True)
         result = run_module(module_path)
-        print("✓" if result else "✗")
+        print("OK" if result else "FAIL")
         ok = ok and result
     return ok
 
@@ -69,10 +77,9 @@ def fresh_start() -> None:
     paths_to_remove = [
         "kanban/board.json",
         "data/memory.json",
-        "data/ads/meta_ads_raw.json",
         "data/ads/meta_ads_shortlist.json",
         "data/ads/ad_concepts.json",
-        "data/influencers/influencers.json",
+        "data/influencers/discovered_videos.json",
     ]
     dirs_to_remove = ["obsidian_vault", "output"]
 
@@ -103,7 +110,12 @@ def main() -> None:
     print("  2. Incremental (use memory, skip already-processed items)")
     print()
 
-    if "--fresh" in sys.argv:
+    if "--demo" in sys.argv:
+        import os
+        os.environ["DEMO_MODE"] = "true"
+        print("[DEMO MODE ENABLED] Running with mock API integrations and deterministic responses.")
+        choice = "1"
+    elif "--fresh" in sys.argv:
         choice = "1"
     elif "--incremental" in sys.argv:
         choice = "2"
@@ -119,9 +131,9 @@ def main() -> None:
         kanban.seed_default_board()
 
     print()
-    print("─" * 50)
+    print("-" * 50)
     print("PIPELINE RUNNING")
-    print("─" * 50)
+    print("-" * 50)
 
     skills_list = list(PIPELINE.keys())
     for idx, skill in enumerate(skills_list, 1):
@@ -129,21 +141,21 @@ def main() -> None:
         if not card:
             continue
 
-        print(f"\n┌─ Agent {idx}/{len(skills_list)}: {skill.replace('_', ' ').title()}")
-        print(f"│  Card: {card['title']}")
+        print(f"\n+-- Agent {idx}/{len(skills_list)}: {skill.replace('_', ' ').title()}")
+        print(f"|  Card: {card['title']}")
         kanban.move(card["id"], "In Progress")
-        print(f"│  Status: Backlog → In Progress")
+        print(f"|  Status: Backlog -> In Progress")
 
         ok = run_skill(skill)
 
         new_status = "Review" if ok else "Blocked"
         kanban.move(card["id"], new_status)
-        print(f"└─ Status: In Progress → {new_status} {'✓' if ok else '✗'}")
+        print(f"+-- Status: In Progress -> {new_status} {'[OK]' if ok else '[FAIL]'}")
 
     print()
-    print("═" * 50)
+    print("=" * 50)
     print("KANBAN BOARD — FINAL STATE")
-    print("═" * 50)
+    print("=" * 50)
     print(kanban.snapshot())
     memory.log_run(kanban.snapshot())
 

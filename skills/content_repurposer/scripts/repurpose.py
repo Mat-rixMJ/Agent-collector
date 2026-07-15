@@ -16,13 +16,13 @@ from tools import memory
 VAULT = Path(os.getenv("OBSIDIAN_VAULT_PATH", "./obsidian_vault")) / "Content"
 VAULT.mkdir(parents=True, exist_ok=True)
 
-# The 6 URLs listed under "Data Sources" in the brief (deduped).
-DATA_SOURCE_URLS = [
-    "https://www.youtube.com/watch?v=JFMxDgmW8cw",
-    "https://www.youtube.com/watch?v=8nFTkjPk80k",
-    "https://www.youtube.com/watch?v=bpM9D1kQaAs",
-    "https://www.youtube.com/watch?v=g-qW8fQimyg",
-    "https://www.youtube.com/watch?v=vqFUuLO06qc",
+# Curated default list of highly relevant retail-trading videos (used as fallback)
+DEFAULT_TRADING_VIDEOS = [
+    "https://www.youtube.com/watch?v=s532t5dF87o", # How to Start Day Trading
+    "https://www.youtube.com/watch?v=4H-UjI4GsnM", # Retail Trading Psychology
+    "https://www.youtube.com/watch?v=gM9zGsz-Dbg", # Forex Trading Course
+    "https://www.youtube.com/watch?v=p4CoC5S9fG0", # Swing Trading Strategies
+    "https://www.youtube.com/watch?v=F3QpgX5428s", # Prop Firm Trading Tips
 ]
 
 EXTRACT_PROMPT = (
@@ -112,8 +112,29 @@ def generate_calendar() -> None:
 
 
 def main() -> None:
+    import json
+    urls = []
+    
+    # Try loading discovered video URLs first
+    discovered_path = Path("data/influencers/discovered_videos.json")
+    if discovered_path.exists():
+        try:
+            discovered = json.loads(discovered_path.read_text(encoding="utf-8"))
+            if discovered:
+                urls = [u for u in discovered if "watch?v=" in u]
+                print(f"Loaded {len(urls)} discovered video URLs for repurposing.")
+        except Exception as e:
+            print(f"Failed to load discovered videos: {e}")
+            
+    if not urls:
+        urls = DEFAULT_TRADING_VIDEOS
+        print("Using curated fallback retail-trading videos for repurposing.")
+        
+    # Deduplicate and limit to 5
+    urls = list(dict.fromkeys(urls))[:5]
+
     processed_count = 0
-    for url in DATA_SOURCE_URLS:
+    for url in urls:
         try:
             if process(url):
                 processed_count += 1

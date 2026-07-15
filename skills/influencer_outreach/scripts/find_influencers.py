@@ -37,25 +37,51 @@ def normalize(channel: dict) -> dict:
 
 def main() -> None:
     all_channels = []
+    video_urls = []
     for query in SEARCH_QUERIES:
         print(f"Searching YouTube channels: {query!r}")
         try:
             results = find_youtube_channels(query, min_subs=MIN_SUBS, max_results=20)
-            all_channels.extend(normalize(c) for c in results)
+            for r in results:
+                # Capture video URL if present in the raw result
+                v_url = r.get("url") or r.get("videoUrl")
+                if v_url and "watch?v=" in v_url and v_url not in video_urls:
+                    video_urls.append(v_url)
+                all_channels.append(normalize(r))
         except Exception as e:
             print(f"  failed for {query!r}: {e}")
 
-    # de-dupe by channel handle — the search scraper doesn't return sub counts,
-    # so we keep all unique channels and note the limitation.
-    # ponytail: sub-count filtering would need a separate channel-detail actor call
-    seen = {}
-    for c in all_channels:
-        if c["handle"]:
-            seen[c["handle"]] = c
+    # Fallback to cache if no channels were retrieved (e.g. Apify failed)
+    if not all_channels:
+        if OUT_PATH.exists():
+            print(f"Apify channel search returned 0 results. Falling back to cached influencers from {OUT_PATH}")
+            try:
+                influencers = json.loads(OUT_PATH.read_text(encoding="utf-8"))
+                # Write back or just print
+                print(f"Loaded {len(influencers)} cached influencers.")
+            except Exception as e:
+                print(f"  failed to load cached influencers: {e}")
+                influencers = []
+        else:
+            influencers = []
+    else:
+        # de-dupe by channel handle
+        seen = {}
+        for c in all_channels:
+            if c["handle"]:
+                seen[c["handle"]] = c
+        influencers = list(seen.values())
+        OUT_PATH.write_text(json.dumps(influencers, indent=2), encoding="utf-8")
 
-    influencers = list(seen.values())
-    OUT_PATH.write_text(json.dumps(influencers, indent=2))
-    print(f"Found {len(influencers)} unique channels -> {OUT_PATH}")
+    # Save discovered video URLs to a dedicated JSON file for Content Repurposer
+    video_out = OUT_PATH.parent / "discovered_videos.json"
+    if video_urls:
+        video_out.write_text(json.dumps(video_urls, indent=2), encoding="utf-8")
+        print(f"Saved {len(video_urls)} discovered video URLs -> {video_out}")
+    else:
+        print("No new video URLs scraped. Keeping existing discovered_videos.json if present.")
+
+    print(f"Total influencers: {len(influencers)} -> {OUT_PATH}")
 
 
 if __name__ == "__main__":

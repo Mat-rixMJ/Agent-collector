@@ -18,12 +18,10 @@
   "hard_blocked_patterns": [
     "Trader \\d+[:\\-]",
     "I passed my",
-    "\\d{1,3},\\d{3}\\+\\s*(members|traders|subscribers|users)",
+    "\\d{1,3},\\d{3}(?:\\+)?\\s*(members|traders|subscribers|users)",
     "in (?:just\\s*)?\\d+\\s*weeks",
     "win rate",
-    "% success",
-    "\\d+% of our members",
-    "guaranteed",
+    "\\d+%",
     "risk-?free",
     "100%"
   ],

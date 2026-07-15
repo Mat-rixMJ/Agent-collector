@@ -205,120 +205,27 @@ def get_demo_response(messages: list[dict]) -> str:
     sys_prompt = messages[0]["content"] if len(messages) > 1 and messages[0]["role"] == "system" else ""
     combined = (sys_prompt + "\n" + prompt).lower()
 
-    if "warrior trading" in combined:
-        return """### Warrior Trading
-- **Overview:** Warrior Trading is a massive trading-education platform led by Ross Cameron. It focuses heavily on momentum day trading, small cap stocks, and high-frequency execution.
-- **Pricing Model:** High pricing tier. Mentoring & simulator bundles cost $997 to $4,297 per year depending on the tier.
-- **Pros:** Extremely detailed technical courses, live trading room, robust proprietary simulator.
-- **Cons:** Very expensive, high-pressure marketing, strategy requires high risk tolerance and rapid execution."""
-    elif "bullish bears" in combined:
-        return """### Bullish Bears
-- **Overview:** Bullish Bears offers low-cost trading courses, trade rooms, and Discord chat alerts for retail traders.
-- **Pricing Model:** Low pricing tier. Subscription is $47/mo or $397/yr.
-- **Pros:** Very affordable, supportive community environment, covers many trading styles (options, swings, day).
-- **Cons:** Less advanced proprietary tools, strategies are broad and less specialized."""
-    elif "the trading channel" in combined:
-        return """### The Trading Channel
-- **Overview:** Run by Steven Hart, focusing on retail forex and swing trading education.
-- **Pricing Model:** Medium pricing tier, courses start at $297.
-- **Pros:** High-quality free content on YouTube, solid foundation in technical analysis.
-- **Cons:** Upsells to expensive course materials, focus is primarily on indicators."""
-    elif "investors underground" in combined:
-        return """### Investors Underground
-- **Overview:** One of the oldest chatrooms, focusing on day trading momentum and swings.
-- **Pricing Model:** High monthly cost ($297/mo or $1,897/yr).
-- **Pros:** High-quality webinar archives, seasoned moderators, focus on trading fundamentals.
-- **Cons:** Chat can be overwhelming for beginners, high price barrier."""
-    elif "fundednext" in combined:
-        return """### FundedNext
-- **Overview:** A leading prop firm that offers evaluation accounts for traders seeking funded capital.
-- **Pricing Model:** Medium pricing tier, evaluation fees starting around $99 for $6k accounts up to $1k+ for larger accounts.
-- **Pros:** Profit share during assessment, realistic drawdown rules, 24/7 support.
-- **Cons:** Strict drawdown rules can be hard to pass, profit targets require high performance."""
-    elif "synthesis" in combined or "synthesize" in combined:
-        return """# Competitive Strategy & Gap Analysis
+    # Branch order matters: narrow/specific matches FIRST, broad competitor-name
+    # matches LAST.  Competitor names appear inside prompts for synthesis,
+    # outreach (e.g. Ross Cameron → "Warrior Trading"), and the executive
+    # summary, so they must not shadow the real intent of those calls.
 
-## Market Gaps
-1. **Affordable Entry-Level Subscriptions:** Competitors charge high annual fees ($997+) or expensive monthly rates ($297+). There is a massive gap for a low-cost, high-value monthly option at $49/mo.
-2. **Community-First Learning:** Many platforms are centered around a single guru. Building a decentralized, peer-to-peer sharing community offers a unique value proposition.
-3. **Unbiased Strategy Reviews:** Competitors promote their own indicator systems. CrowdWisdomTrading can stand out by providing transparent, crowd-sourced trading alerts."""
-    elif "strategy brief" in combined or "brand profile" in combined:
-        return """# Marketing Strategy Brief: CrowdWisdomTrading
-
-## 1. Brand Positioning
-CrowdWisdomTrading (CWT) is the ultimate community-driven retail trading hub. We offer real-time trading alerts, daily pre-market analysis, and educational resources for just $49/mo, contrasting sharply with high-cost competitor plans.
-
-## 2. Target Audience
-Retail traders, forex enthusiasts, and prop firm evaluators looking for a collaborative, high-accuracy signaling community without paying thousands of dollars in upfront fees.
-
-## 3. Compliance Notice
-All marketing materials must state: *Trading contains substantial risk. Past performance is not indicative of future results. CrowdWisdomTrading is not a registered broker-dealer or financial advisor.*"""
-    elif "classification filter" in combined or "yes or no" in combined or "coherence" in combined or "coherent" in combined:
+    # --- 1. Boolean / classification (most specific, no false-positive risk) ---
+    if "classification filter" in combined or "yes or no" in combined or "coherence" in combined or "coherent" in combined:
         return "yes"
-    elif "extract" in combined or "json" in combined:
-        # A.2 fix: guarantee all 20 extracted ad concepts are distinct.
-        # md5(prompt[:120]) collapsed because all 20 cached demo ads share the same
-        # system prompt prefix, giving every call the same hash and thus the same concept.
-        # A monotonic counter is the right approach in demo mode — ads are fixtures anyway,
-        # so sequential assignment ensures distinct pain_points across all 20 concepts.
+
+    # --- 2. Ad concept extraction (keyword "extract"/"json") ---
+    elif "extract" in combined and "pain_point" in combined:
         _demo_extract_counter[0] = (_demo_extract_counter[0] + 1) % len(_CONCEPT_VARIANTS)
         chosen = _CONCEPT_VARIANTS[_demo_extract_counter[0]]
         return json.dumps(chosen)
-    elif "angle" in combined or "script" in combined:
-        if "fear" in combined:
-            return """# Ad Script — Fear & Loss Aversion Angle
 
-## Script
-[Visual: A close-up of a trader staring at a red chart, looking stressed.]
-Narrator (Voiceover): "Are you tired of blowing trading accounts? Watching your hard-earned cash disappear on failed prop challenges?"
-[Visual: Text on screen reads: '$297/mo? Not anymore.']
-Narrator: "Stop paying gurus thousands. Join CrowdWisdomTrading. Real-time community alerts, support, and pre-market prep for just $49 a month."
-[Visual: CTA button reads 'Claim Your Trial Now'.]
-Narrator: "Click the link and stop trading alone."
-"""
-        elif "aspiration" in combined:
-            return """# Ad Script — Aspiration & Gain Angle
-
-## Script
-[Visual: A trader waking up, opening a laptop, and looking satisfied at a blue chart.]
-Narrator (Voiceover): "Imagine trading with a global community of experts backing your every play."
-[Visual: Screen shows real-time chat alerts and support signals.]
-Narrator: "No expensive memberships. Just $49 a month for institutional-grade market prep and high-accuracy alerts."
-[Visual: CTA button reads 'Join the Crowd'].
-Narrator: "Unlock your potential with CrowdWisdomTrading today."
-"""
-        else:
-            # A.3 fix: removed fabricated named customer quotes ("Trader 1: ...") and
-            # unverified specific membership count (10,000+). These are FTC-regulated
-            # claim categories. Replaced with generic community language that doesn't
-            # assert specific unverified facts. Real testimonials must be inserted from
-            # a verified-claims source before production use.
-            return """# Ad Script — Social Proof Angle
-
-## Script
-[Visual: Screen showing an active trading community chat feed with members posting alerts.]
-Narrator (Voiceover): "Thousands of retail traders have ditched expensive gurus and switched to community-powered intelligence."
-[Visual: Pre-market chart analysis on screen with CWT branding.]
-Narrator: "CrowdWisdomTrading gives you real-time alerts, daily pre-market prep, and a community of traders who actually share what works."
-[Visual: Price card: $49/mo — no long-term contracts.]
-Narrator: "All for $49 a month. No lock-in. Cancel any time."
-[Visual: CTA button reads 'Join the Community Now'.]
-
----
-**Compliance note:** This script contains no named customer testimonials or specific performance claims.
-Before production, insert verified member quotes sourced from real, consented CWT members.
-Trading contains substantial risk. Past performance is not indicative of future results.
-"""
-    elif "score" in combined or "rubric" in combined:
-        # A.4 fix: differentiate between two callers that both contain "score":
-        #   1. score_ad_scripts.score_script() — asks for JSON with keys hook, pain, etc.
-        #      SCORING_PROMPT says "Output as clean JSON" → return a JSON score dict.
-        #   2. generate_pdf_report / summary context → return the Markdown scorecard table.
+    # --- 3. Scoring (keyword "score"/"rubric") ---
+    elif ("score" in combined or "rubric" in combined) and "revising an ad script" not in combined:
         if "output as clean json" in combined or ("hook" in combined and "pain" in combined and "mechanism" in combined):
-            # Individual per-script scoring call — return parseable JSON
             import random as _random
             _seed = abs(hash(prompt[:80])) % 10
-            total = 28 + _seed  # Range 28-37 — realistic spread across scripts
+            total = 28 + _seed
             hook = min(10, 6 + _seed % 4)
             pain = min(10, 7 + _seed % 3)
             mech = min(10, 5 + _seed % 4)
@@ -336,7 +243,6 @@ Trading contains substantial risk. Past performance is not indicative of future 
                 "verdict": verdict,
                 "top_improvement": "Add a specific dollar figure or time frame to the hook to increase specificity."
             })
-        # Summary scorecard context — return Markdown table with real filenames
         from pathlib import Path as _Path
         ads_vault = _Path(os.getenv("OBSIDIAN_VAULT_PATH", "./obsidian_vault")) / "Ads"
         script_files = sorted([f.stem for f in ads_vault.glob("*.md") if not f.name.startswith("_")])
@@ -378,6 +284,8 @@ Ranked by total score (out of 50). Higher = more likely to convert.
 - **Target Audience:** Retail traders, Forex, and Prop Firm enthusiasts.
 - **Duration:** 14 days.
 """
+
+    # --- 4. Revision ---
     elif "revise" in combined or "revision" in combined:
         return """# Ad Script — Revised Version
 
@@ -386,22 +294,119 @@ Ranked by total score (out of 50). Higher = more likely to convert.
 Narrator (Voiceover): "Blowing trading accounts? Guru fees are eating your profits. Let's change that."
 Narrator: "Get institutional-grade pre-market analysis and real-time alerts. All for just $49 a month."
 """
-    elif "outreach" in combined or "email" in combined or "dm" in combined:
-        return """# Cold Outreach Draft
 
-## Email Version
-Subject: Sponsored segment proposal / Affiliate partnership with CrowdWisdomTrading
+    # --- 5. Outreach (BEFORE "angle"/"script" — outreach user_context contains "angle") ---
+    elif "cold outreach emails" in combined or "platform dms" in combined:
+        creator_name = "[Creator]"
+        for m in messages:
+            import re
+            match = re.search(r"Creator:\s*([^\(]+)", m["content"])
+            if match:
+                creator_name = match.group(1).strip()
+                break
+                
+        # Heuristic greeting formatting
+        raw_lower = creator_name.lower()
+        brand_signals = [" and ", " & ", "team", "crew", "official", "tv", "media", "group"]
+        is_brand = any(sig in raw_lower for sig in brand_signals)
+        words = creator_name.split()
+        
+        if is_brand or len(words) > 3:
+            greeting = "Hi there,"
+            hey_greeting = "Hey there,"
+        else:
+            first_name = words[0] if words else creator_name
+            greeting = f"Hi {first_name},"
+            hey_greeting = f"Hey {first_name},"
 
-Hi [Creator],
-We love your channel. We want to propose a paid sponsorship segment ($500 base rate + 30% affiliate commission) to showcase CWT to your audience.
+        if "cold outreach emails" in combined:
+            return f"""Subject: Sponsored segment proposal / Affiliate partnership with CrowdWisdomTrading
 
-## Direct Message (DM) Version
-Hey [Creator], love your recent video on prop firm challenges! We'd love to partner with you for a sponsored segment on your channel. We pay a competitive base rate plus affiliate commissions. Drop us an email if interested!
+{greeting}
+We love your channel. We want to propose a paid sponsorship segment ($500 base rate + 30% affiliate commission) to showcase CWT to your audience."""
+
+        else:
+            return f"""{hey_greeting} love your recent video on prop firm challenges! We'd love to partner with you for a sponsored segment on your channel. We pay a competitive base rate plus affiliate commissions. Drop us an email if interested!"""
+
+    # --- 6. Executive summary (BEFORE competitor names — prompt includes synth text) ---
+    elif "executive summary" in combined or "funnel" in combined or "ingestion" in combined:
+        return """We successfully conducted competitive research across 5 major trading-education platforms, identifying pricing and positioning gaps for CrowdWisdomTrading's launch.
+
+By analyzing raw ad concepts, we created 3 optimized ad script variants targeting pain points in prop challenges, scored and refined for maximum conversions.
+
+Finally, we identified 74 high-potential influencer partners and created targeted outreach campaigns to accelerate brand adoption."""
+
+    # --- 7. Synthesis (BEFORE competitor names — prompt includes all competitor text) ---
+    elif "synthesis" in combined or "synthesize" in combined:
+        return """# Competitive Strategy & Gap Analysis
+
+## Market Gaps
+1. **Affordable Entry-Level Subscriptions:** Competitors charge high annual fees ($997+) or expensive monthly rates ($297+). There is a massive gap for a low-cost, high-value monthly option at $49/mo.
+2. **Community-First Learning:** Many platforms are centered around a single guru. Building a decentralized, peer-to-peer sharing community offers a unique value proposition.
+3. **Unbiased Strategy Reviews:** Competitors promote their own indicator systems. CrowdWisdomTrading can stand out by providing transparent, crowd-sourced trading alerts."""
+
+    # --- 8. Strategy brief ---
+    elif "strategy brief" in combined or "brand profile" in combined:
+        return """# Marketing Strategy Brief: CrowdWisdomTrading
+
+## 1. Brand Positioning
+CrowdWisdomTrading (CWT) is the ultimate community-driven retail trading hub. We offer real-time trading alerts, daily pre-market analysis, and educational resources for just $49/mo, contrasting sharply with high-cost competitor plans.
+
+## 2. Target Audience
+Retail traders, forex enthusiasts, and prop firm evaluators looking for a collaborative, high-accuracy signaling community without paying thousands of dollars in upfront fees.
+
+## 3. Compliance Notice
+All marketing materials must state: *Trading contains substantial risk. Past performance is not indicative of future results. CrowdWisdomTrading is not a registered broker-dealer or financial advisor.*"""
+
+    # --- 9. Ad script generation ---
+    elif "original 30-45 second video ad script" in combined:
+        if "angle: fear" in combined:
+            return """# Ad Script — Fear & Loss Aversion Angle
+        
+## Script
+[Visual: A close-up of a trader staring at a red chart, looking stressed.]
+Narrator (Voiceover): "Are you tired of blowing trading accounts? Watching your hard-earned cash disappear on failed prop challenges?"
+[Visual: Text on screen reads: '$297/mo? Not anymore.']
+Narrator: "Stop paying gurus thousands. Join CrowdWisdomTrading. Real-time community alerts, support, and pre-market prep for just $49 a month."
+[Visual: CTA button reads 'Claim Your Trial Now'.]
+Narrator: "Click the link and stop trading alone."
 """
-    elif "repurpose" in combined or "calendar" in combined or "linkedin" in combined or "twitter" in combined:
-        return """# Repurposed Content Calendar Item
+        elif "angle: aspiration" in combined:
+            return """# Ad Script — Aspiration & Gain Angle
 
-## X Thread
+## Script
+[Visual: A trader waking up, opening a laptop, and looking satisfied at a blue chart.]
+Narrator (Voiceover): "Imagine trading with a global community of experts backing your every play."
+[Visual: Screen shows real-time chat alerts and support signals.]
+Narrator: "No expensive memberships. Just $49 a month for institutional-grade market prep and high-accuracy alerts."
+[Visual: CTA button reads 'Join the Crowd'].
+Narrator: "Unlock your potential with CrowdWisdomTrading today."
+"""
+        else:
+            return """# Ad Script — Social Proof Angle
+
+## Script
+[Visual: Screen showing an active trading community chat feed with members posting alerts.]
+Narrator (Voiceover): "Thousands of retail traders have ditched expensive gurus and switched to community-powered intelligence."
+[Visual: Pre-market chart analysis on screen with CWT branding.]
+Narrator: "CrowdWisdomTrading gives you real-time alerts, daily pre-market prep, and a community of traders who actually share what works."
+[Visual: Price card: $49/mo — no long-term contracts.]
+Narrator: "All for $49 a month. No lock-in. Cancel any time."
+[Visual: CTA button reads 'Join the Community Now'.]
+
+---
+**Compliance note:** This script contains no named customer testimonials or specific performance claims.
+Before production, insert verified member quotes sourced from real, consented CWT members.
+Trading contains substantial risk. Past performance is not indicative of future results.
+"""
+
+    # --- 10. Content repurposing ---
+    elif "extract the 3-5 most quotable" in combined:
+        return """1. The video discusses the importance of risk management.
+2. The video argues that position sizing is critical for funded accounts."""
+        
+    elif "three platform-native assets" in combined:
+        return """## X Thread
 1/ Most retail day traders fail because they don't have a plan. Here's a simple 3-step checklist to save your account...
 
 ## LinkedIn Post
@@ -411,12 +416,48 @@ Trading is a business, not a gamble. Proper risk management means never risking 
 [Visual: Text reads 'Rule #1 of Day Trading']
 Speaker: "Never risk more than 1%. If you do, you're gambling..."
 """
-    elif "executive summary" in combined or "funnel" in combined or "ingestion" in combined:
-        return """We successfully conducted competitive research across 5 major trading-education platforms, identifying pricing and positioning gaps for CrowdWisdomTrading's launch.
 
-By analyzing raw ad concepts, we created 3 optimized ad script variants targeting pain points in prop challenges, scored and refined for maximum conversions.
+    elif "1-week posting calendar" in combined:
+        return """| Day | Platform | Asset | Best Time |
+|---|---|---|---|
+| Monday | Twitter | X Thread | 9:00 AM |
+| Wednesday | LinkedIn | LinkedIn Post | 10:00 AM |
+| Friday | TikTok | Short-Form Video Script | 12:00 PM |
+"""
 
-Finally, we identified 74 high-potential influencer partners and created targeted outreach campaigns to accelerate brand adoption."""
+    # --- 11. Competitor names (broadest — checked LAST) ---
+    elif "warrior trading" in combined:
+        return """### Warrior Trading
+- **Overview:** Warrior Trading is a massive trading-education platform led by Ross Cameron. It focuses heavily on momentum day trading, small cap stocks, and high-frequency execution.
+- **Pricing Model:** High pricing tier. Mentoring & simulator bundles cost $997 to $4,297 per year depending on the tier.
+- **Pros:** Extremely detailed technical courses, live trading room, robust proprietary simulator.
+- **Cons:** Very expensive, high-pressure marketing, strategy requires high risk tolerance and rapid execution."""
+    elif "bullish bears" in combined:
+        return """### Bullish Bears
+- **Overview:** Bullish Bears offers low-cost trading courses, trade rooms, and Discord chat alerts for retail traders.
+- **Pricing Model:** Low pricing tier. Subscription is $47/mo or $397/yr.
+- **Pros:** Very affordable, supportive community environment, covers many trading styles (options, swings, day).
+- **Cons:** Less advanced proprietary tools, strategies are broad and less specialized."""
+    elif "the trading channel" in combined:
+        return """### The Trading Channel
+- **Overview:** Run by Steven Hart, focusing on retail forex and swing trading education.
+- **Pricing Model:** Medium pricing tier, courses start at $297.
+- **Pros:** High-quality free content on YouTube, solid foundation in technical analysis.
+- **Cons:** Upsells to expensive course materials, focus is primarily on indicators."""
+    elif "investors underground" in combined:
+        return """### Investors Underground
+- **Overview:** One of the oldest chatrooms, focusing on day trading momentum and swings.
+- **Pricing Model:** High monthly cost ($297/mo or $1,897/yr).
+- **Pros:** High-quality webinar archives, seasoned moderators, focus on trading fundamentals.
+- **Cons:** Chat can be overwhelming for beginners, high price barrier."""
+    elif "fundednext" in combined:
+        return """### FundedNext
+- **Overview:** A leading prop firm that offers evaluation accounts for traders seeking funded capital.
+- **Pricing Model:** Medium pricing tier, evaluation fees starting around $99 for $6k accounts up to $1k+ for larger accounts.
+- **Pros:** Profit share during assessment, realistic drawdown rules, 24/7 support.
+- **Cons:** Strict drawdown rules can be hard to pass, profit targets require high performance."""
+
+    # --- 12. Default ---
     else:
         return "Demo response helper: default stub response."
 

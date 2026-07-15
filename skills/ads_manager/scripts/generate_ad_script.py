@@ -114,7 +114,8 @@ BASE_PROMPT = (
     "Also suggest visual direction for each section in [brackets].\n\n"
     "CRITICAL FACTUAL GUARDRAIL: Do not state any factual claim about our company that is not present in the verified profile data. "
     "Under no circumstances should you claim we have a 'sell-side background' or a 'transparent track record' unless listed in the profile. "
-    "If no verified claim fits the angle, use generic/aspirational language instead of inventing specifics."
+    "If no verified claim fits the angle, use generic/aspirational language instead of inventing specifics. "
+    "ABSOLUTELY NO FABRICATED METRICS: Do not invent subscriber counts, percentage returns, dollar amounts, or ROI stats. If it is not in the profile data, do not use numbers."
 )
 
 
@@ -197,7 +198,6 @@ def main() -> None:
             f"**Date:** {date.today().isoformat()}  \n"
             f"**Angle:** {angle['label']}  \n"
             f"**Based on concept from:** {best.get('advertiser', 'unknown')}\n\n"
-            f"## Source concept\n```json\n{json.dumps(best, indent=2)}\n```\n\n"
             f"## Script\n{script}\n",
             encoding="utf-8",
         )

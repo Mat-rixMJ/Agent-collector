@@ -5,14 +5,16 @@
 - Contact: not public — use platform DM
 
 ## Email Version
-Subject: Quick Question About Your Recent Video on Day Trading
+Subject line: Exciting Collaboration Opportunity for "How To Start Day Trading in 2026"
 
-Hey Ross,
+Hi Ross,
 
-Just watched your recent video, "Day Trading: How To Start From ZERO (Beginner's Guide)." I found it super helpful! Wondering if you've had a chance to check out crowdwisdomtrading.com. What do you think about the resources and strategies we offer for beginners?
+I came across your recent video on how to start day trading in 2026 and was impressed by the depth of knowledge you shared. At CrowdWisdomTrading, we offer competitive base rates and a high-converting affiliate commission structure, plus free lifetime premium alerts access for both you and your audience.
 
-Thanks,
+Would you be open to checking out these details or setting up a brief chat?
+
+Best,
 [Your Name]
 
 ## DM Version
-Hey Ross! Just watched your beginner’s guide. Great stuff! What do you think about crowdwisdomtrading.com as a resource for beginners like in your vid?
+Hey Ross! Loved your recent "How To Start Day Trading in 2026" video. CrowdWisdomTrading could be a great fit for your audience with our competitive sponsor fees and free premium access. Let me know if you're open to a quick chat about this!

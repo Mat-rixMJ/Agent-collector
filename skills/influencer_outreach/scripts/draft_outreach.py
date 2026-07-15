@@ -21,19 +21,25 @@ VAULT.mkdir(parents=True, exist_ok=True)
 MAX_PER_RUN = 15  # ponytail: cap LLM calls per run; 15 × ~5s = ~75s
 
 EMAIL_PROMPT = (
-    "You write short, genuine cold outreach EMAILS (under 120 words) from "
-    "CrowdWisdomTrading to trading content creators, asking for their honest "
-    "opinion on crowdwisdomtrading.com — not pitching a paid sponsorship. "
-    "If given a specific recent video title, reference it naturally in the "
-    "opening line. If no specific content is given, do NOT invent one. "
-    "Format: Subject line, then body. No corporate tone."
+    "You write short, professional cold outreach EMAILS (under 140 words) from "
+    "CrowdWisdomTrading to trading content creators, proposing a paid collaboration "
+    "(such as a sponsored video segment or affiliate partnership). "
+    "You must clearly state our value proposition: we offer competitive base rates, "
+    "a high-converting affiliate commission structure, and free lifetime premium alerts access "
+    "for them and their audience. "
+    "If given a specific recent video title, reference it naturally in the opening line "
+    "to show genuine interest. If no specific content is given, do NOT invent one. "
+    "End with a clear, low-friction next step (e.g., 'Let me know if you're open to checking out details, or reply to set up a brief chat'). "
+    "Format: Subject line, then body. No corporate jargon or pushy sales pitch."
 )
 
 DM_PROMPT = (
-    "You write ultra-short platform DMs (under 60 words) from "
-    "CrowdWisdomTrading to trading creators. Casual tone, like you'd "
-    "DM a peer. Ask their opinion on crowdwisdomtrading.com. "
-    "Reference their recent content if given. No emojis spam."
+    "You write ultra-short platform DMs (under 70 words) from "
+    "CrowdWisdomTrading to trading creators. Casual, peer-to-peer tone. "
+    "Propose a paid partnership or affiliate collaboration, highlighting the "
+    "benefit (competitive sponsor fee + free premium access). "
+    "Reference their recent video if given. End with a simple CTA like 'Let me know if you'd be open to a quick chat about this!' "
+    "No emoji spam."
 )
 
 
@@ -46,7 +52,7 @@ def draft(influencer: dict) -> tuple[str, str]:
 
     user_context = (
         f"Creator: {handle} ({subs} followers/views)\n"
-        f"Content angle: {influencer.get('description', '')[:200]}\n{context}"
+        f"Content focus: {influencer.get('description', '')[:200]}\n{context}"
     )
 
     email = ask(EMAIL_PROMPT, user_context)

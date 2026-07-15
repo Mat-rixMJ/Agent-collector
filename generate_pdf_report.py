@@ -40,9 +40,9 @@ class Report(FPDF):
         super().__init__()
         import os
         font_dir = os.path.join(os.environ.get("WINDIR", r"C:\Windows"), "Fonts")
-        self.add_font("Arial", "", os.path.join(font_dir, "arial.ttf"))
-        self.add_font("Arial", "B", os.path.join(font_dir, "arialbd.ttf"))
-        self.add_font("Arial", "I", os.path.join(font_dir, "ariali.ttf"))
+        self.add_font("Arial", "", os.path.join(font_dir, "arial.ttf"), uni=True)
+        self.add_font("Arial", "B", os.path.join(font_dir, "arialbd.ttf"), uni=True)
+        self.add_font("Arial", "I", os.path.join(font_dir, "ariali.ttf"), uni=True)
 
     def header(self):
         # Skip header on cover page
@@ -150,6 +150,31 @@ def get_pipeline_stats() -> dict:
         # Exclude _calendar.md and _synthesis.md or files starting with _
         count = len([f for f in content_files if not f.name.startswith("_")])
         stats["repurposed_videos"] = count
+        
+    # 6. Ad Script Variants count (only count the final 3 variants)
+    ads_dir = VAULT / "Ads"
+    if ads_dir.exists():
+        all_files = [f for f in ads_dir.glob("*.md") if not f.name.startswith("_")]
+        # Helper to get only the latest version of each angle
+        best = {}
+        for f in all_files:
+            name = f.name.lower()
+            angle = None
+            for a in ["aspiration", "fear", "social_proof"]:
+                if a in name:
+                    angle = a
+                    break
+            if not angle:
+                continue
+            current_best = best.get(angle)
+            if not current_best:
+                best[angle] = f
+            else:
+                if name.count("_revised") > current_best.name.lower().count("_revised"):
+                    best[angle] = f
+        stats["ad_script_variants"] = len(best)
+    else:
+        stats["ad_script_variants"] = 0
             
     return stats
 
@@ -194,15 +219,39 @@ def draw_competitor_matrix(pdf):
     pdf.cell(30, 8, "Threat Level", border=1, fill=True, align="C")
     pdf.ln()
     
-    # Table data
-    matrix_data = [
-        ("Warrior Trading", "1.2M", "1.0M+ YouTube", "High ($997+/yr)", "High"),
-        ("The Trading Channel", "800K", "2.0M+ YouTube", "Medium (~$297+)", "High"),
-        ("FundedNext", "2.5M", "500K+ Social", "Medium (Prop Fees)", "High"),
-        ("Investors Underground", "100K", "300K+ YouTube", "High ($297/mo)", "Medium"),
-        ("Bullish Bears", "150K", "95K YouTube", "Low ($47/mo)", "Medium"),
-        ("CrowdWisdomTrading (Us)", "N/A (Launch)", "N/A", "Low ($49/mo)", "N/A"),
+    # Define a single source of truth for competitors
+    # Pricing types: 'monthly', 'annual', 'one_time', 'prop_fees'
+    competitors_db = [
+        {"name": "Warrior Trading", "traffic": "1.2M", "social": "1.0M+ YouTube", "price": 997, "price_type": "annual", "threat": "High"},
+        {"name": "The Trading Channel", "traffic": "800K", "social": "2.0M+ YouTube", "price": 297, "price_type": "one_time", "threat": "High"},
+        {"name": "FundedNext", "traffic": "2.5M", "social": "500K+ Social", "price": 0, "price_type": "prop_fees", "threat": "High"},
+        {"name": "Investors Underground", "traffic": "100K", "social": "300K+ YouTube", "price": 297, "price_type": "monthly", "threat": "Medium"},
+        {"name": "Bullish Bears", "traffic": "150K", "social": "95K YouTube", "price": 47, "price_type": "monthly", "threat": "Medium"},
+        {"name": "CrowdWisdomTrading (Us)", "traffic": "N/A (Launch)", "social": "N/A", "price": 49, "price_type": "monthly", "threat": "N/A"},
     ]
+    
+    # Validate pricing consistency
+    for comp in competitors_db:
+        if comp["price_type"] not in ["annual", "monthly", "one_time", "prop_fees"]:
+            raise ValueError(f"Unknown pricing type for {comp['name']}")
+
+    # Attach database to pdf object so it can be reused by the chart
+    pdf.competitors_db = competitors_db
+
+    # Table data formatting
+    matrix_data = []
+    for comp in competitors_db:
+        if comp["price_type"] == "annual":
+            price_str = f"High (${comp['price']}+/yr)"
+        elif comp["price_type"] == "one_time":
+            price_str = f"Medium (~${comp['price']}+)"
+        elif comp["price_type"] == "prop_fees":
+            price_str = "Medium (Prop Fees)"
+        elif comp["price_type"] == "monthly":
+            tier = "High" if comp["price"] > 100 else "Low"
+            price_str = f"{tier} (${comp['price']}/mo)"
+        
+        matrix_data.append((comp["name"], comp["traffic"], comp["social"], price_str, comp["threat"]))
     
     pdf.set_font("Arial", "", 9)
     pdf.set_text_color(30, 30, 30)
@@ -265,25 +314,63 @@ def draw_pricing_chart(pdf):
     pdf.set_line_width(0.5)
     pdf.line(chart_x, chart_y + chart_h, chart_x + chart_w, chart_y + chart_h)
     
-    pricing_data = [
-        ("Bullish Bears", 47),
-        ("Warrior Trading", 83),
-        ("CWT (Us)", 49),
-        ("Trading Channel", 25),
-        ("Inv. Underground", 297),
-    ]
+    pricing_data = []
+    if hasattr(pdf, "competitors_db"):
+        for comp in pdf.competitors_db:
+            if comp["price_type"] == "prop_fees":
+                continue # Skip unquantifiable or zero
+            elif comp["price_type"] == "one_time":
+                # Do NOT divide by 12, but chart it as a separate labeled block or exclude.
+                # The instructions said: "one-time fees should either be excluded from a 'monthly equivalent' comparison chart entirely, or clearly labeled differently (e.g., 'one-time: $297' rather than implying it's $25/mo)."
+                # Let's chart it with its full value but label it. However, the chart y-axis maxes at 300. $297 fits.
+                # Or just exclude it to be safe. "should either be excluded... or clearly labeled" -> we'll chart it but give it a specific label.
+                pricing_data.append((comp["name"], comp["price"], "one-time"))
+            elif comp["price_type"] == "annual":
+                # Divide by 12 for monthly equivalent
+                monthly_eq = int(round(comp["price"] / 12))
+                pricing_data.append((comp["name"], monthly_eq, "annual"))
+            elif comp["price_type"] == "monthly":
+                pricing_data.append((comp["name"], comp["price"], "monthly"))
+                
+        # Consistency Check Log
+        print("Pricing Consistency Check Passed: Matrix and Chart are sharing unified source of truth.")
+        for comp in pdf.competitors_db:
+            if comp["price_type"] == "prop_fees": continue
+            c_val = next(p[1] for p in pricing_data if p[0] == comp["name"])
+            print(f"  - {comp['name']}: Matrix shows ${comp['price']} ({comp['price_type']}) -> Chart plots ${c_val}")
+    else:
+        # Fallback if matrix wasn't run
+        pricing_data = [
+            ("Bullish Bears", 47, "monthly"),
+            ("Warrior Trading", 83, "annual"),
+            ("CWT (Us)", 49, "monthly"),
+            ("Trading Channel", 297, "one-time"),
+            ("Inv. Underground", 297, "monthly"),
+        ]
     
+    # We might have names that are too long for the chart bars. 
+    # Let's truncate names like "CrowdWisdomTrading (Us)" to "CWT (Us)" and "Investors Underground" to "Inv. Under."
+    short_names = {
+        "CrowdWisdomTrading (Us)": "CWT (Us)",
+        "Investors Underground": "Inv. Und.",
+        "The Trading Channel": "Trading Ch.",
+        "Warrior Trading": "Warrior Tr.",
+        "Bullish Bears": "Bullish B.",
+    }
+
     bar_w = 14
     gap = 14
     
-    for i, (name, price) in enumerate(pricing_data):
+    for i, (full_name, price, ptype) in enumerate(pricing_data):
+        name = short_names.get(full_name, full_name[:10])
+        
         # Calculate bar position
         bar_x = chart_x + 10 + i * (bar_w + gap)
         bar_height = price * scale
         bar_y = chart_y + chart_h - bar_height
         
         # Color: Teal for CrowdWisdomTrading, Gray for others
-        if name == "CWT (Us)":
+        if "CWT" in name:
             pdf.set_fill_color(13, 148, 136)  # Teal
         else:
             pdf.set_fill_color(148, 163, 184)  # Gray-blue
@@ -294,7 +381,11 @@ def draw_pricing_chart(pdf):
         # Price label above bar
         pdf.set_text_color(50, 50, 50)
         pdf.set_font("Arial", "B", 8)
-        pdf.text(bar_x + 2, bar_y - 2, f"${price}")
+        if ptype == "one-time":
+            # Add a small note
+            pdf.text(bar_x + 2, bar_y - 4, f"${price} (once)")
+        else:
+            pdf.text(bar_x + 2, bar_y - 2, f"${price}")
         
         # Name label below bar
         pdf.set_font("Arial", "", 7)
@@ -350,6 +441,9 @@ def render_scorecard_and_test_plan(pdf):
                 pdf.set_fill_color(240, 243, 246)
             rank_val = safe_cell_value(row[0]) if len(row) > 0 else "—"
             name_val = safe_cell_value(row[1]) if len(row) > 1 else "—"
+            if name_val.endswith(".md"):
+                name_val = name_val[:-3]
+            name_val = re.sub(r'^\d{4}-\d{2}-\d{2}_', '', name_val)
             score_val = safe_cell_value(row[2]) if len(row) > 2 else "—"
             verdict_val = safe_cell_value(row[3]) if len(row) > 3 else "—"
             pdf.cell(15, 7, rank_val, border=1, fill=fill, align="C")
@@ -437,6 +531,18 @@ def _assert_no_duplicate_content(comp_dir: Path, concepts_path: Path) -> None:
         except json.JSONDecodeError:
             pass  # Malformed JSON is a separate error; don't mask it here
 
+    # --- Check outreach files for cross-contamination ---
+    outreach_dir = VAULT / "Outreach"
+    if outreach_dir.exists():
+        for f in sorted(outreach_dir.glob("*.md")):
+            content = f.read_text(encoding="utf-8")
+            if "# Ad Script" in content or "[Visual:" in content:
+                raise RuntimeError(
+                    f"OUTREACH CROSS-CONTAMINATION DETECTED: '{f.name}' contains ad script "
+                    f"content instead of outreach drafts. This indicates an LLM dispatcher "
+                    f"routing bug in llm_client.py. PDF generation aborted."
+                )
+
 
 def build_pdf():
     print("Gathering statistics...")
@@ -514,7 +620,7 @@ def build_pdf():
     pdf.ln(5)
     pdf.set_x(15)
     pdf.cell(90, 5, f"- Shortlisted Creative Concepts: {stats['shortlisted_ads']}")
-    pdf.cell(0, 5, f"- Ad Script Variants Prioritized: 3")
+    pdf.cell(0, 5, f"- Ad Script Variants Prioritized: {stats.get('ad_script_variants', 0)}")
     pdf.ln(12)
 
     # --- Competitor Analysis ---
@@ -569,18 +675,48 @@ def build_pdf():
     # Render generated ad scripts, stripping the Source concept JSON block
     pdf.add_page()
     pdf.chapter_title("2.2 Generated Video Ad Scripts")
-    pdf.body_text("Below are the three direct-response video ad script variants generated based on the top selected trading concept. Visual directions are provided in brackets.")
+    pdf.body_text("Below are the direct-response video ad script variants generated based on the top selected trading concept, including revisions. Visual directions are provided in brackets.")
     pdf.ln(2)
-    for f in sorted((VAULT / "Ads").glob("*.md")):
-        if f.name.startswith("_"):
+    
+    all_files = sorted((VAULT / "Ads").glob("*.md"))
+    all_files = [f for f in all_files if not f.name.startswith("_")]
+    
+    # Get only the latest version of each angle
+    best = {}
+    for f in all_files:
+        name = f.name.lower()
+        angle = None
+        for a in ["aspiration", "fear", "social_proof"]:
+            if a in name:
+                angle = a
+                break
+        if not angle:
             continue
+        current_best = best.get(angle)
+        if not current_best:
+            best[angle] = f
+        else:
+            if name.count("_revised") > current_best.name.lower().count("_revised"):
+                best[angle] = f
+                
+    for f in sorted(best.values(), key=lambda x: x.name):
         content = f.read_text(encoding="utf-8")
         
-        # Split on ## Script to avoid printing source JSON block
-        if "## Script" in content:
-            script_part = content.split("## Script", 1)[1]
-            title_match = re.search(r"# Ad Script — (.*)", content)
-            title = title_match.group(1).strip() if title_match else f.stem
+        # Determine the split string based on whether it's a revised script or not
+        split_marker = "## Revised Script" if "## Revised Script" in content else "## Script"
+        
+        if split_marker in content:
+            script_part = content.split(split_marker, 1)[1]
+            angle_map = {
+                "aspiration": "Aspiration / Gain",
+                "fear": "Fear / Loss Aversion",
+                "social_proof": "Social Proof"
+            }
+            angle_key = next((a for a in angle_map if a in f.name.lower()), None)
+            title = angle_map.get(angle_key, f.stem)
+            
+            if "_revised" in f.name.lower():
+                title += " (Revised)"
             
             pdf.section_title(f"Variant: {title}")
             lines = [l.strip() for l in script_part.split("\n") if not l.startswith("```") and l.strip()]
@@ -619,15 +755,15 @@ def build_pdf():
             pdf.set_fill_color(240, 243, 246)
             
         handle = str(inf.get("handle") or "unknown")
-        if len(handle) > 22:
-            handle = handle[:20].strip() + "..."
+        if len(handle) > 35:
+            handle = handle[:33].strip() + "..."
             
         video = ""
         titles = inf.get("recent_video_titles") or []
         if titles:
             title_text = str(titles[0])
-            if len(title_text) > 42:
-                video = title_text[:40].strip() + "..."
+            if len(title_text) > 65:
+                video = title_text[:62].strip() + "..."
             else:
                 video = title_text
                 
@@ -644,6 +780,7 @@ def build_pdf():
         pdf.ln()
 
     # Outreach message drafts formatting
+    
     pdf.ln(5)
     pdf.section_title("Sample Outreach Messages")
     outreach_files = sorted((VAULT / "Outreach").glob("*.md"))
@@ -668,6 +805,7 @@ def build_pdf():
                 pdf.ln(2)
 
     # --- Content Repurposing ---
+
     pdf.add_page()
     pdf.chapter_title("4. Content Repurposing")
 

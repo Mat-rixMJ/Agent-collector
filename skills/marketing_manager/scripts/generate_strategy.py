@@ -32,8 +32,14 @@ Structure your output exactly as:
 ## Positioning Statements
 (3 statements differentiating us from specific competitors)
 
-## Recommended Actions
-(5 prioritized action items for the team this week)
+## Recommended Actions with Resource Estimates
+Provide 5 prioritized action items for the team this week. For each action item, include:
+- Resource Level: (Low / Moderate / High effort/budget)
+- Timeline: (e.g. 1-2 weeks)
+- Expected Impact: (Low / Medium / High)
+
+## Compliance and Regulatory Notice
+Include a standard compliance reminder stating that all marketing materials (ad copy, scripts, influencer briefs) for financial services/retail trading must undergo legal compliance review (e.g., SEC, FCA, or SEBI rules depending on jurisdiction) before deployment. Mention that clear disclaimers regarding the risk of trading are required.
 
 Be specific and actionable. Reference competitors by name where relevant."""
 
@@ -47,19 +53,22 @@ def main() -> None:
     synthesis = synth_path.read_text(encoding="utf-8")
 
     our_product = os.getenv("NICHE", "retail trading, market commentary")
-    product_context = f"""
-CrowdWisdomTrading.com provides:
-- Institutional-grade market commentary for retail traders
-- Same-day actionable trade alerts (not lagging recaps)
-- Analyst team with sell-side background
-- Transparent track record
-- Niche: {our_product}
-"""
+    
+    profile_path = Path("data/company_profile.json")
+    if profile_path.exists():
+        try:
+            import json
+            profile = json.loads(profile_path.read_text(encoding="utf-8"))
+            product_context = json.dumps(profile, indent=2)
+        except Exception:
+            product_context = f"Niche: {our_product}"
+    else:
+        product_context = f"Niche: {our_product}"
 
     brief = ask(
         SYSTEM_PROMPT,
         f"Competitor Research:\n{synthesis[:1500]}\n\nOur Product:\n{product_context}",
-        max_tokens=800,
+        max_tokens=1000,
     )
 
     output = f"# Marketing Strategy Brief\n\n*Auto-generated from competitor research*\n\n{brief}\n"

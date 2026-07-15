@@ -1,154 +1,118 @@
 {
   "processed": {
     "competitor:Warrior Trading": {
-      "timestamp": "2026-07-07T14:20:35.142536+00:00",
-      "content_hash": "7fa10b6251dd"
+      "timestamp": "2026-07-15T06:42:58.856564+00:00",
+      "content_hash": "549e65b180e2"
     },
     "competitor:Bullish Bears": {
-      "timestamp": "2026-07-07T14:21:45.078474+00:00",
-      "content_hash": "420ef22a13b0"
+      "timestamp": "2026-07-15T06:45:01.729604+00:00",
+      "content_hash": "90b26fd7a335"
     },
     "competitor:The Trading Channel": {
-      "timestamp": "2026-07-07T14:22:38.082883+00:00",
-      "content_hash": "65cf9b713e1f"
+      "timestamp": "2026-07-15T06:46:14.978902+00:00",
+      "content_hash": "e222f2f87da7"
     },
     "competitor:Investors Underground": {
-      "timestamp": "2026-07-07T14:24:10.981546+00:00",
-      "content_hash": "e341e88c2349"
+      "timestamp": "2026-07-15T06:47:40.597344+00:00",
+      "content_hash": "99682811ba62"
     },
     "competitor:FundedNext": {
-      "timestamp": "2026-07-07T14:25:20.678820+00:00",
-      "content_hash": "358147f2d58e"
-    },
-    "ad:1022599626820630": {
-      "timestamp": "2026-07-07T14:32:37.629588+00:00",
-      "advertiser": "unknown"
-    },
-    "ad:2085190038698212": {
-      "timestamp": "2026-07-07T14:32:37.637388+00:00",
-      "advertiser": "unknown"
-    },
-    "ad:1042263205131008": {
-      "timestamp": "2026-07-07T14:32:37.645921+00:00",
-      "advertiser": "unknown"
-    },
-    "ad:1533884051758099": {
-      "timestamp": "2026-07-07T14:32:37.654934+00:00",
-      "advertiser": "unknown"
-    },
-    "ad:1332999332265506": {
-      "timestamp": "2026-07-07T14:32:37.663318+00:00",
-      "advertiser": "unknown"
-    },
-    "ad:1678874459720783": {
-      "timestamp": "2026-07-07T14:32:37.673394+00:00",
-      "advertiser": "unknown"
-    },
-    "ad:1492241908873268": {
-      "timestamp": "2026-07-07T14:32:37.682799+00:00",
-      "advertiser": "unknown"
-    },
-    "ad:1011996407903441": {
-      "timestamp": "2026-07-07T14:32:37.692610+00:00",
-      "advertiser": "unknown"
+      "timestamp": "2026-07-15T06:49:06.739884+00:00",
+      "content_hash": "8398cc0a0890"
     },
     "ad:1514023606882818": {
-      "timestamp": "2026-07-07T14:32:37.701872+00:00",
+      "timestamp": "2026-07-15T05:54:07.507119+00:00",
       "advertiser": "unknown"
     },
     "ad:1342556074609663": {
-      "timestamp": "2026-07-07T14:32:37.709816+00:00",
+      "timestamp": "2026-07-15T05:54:07.518231+00:00",
       "advertiser": "unknown"
     },
-    "ad:1608823013548357": {
-      "timestamp": "2026-07-07T14:32:37.718585+00:00",
-      "advertiser": "unknown"
-    },
-    "outreach:Jooviers Gems": {
-      "timestamp": "2026-07-07T14:53:03.999452+00:00",
-      "status": "drafted"
-    },
-    "outreach:TradingLab": {
-      "timestamp": "2026-07-07T14:53:23.919491+00:00",
+    "outreach:Scarface Trades": {
+      "timestamp": "2026-07-15T06:04:19.226117+00:00",
       "status": "drafted"
     },
     "outreach:Sierra Aaliyah": {
-      "timestamp": "2026-07-07T14:53:44.248372+00:00",
+      "timestamp": "2026-07-15T06:04:46.088500+00:00",
       "status": "drafted"
     },
-    "outreach:Scarface Trades": {
-      "timestamp": "2026-07-07T14:54:07.086933+00:00",
+    "outreach:TradingLab": {
+      "timestamp": "2026-07-15T06:05:13.463960+00:00",
+      "status": "drafted"
+    },
+    "outreach:Craig Percoco": {
+      "timestamp": "2026-07-15T06:05:40.750026+00:00",
+      "status": "drafted"
+    },
+    "outreach:TJR": {
+      "timestamp": "2026-07-15T06:06:11.285606+00:00",
       "status": "drafted"
     },
     "outreach:SMB Capital": {
-      "timestamp": "2026-07-07T14:54:30.219720+00:00",
-      "status": "drafted"
-    },
-    "outreach:Dominik Lebersorger": {
-      "timestamp": "2026-07-07T14:54:49.116142+00:00",
-      "status": "drafted"
-    },
-    "outreach:Coffeezilla": {
-      "timestamp": "2026-07-07T14:55:11.030861+00:00",
-      "status": "drafted"
-    },
-    "outreach:Mike Shake": {
-      "timestamp": "2026-07-07T14:55:30.424911+00:00",
+      "timestamp": "2026-07-15T06:06:40.976467+00:00",
       "status": "drafted"
     },
     "outreach:Ross Cameron - Warrior Trading": {
-      "timestamp": "2026-07-07T14:55:51.505568+00:00",
+      "timestamp": "2026-07-15T06:07:09.919942+00:00",
+      "status": "drafted"
+    },
+    "outreach:Lander Schlessinger": {
+      "timestamp": "2026-07-15T06:07:35.452239+00:00",
+      "status": "drafted"
+    },
+    "outreach:Data Trader": {
+      "timestamp": "2026-07-15T06:08:02.850036+00:00",
       "status": "drafted"
     },
     "outreach:Trade with Pat": {
-      "timestamp": "2026-07-07T14:56:10.711189+00:00",
+      "timestamp": "2026-07-15T06:08:29.488121+00:00",
       "status": "drafted"
     },
-    "outreach:Brian Jung": {
-      "timestamp": "2026-07-07T14:56:31.405953+00:00",
+    "outreach:Day Trading Addict": {
+      "timestamp": "2026-07-15T06:08:59.619267+00:00",
       "status": "drafted"
     },
-    "outreach:Jdub Trades": {
-      "timestamp": "2026-07-07T14:56:53.122473+00:00",
+    "outreach:PB Blake": {
+      "timestamp": "2026-07-15T06:09:26.693865+00:00",
       "status": "drafted"
     },
-    "outreach:TheOneLanceB": {
-      "timestamp": "2026-07-07T14:57:15.622900+00:00",
+    "outreach:Dan Olinger": {
+      "timestamp": "2026-07-15T06:09:54.662175+00:00",
       "status": "drafted"
     },
-    "outreach:Charles Schwab": {
-      "timestamp": "2026-07-07T14:57:45.942368+00:00",
+    "outreach:fxalexg ": {
+      "timestamp": "2026-07-15T06:10:21.155958+00:00",
       "status": "drafted"
     },
-    "outreach:Andrea Cimi and World Class Edge": {
-      "timestamp": "2026-07-07T14:58:14.509756+00:00",
+    "outreach:JeaFx": {
+      "timestamp": "2026-07-15T06:10:49.889193+00:00",
       "status": "drafted"
     },
-    "video:JFMxDgmW8cw": {
-      "timestamp": "2026-07-07T15:01:15.526340+00:00",
-      "url": "https://www.youtube.com/watch?v=JFMxDgmW8cw"
+    "video:AhPavo5UzEg": {
+      "timestamp": "2026-07-15T06:13:24.191869+00:00",
+      "url": "https://www.youtube.com/watch?v=AhPavo5UzEg"
     },
-    "video:8nFTkjPk80k": {
-      "timestamp": "2026-07-07T15:04:43.275497+00:00",
-      "url": "https://www.youtube.com/watch?v=8nFTkjPk80k"
+    "video:HN6frMMfjzE": {
+      "timestamp": "2026-07-15T06:15:25.969974+00:00",
+      "url": "https://www.youtube.com/watch?v=HN6frMMfjzE"
     },
-    "video:bpM9D1kQaAs": {
-      "timestamp": "2026-07-07T15:08:08.828755+00:00",
-      "url": "https://www.youtube.com/watch?v=bpM9D1kQaAs"
+    "video:edfHZq5lrTA": {
+      "timestamp": "2026-07-15T06:17:47.151511+00:00",
+      "url": "https://www.youtube.com/watch?v=edfHZq5lrTA"
     },
-    "video:g-qW8fQimyg": {
-      "timestamp": "2026-07-07T15:11:11.972084+00:00",
-      "url": "https://www.youtube.com/watch?v=g-qW8fQimyg"
+    "video:xHU5MHuUSKI": {
+      "timestamp": "2026-07-15T06:19:41.678400+00:00",
+      "url": "https://www.youtube.com/watch?v=xHU5MHuUSKI"
     },
-    "video:vqFUuLO06qc": {
-      "timestamp": "2026-07-07T15:14:00.235319+00:00",
-      "url": "https://www.youtube.com/watch?v=vqFUuLO06qc"
+    "video:aobHuNcI1QM": {
+      "timestamp": "2026-07-15T06:22:16.938899+00:00",
+      "url": "https://www.youtube.com/watch?v=aobHuNcI1QM"
     }
   },
   "history": [
     {
       "run": 1,
-      "timestamp": "2026-07-07T15:15:38.508496+00:00",
+      "timestamp": "2026-07-15T06:23:29.900347+00:00",
       "summary": "**Backlog** (4): Marketing strategy brief for crowdwisdomtrading.com, Extract pain/hook/offer concepts from top ads, Draft ad script from best concept, Draft personalized cold outreach per influencer\n**In Progress** (0): \n**Review** (4): Competitor research: top 5 trading-education competitors, Scrape Meta Ads Library \u2014 retail trading niche, last 30 days, Find retail-trading influencers 200K+ subs, Repurpose provided YouTube sources into social content\n**Blocked** (0): \n**Done** (0): "
     }
   ],

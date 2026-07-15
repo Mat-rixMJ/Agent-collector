@@ -2,6 +2,7 @@
 keep ones first seen in the last 30 days, save raw + a ranked shortlist.
 """
 import json
+import os
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -54,18 +55,85 @@ def rank(ads: list[dict]) -> list[dict]:
 
 def main() -> None:
     all_ads = []
-    for term in SEARCH_TERMS:
-        print(f"Searching Meta Ads Library: {term!r}")
-        try:
-            results = scrape_meta_ads([term], max_results=50)
-            all_ads.extend(results)
-        except Exception as e:
-            print(f"  failed for {term!r}: {e}")
 
-    (OUT_DIR / "meta_ads_raw.json").write_text(json.dumps(all_ads, indent=2, default=str))
+    # ponytail: in demo mode each search term returns the ENTIRE cached file,
+    # so looping 5 terms × full cache = 5x growth per run.  Load once instead.
+    if os.getenv("DEMO_MODE") == "true":
+        raw_cache_path = OUT_DIR / "meta_ads_raw.json"
+        if raw_cache_path.exists():
+            print("[DEMO] Loading cached raw Meta ads (single load, no accumulation)")
+            all_ads = json.loads(raw_cache_path.read_text(encoding="utf-8"))
+    else:
+        for term in SEARCH_TERMS:
+            print(f"Searching Meta Ads Library: {term!r}")
+            try:
+                results = scrape_meta_ads([term], max_results=50)
+                all_ads.extend(results)
+            except Exception as e:
+                print(f"  failed for {term!r}: {e}")
+
+        # Fallback to cache if scraping returned no results
+        if not all_ads:
+            raw_cache_path = OUT_DIR / "meta_ads_raw.json"
+            if raw_cache_path.exists():
+                print(f"Apify scraping returned 0 results. Falling back to cached raw data from {raw_cache_path}")
+                try:
+                    all_ads = json.loads(raw_cache_path.read_text(encoding="utf-8"))
+                except Exception as e:
+                    print(f"  failed to load cache: {e}")
+            else:
+                print("No cached ads found.")
+
+        (OUT_DIR / "meta_ads_raw.json").write_text(json.dumps(all_ads, indent=2, default=str), encoding="utf-8")
 
     recent = [a for a in all_ads if within_last_30_days(a)]
-    shortlist = rank(recent)[:20]
+    
+    # Filter for relevance and text presence
+    relevant = []
+    discarded_no_text = 0
+    discarded_off_topic = 0
+    
+    keywords = [
+        "trading", "trade", "forex", "stocks", "investing", "prop firm", 
+        "funded", "day trading", "chart", "market", "crypto", "algo", 
+        "indicators", "futures", "options", "brokerage", "day trader", 
+        "swing trading", "funded next", "blue guardian", "funding pips",
+        "smrt algo", "luxalgo", "price action", "pips"
+    ]
+    
+    for ad in recent:
+        ad_text = ad.get("adText") or ""
+        if not ad_text and ad.get("adCreativeBodies"):
+            bodies = ad.get("adCreativeBodies")
+            if isinstance(bodies, list):
+                ad_text = " ".join(filter(None, bodies))
+            elif isinstance(bodies, str):
+                ad_text = bodies
+        if not ad_text:
+            ad_text = ad.get("pageAboutText") or ""
+            
+        ad_text = ad_text.strip()
+        if not ad_text:
+            discarded_no_text += 1
+            continue
+            
+        text_lower = ad_text.lower()
+        has_keyword = any(kw in text_lower for kw in keywords)
+        
+        page_name = (ad.get("pageName") or ad.get("page_name") or "").lower()
+        page_cat = (ad.get("pageCategory") or "").lower()
+        has_page_keyword = any(kw in page_name or kw in page_cat for kw in [
+            "trading", "trade", "forex", "prop firm", "funded", "investing", "brokerage", "financial", "algo"
+        ])
+        
+        if has_keyword or has_page_keyword:
+            ad["adText_cleaned"] = ad_text
+            relevant.append(ad)
+        else:
+            discarded_off_topic += 1
+            
+    print(f"Relevance filter: kept {len(relevant)} ads, discarded {discarded_no_text} with no text, {discarded_off_topic} off-topic.")
+    shortlist = rank(relevant)[:20]
 
     # Memory: track new vs. already-seen ads
     new_count = 0
@@ -75,8 +143,8 @@ def main() -> None:
             memory.mark_processed(f"ad:{ad_id}", {"advertiser": ad.get("page_name", "unknown")})
             new_count += 1
 
-    (OUT_DIR / "meta_ads_shortlist.json").write_text(json.dumps(shortlist, indent=2, default=str))
-    print(f"Total ads scraped: {len(all_ads)} | last-30-day: {len(recent)} | shortlisted: {len(shortlist)} | new: {new_count}")
+    (OUT_DIR / "meta_ads_shortlist.json").write_text(json.dumps(shortlist, indent=2, default=str), encoding="utf-8")
+    print(f"Total ads: {len(all_ads)} | last-30-day: {len(recent)} | relevance-filtered: {len(relevant)} | shortlisted: {len(shortlist)} | new: {new_count}")
 
 
 if __name__ == "__main__":

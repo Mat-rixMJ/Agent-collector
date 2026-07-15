@@ -8,60 +8,60 @@
   ],
   "cards": [
     {
-      "id": "14973e27",
+      "id": "21471d18",
       "title": "Competitor research: top 5 trading-education competitors",
       "skill": "marketing_manager",
       "column": "Review",
-      "created_at": "2026-07-07T14:19:18.977937+00:00"
+      "created_at": "2026-07-15T05:36:38.751271+00:00"
     },
     {
-      "id": "41df6a1f",
+      "id": "036c8966",
       "title": "Marketing strategy brief for crowdwisdomtrading.com",
       "skill": "marketing_manager",
-      "column": "Backlog",
-      "created_at": "2026-07-07T14:19:18.996505+00:00"
+      "column": "Review",
+      "created_at": "2026-07-15T05:36:38.760139+00:00"
     },
     {
-      "id": "bd888b9e",
+      "id": "5199ca2c",
       "title": "Scrape Meta Ads Library \u2014 retail trading niche, last 30 days",
       "skill": "ads_manager",
       "column": "Review",
-      "created_at": "2026-07-07T14:19:19.011656+00:00"
+      "created_at": "2026-07-15T05:36:38.768547+00:00"
     },
     {
-      "id": "129f3c3f",
+      "id": "f913f33c",
       "title": "Extract pain/hook/offer concepts from top ads",
       "skill": "ads_manager",
-      "column": "Backlog",
-      "created_at": "2026-07-07T14:19:19.023752+00:00"
+      "column": "In Progress",
+      "created_at": "2026-07-15T05:36:38.776263+00:00"
     },
     {
-      "id": "4cd1608c",
+      "id": "59b33a9f",
       "title": "Draft ad script from best concept",
       "skill": "ads_manager",
       "column": "Backlog",
-      "created_at": "2026-07-07T14:19:19.038538+00:00"
+      "created_at": "2026-07-15T05:36:38.784230+00:00"
     },
     {
-      "id": "8668ed0f",
+      "id": "855ac462",
       "title": "Find retail-trading influencers 200K+ subs",
       "skill": "influencer_outreach",
       "column": "Review",
-      "created_at": "2026-07-07T14:19:19.054776+00:00"
+      "created_at": "2026-07-15T05:36:38.794034+00:00"
     },
     {
-      "id": "a0d52f0d",
+      "id": "a338d686",
       "title": "Draft personalized cold outreach per influencer",
       "skill": "influencer_outreach",
       "column": "Backlog",
-      "created_at": "2026-07-07T14:19:19.069964+00:00"
+      "created_at": "2026-07-15T05:36:38.802316+00:00"
     },
     {
-      "id": "f4d94405",
+      "id": "4cd7ec6c",
       "title": "Repurpose provided YouTube sources into social content",
       "skill": "content_repurposer",
       "column": "Review",
-      "created_at": "2026-07-07T14:19:19.082994+00:00"
+      "created_at": "2026-07-15T05:36:38.812781+00:00"
     }
   ]
 }

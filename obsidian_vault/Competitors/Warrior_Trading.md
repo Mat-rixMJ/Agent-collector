@@ -1,16 +1,19 @@
 # Warrior Trading
 
-# Positioning
-Warrior Trading positions itself as the ultimate home for momentum day traders, led by Ross Cameron.
+
+> ⚠️ **CHANGE DETECTED** — this competitor's positioning has shifted since our last analysis.
+
+# Warrior Trading Positioning
+Warrior Trading positions itself as the ultimate home for momentum day traders, offering a comprehensive suite of educational resources and trading tools.
 
 # Target Audience
-New and existing day traders interested in momentum trading strategies.
+The target audience includes aspiring and experienced day traders who are interested in learning and improving their trading skills through structured courses and access to proprietary tools and strategies developed by Ross Cameron.
 
 # Pricing Model
-The pricing model starts at $597 for memberships, with a $19 two-week trial available to sample the platform’s offerings before committing.
+Warrior Trading offers membership plans with varying levels of depth, including a Starter Membership for $797 (with a coupon code), a Pro Membership for $2,997 (with a coupon code), and a Special Bundle Offer for $3,997 (with a coupon code). The pricing is not publicly listed on the homepage or standard plans page; it was checked against available membership details and promotional offers.
 
 # Dominant Content Format/Channel
-The dominant content format is educational guides and success stories, primarily through blog posts and product pages on their website.
+The dominant content format/channel appears to be course-based education with additional access to proprietary tools like Ross's Stream and Chat. They also have a presence on YouTube, though no specific channel is mentioned in the given snippets.
 
 ---
-*Sources: 4 pages via apify/rag-web-browser*
+*Sources: 5 pages via apify/rag-web-browser*
