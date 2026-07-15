@@ -73,13 +73,18 @@ def snapshot() -> str:
 
 def seed_default_board() -> None:
     """Call once to populate the board with the standard task set from the brief."""
+    from tools.config_manager import load_config
+    cfg = load_config()
+    company = cfg.get("company_name", "Target Company")
+    niche = cfg.get("niche", "Target Niche")
+
     defaults = [
-        ("Competitor research: top 5 trading-education competitors", "marketing_manager"),
-        ("Marketing strategy brief for crowdwisdomtrading.com", "marketing_manager"),
-        ("Scrape Meta Ads Library — retail trading niche, last 30 days", "ads_manager"),
+        (f"Competitor research: top 5 {niche} competitors", "marketing_manager"),
+        (f"Marketing strategy brief for {company}", "marketing_manager"),
+        (f"Scrape Meta Ads Library — {niche}, last 30 days", "ads_manager"),
         ("Extract pain/hook/offer concepts from top ads", "ads_manager"),
         ("Draft ad script from best concept", "ads_manager"),
-        ("Find retail-trading influencers 200K+ subs", "influencer_outreach"),
+        (f"Find {niche} influencers", "influencer_outreach"),
         ("Draft personalized cold outreach per influencer", "influencer_outreach"),
         ("Repurpose provided YouTube sources into social content", "content_repurposer"),
     ]

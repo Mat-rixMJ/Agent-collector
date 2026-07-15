@@ -4,7 +4,7 @@ import json
 
 vault = Path("obsidian_vault")
 report = []
-report.append("# CrowdWisdomTrading Marketing Agents — Run Report")
+report.append("# Marketing Intelligence Agents — Run Report")
 report.append("**Date:** 2026-07-04  ")
 report.append("**Pipeline:** `main.py` (Hermes Agent orchestration loop)  ")
 report.append("**LLM:** qwen2.5:7b via Ollama (local)  ")

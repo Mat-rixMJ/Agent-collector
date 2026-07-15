@@ -61,6 +61,21 @@ def main() -> None:
         print(f"All scripts score >= {THRESHOLD}/50. No revision needed.")
         return
 
+    import json
+    import re
+    from tools import config_manager
+    from skills.ads_manager.scripts.generate_ad_script import check_vertical_bleed, scan_for_unverified_statistics
+
+    config = config_manager.load_config()
+    niche = config.get("niche", "general")
+    
+    company_data = json.dumps({
+        "company_name": config.get("company_name"),
+        "target_site": config.get("target_site"),
+        "verified_claims": config.get("verified_claims"),
+        "positioning_guidelines": config.get("positioning_guidelines")
+    }, indent=2)
+
     for entry in needs_revision[:2]:  # Limit to top 2 revisions per run
         script_path = VAULT / entry["file"]
         if not script_path.exists():
@@ -70,11 +85,59 @@ def main() -> None:
         original = script_path.read_text(encoding="utf-8")
         improvement = entry["improvement"]
 
-        revised = ask(
-            REVISION_PROMPT,
+        # Formulate a robust prompt that injects target vertical/audience
+        revision_input_prompt = (
+            f"Target Brand: {config.get('company_name')} | Vertical: {niche} | Target Audience: {config.get('positioning_guidelines')}\n\n"
             f"Original script:\n{original}\n\n"
-            f"Improvement to apply: {improvement}",
+            f"Improvement to apply: {improvement}\n\n"
+            f"CRITICAL RULES:\n"
+            f"- NEVER use trading/financial terms (like 'traders', 'analyst community') for non-financial verticals.\n"
+            f"- Do NOT invent statistics or numbers. Omit them or use '[INSERT VERIFIED STAT HERE]'.\n"
         )
+
+        revised = ""
+        for attempt in range(4):
+            revised = ask(REVISION_PROMPT, revision_input_prompt)
+            
+            # Check bleed
+            bleed_violations = check_vertical_bleed(revised, niche)
+            if bleed_violations:
+                print(f"  [REVISION BLEED] Attempt {attempt+1} failed: {bleed_violations}. Retrying...")
+                revision_input_prompt += f"\n\nCRITICAL FIX: The previous revision attempt leaked vertical words: {bleed_violations}. You must remove them."
+                continue
+                
+            # Check stats
+            stat_violations = scan_for_unverified_statistics(revised, config)
+            if stat_violations:
+                print(f"  [REVISION STATS] Attempt {attempt+1} failed: unverified stats {stat_violations}. Retrying...")
+                revision_input_prompt += f"\n\nCRITICAL FIX: The previous revision attempt leaked unverified numbers: {stat_violations}. You must omit them or replace them with '[INSERT VERIFIED STAT HERE]'."
+                continue
+                
+            break
+
+        # Stage B (mandatory post-draft validation pass)
+        fact_check_prompt = (
+            "You will now review the script you just wrote as a fact-checker, not the author.\n\n"
+            "Scan every sentence for: numbers, percentages, superlatives implying scale "
+            "(\"thousands of,\" \"over X,\" \"500,000\"), named studies, or named institutions.\n\n"
+            "For each one found, check: does it appear in the verified data provided below?\n"
+            f"Verified data: {company_data}\n\n"
+            "- If YES: keep it, cite the source.\n"
+            "- If NO: replace the entire claim with [INSERT VERIFIED STAT HERE] — do not "
+            "just remove the number and keep the surrounding sentence, since qualitative "
+            "phrasing like \"thousands of\" or \"powered by real-world results\" is still "
+            "an unverified scale claim.\n\n"
+            "Output the corrected script only without markdown blocks."
+        )
+        print(f"  [STAT VALIDATION] Running adversarial Stage B fact-check on revised script...")
+        revised = ask(fact_check_prompt, revised)
+
+        # Post-process cleanup of unverified stats
+        stat_violations = scan_for_unverified_statistics(revised, config)
+        if stat_violations:
+            print(f"  [REVISION STATS] Cleaning up remaining unverified stats: {stat_violations}")
+            for violation in stat_violations:
+                revised = revised.replace(violation, "[INSERT VERIFIED STAT HERE]")
 
         revised_path = script_path.with_stem(script_path.stem + "_revised")
         revised_path.write_text(

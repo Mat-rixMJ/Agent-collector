@@ -4,43 +4,43 @@ Ranked by total score (out of 50). Higher = more likely to convert.
 
 | Rank | Script | Total | Verdict |
 |------|--------|-------|---------|
-| 1 | 2026-07-15_struggling-with-understanding | 37/50 | Needs revision |
-| 2 | 2026-07-15_struggling-with-understanding | 35/50 | Needs revision |
-| 3 | 2026-07-15_struggling-with-understanding | 16/50 | Needs revision |
+| 1 | Angle: Fear (Draft) | 34/50 | Needs revision |
+| 2 | Angle: Social Proof (Draft) | 34/50 | Needs revision |
+| 3 | Angle: Aspiration (Draft) | 31/50 | Needs revision |
 
 ---
 
 ## Detailed Scores
 
-### #1: 2026-07-15_struggling-with-understanding_social_proof.md
-- Hook Strength: 6/10
-- Pain Clarity: 8/10
-- Mechanism: 7/10
-- Proof Elements: 9/10
-- CTA Urgency: 7/10
-- **Total: 37/50**
-- **Verdict: Needs revision**
-- Top Improvement: Clarify the specific pain points and add more concrete numbers or credentials to support the claims.
-
-### #2: 2026-07-15_struggling-with-understanding_fear.md
+### #1: 2026-07-15_busy-schedules-making-it-hard_fear.md
 - Hook Strength: 8/10
-- Pain Clarity: 7/10
+- Pain Clarity: 9/10
+- Mechanism: 6/10
+- Proof Elements: 4/10
+- CTA Urgency: 7/10
+- **Total: 34/50**
+- **Verdict: Needs revision**
+- Top Improvement: Add specific numbers and credentials in the proof section to strengthen credibility.
+
+### #2: 2026-07-15_busy-schedules-making-it-hard_social_proof.md
+- Hook Strength: 8/10
+- Pain Clarity: 6/10
+- Mechanism: 7/10
+- Proof Elements: 5/10
+- CTA Urgency: 8/10
+- **Total: 34/50**
+- **Verdict: Needs revision**
+- Top Improvement: Add a more specific and compelling opening hook. For example, 'Lose 10 pounds in just 30 days with Cult.fit!'
+
+### #3: 2026-07-15_busy-schedules-making-it-hard_aspiration.md
+- Hook Strength: 7/10
+- Pain Clarity: 4/10
 - Mechanism: 6/10
 - Proof Elements: 5/10
-- CTA Urgency: 9/10
-- **Total: 35/50**
+- CTA Urgency: 7/10
+- **Total: 31/50**
 - **Verdict: Needs revision**
-- Top Improvement: Add specific numbers or credentials to the proof elements, such as percentage gains from using real-time alerts.
-
-### #3: 2026-07-15_struggling-with-understanding_aspiration.md
-- Hook Strength: 4/10
-- Pain Clarity: 2/10
-- Mechanism: 3/10
-- Proof Elements: 2/10
-- CTA Urgency: 5/10
-- **Total: 16/50**
-- **Verdict: Needs revision**
-- Top Improvement: Clarify the specific problems faced by traders and provide more concrete proof elements, such as success stories or expert credentials.
+- Top Improvement: Add specific numbers, credentials, or social proof to the mechanism and pain clarity sections.
 
 
 ---
@@ -51,7 +51,7 @@ To identify the most effective angle before scaling our ad spend, we will execut
 
 ### Testing Parameters
 - **Budget Split:** Equal 33.3% split of the daily budget across three separate ad sets ($50/day per variant, $150/day total).
-- **Target Audience:** Lookalike audience (1-2%) based on existing customer list, combined with interest targeting for Day Trading, Forex, and Technical Analysis.
+- **Target Audience:** Lookalike audience (1-2%) based on existing customer list, combined with interest targeting for Fitness centers,  workout subscriptions,  and D2C health supplements in India.
 - **Duration:** 14 days to ensure sufficient data gathering across weekdays and weekends.
 - **Estimated Sample Size:** Target ~10,000 impressions per variant to achieve statistical significance.
 

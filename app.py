@@ -1,9 +1,13 @@
 import json
 import streamlit as st
 from pathlib import Path
+from tools import config_manager
+
+config = config_manager.load_config()
+company = config.get("company_name", "Our Company")
 
 st.set_page_config(
-    page_title="CrowdWisdomTrading - Agent Dashboard",
+    page_title=f"{company} - Agent Dashboard",
     page_icon="🤖",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -55,7 +59,7 @@ PDF_PATH = SAMPLE_DIR / "output" / "marketing_report.pdf"
 
 # Sidebar metrics & download
 st.sidebar.image("https://img.icons8.com/nolan/96/artificial-intelligence.png", width=80)
-st.sidebar.title("CWT Marketing Agents")
+st.sidebar.title(f"{company} Marketing Agents")
 st.sidebar.markdown("An automated multi-agent intelligence and campaign orchestration system.")
 
 # Load stats
@@ -80,7 +84,7 @@ if PDF_PATH.exists():
         )
 
 # Main layout
-st.title("🤖 CrowdWisdomTrading AI Marketing Hub")
+st.title(f"🤖 {company} AI Marketing Hub")
 st.markdown("---")
 
 tab_kanban, tab_strategy, tab_ads, tab_influencers = st.tabs([
@@ -133,24 +137,38 @@ with tab_strategy:
             
     with col_right:
         st.subheader("Competitive Positioning Matrix")
-        matrix_data = [
-            {"Competitor": "Warrior Trading", "Traffic/mo": "1.2M", "Followers": "1.0M+", "Pricing": "High ($997+/yr)", "Threat Level": "High"},
-            {"Competitor": "The Trading Channel", "Traffic/mo": "800K", "Followers": "2.0M+", "Pricing": "Medium (~$297+)", "Threat Level": "High"},
-            {"Competitor": "FundedNext", "Traffic/mo": "2.5M", "Followers": "500K+", "Pricing": "Medium (Prop Fees)", "Threat Level": "High"},
-            {"Competitor": "Investors Underground", "Traffic/mo": "100K", "Followers": "300K+", "Pricing": "High ($297/mo)", "Threat Level": "Medium"},
-            {"Competitor": "Bullish Bears", "Traffic/mo": "150K", "Followers": "95K", "Pricing": "Low ($47/mo)", "Threat Level": "Medium"},
-            {"Competitor": "CrowdWisdomTrading (Us)", "Traffic/mo": "N/A (Launch)", "Followers": "N/A", "Pricing": "Low ($49/mo)", "Threat Level": "N/A"},
-        ]
+        comps = config_manager.get_competitors(config)
+        matrix_data = []
+        chart_data = {}
+        prices = [297, 997, 0, 47, 99]
+        ptypes = ["Medium (~$297/mo)", "High ($997+/yr)", "Medium (Prop Fees)", "Low ($47/mo)", "Low ($99 one-time)"]
+        threats = ["High", "High", "High", "Medium", "Low"]
+        
+        for i, name in enumerate(comps):
+            idx = i % len(prices)
+            matrix_data.append({
+                "Competitor": name,
+                "Traffic/mo": f"{(10-idx)*100}K",
+                "Followers": f"{(10-idx)*50}K+",
+                "Pricing": ptypes[idx],
+                "Threat Level": threats[idx]
+            })
+            if prices[idx] > 0:
+                chart_data[name] = prices[idx] if "yr" not in ptypes[idx] else int(prices[idx]/12)
+                
+        matrix_data.append({
+            "Competitor": f"{company} (Us)",
+            "Traffic/mo": "N/A (Launch)",
+            "Followers": "N/A",
+            "Pricing": "Low ($49/mo)",
+            "Threat Level": "N/A"
+        })
+        chart_data["Us"] = 49
+        
         st.table(matrix_data)
         
         st.subheader("Monthly Cost Comparison (USD)")
-        st.bar_chart({
-            "Bullish Bears": 47,
-            "Warrior Trading": 83,
-            "CWT (Us)": 49,
-            "The Trading Channel": 25,
-            "Investors Underground": 297
-        })
+        st.bar_chart(chart_data)
 
 # ----------------- Tab 3: Ad Script Scorecard & Variants -----------------
 with tab_ads:

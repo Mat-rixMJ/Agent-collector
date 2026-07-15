@@ -10,7 +10,7 @@ An autonomous, multi-agent intelligence and campaign distribution engine designe
 
 ## ⚡ See It in Action (No Setup Required)
 
-* **Live Interactive Dashboard:** [View Live Streamlit Dashboard](https://crowdwisdom-marketing.streamlit.app) *(Visualizes the current Kanban states, scorecard, competitor comparisons, and outreach drafts in your browser).*
+* **Live Interactive Dashboard:** [View Live Streamlit Dashboard](https://marketing-agents-dashboard.streamlit.app) *(Visualizes the current Kanban states, scorecard, competitor comparisons, and outreach drafts in your browser).*
 * **Zero-Setup Sample Outputs:** Explore the raw agent outputs produced in a full pipeline run:
   * 📋 [Visual Kanban Task Board](file:///sample_output/kanban/board.json)
   * 📈 [Competitor Intelligence Briefs](file:///sample_output/obsidian_vault/Competitors/) & [Strategy Brief](file:///sample_output/obsidian_vault/Strategy/brief.md)

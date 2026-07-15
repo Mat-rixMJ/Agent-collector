@@ -40,4 +40,4 @@ def test_seed_default_board():
     kanban.seed_default_board()
     board = kanban._load()
     assert len(board["cards"]) == 8
-    assert board["cards"][0]["title"] == "Competitor research: top 5 trading-education competitors"
+    assert "Competitor research:" in board["cards"][0]["title"]

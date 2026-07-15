@@ -80,6 +80,9 @@ def fresh_start() -> None:
         "data/ads/meta_ads_shortlist.json",
         "data/ads/ad_concepts.json",
         "data/influencers/discovered_videos.json",
+        "data/meta_ads_queries.json",
+        "data/youtube_queries.json",
+        "data/discovered_competitors.json",
     ]
     dirs_to_remove = ["obsidian_vault", "output"]
 
@@ -102,7 +105,7 @@ def main() -> None:
 
     # Startup mode selection
     print("=" * 50)
-    print("CROWDWISDOMTRADING MARKETING AGENTS")
+    print("MARKETING INTELLIGENCE AGENTS")
     print("=" * 50)
     print()
     print("Select run mode:")

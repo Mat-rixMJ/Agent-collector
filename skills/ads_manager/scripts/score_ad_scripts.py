@@ -11,6 +11,7 @@ import os
 from pathlib import Path
 
 from tools.llm_client import ask
+from tools.config_manager import load_config
 
 VAULT = Path(os.getenv("OBSIDIAN_VAULT_PATH", "./obsidian_vault")) / "Ads"
 SCORES_PATH = VAULT / "_scorecard.md"
@@ -196,19 +197,29 @@ def main() -> None:
     # Sort by total score descending
     results.sort(key=lambda x: x.get("total", 0), reverse=True)
 
+    # Bug 6 Fix: Uniqueness assertion on the generated slugs/IDs
+    slugs = [r['file'].replace(".md", "") for r in results]
+    assert len(set(slugs)) == len(slugs), f"Duplicate scorecard slugs detected! Slugs: {slugs}"
+
     # Write scorecard
     lines = ["# Ad Script Scorecard\n"]
     lines.append("Ranked by total score (out of 50). Higher = more likely to convert.\n")
     lines.append("| Rank | Script | Total | Verdict |")
     lines.append("|------|--------|-------|---------|")
     for i, r in enumerate(results, 1):
-        display_name = r['file'].replace(".md", "")
-        if "_revised" in display_name:
-            display_name = display_name.replace("_revised", " (Revised)")
+        angle = "Unknown Angle"
+        for a in ["aspiration", "fear", "social_proof"]:
+            if a in r['file'].lower():
+                angle = a.replace("_", " ").title()
+                break
+        
+        display_name = f"Angle: {angle}"
+        if "_revised" in r['file'].lower():
+            display_name += " (Revised)"
         else:
-            display_name = display_name + " (Draft)"
+            display_name += " (Draft)"
             
-        lines.append(f"| {i} | {display_name[:40]} | {r.get('total', '?')}/50 | {r.get('verdict', '?')} |")
+        lines.append(f"| {i} | {display_name} | {r.get('total', '?')}/50 | {r.get('verdict', '?')} |")
 
     lines.append("\n---\n")
     lines.append("## Detailed Scores\n")
@@ -225,13 +236,23 @@ def main() -> None:
         lines.append(f"- Top Improvement: {r.get('top_improvement', 'N/A')}")
         lines.append("")
 
+    # Generate dynamic interests based on niche
+    config = load_config()
+    niche = config.get("niche", "general marketing")
+    try:
+        interest_prompt = f"List 3 Meta Ads interest-targeting categories relevant to niche '{niche}'. Return ONLY a comma-separated list of strings, for example: 'Category 1, Category 2, Category 3'."
+        interest_response = ask(interest_prompt, fallback_message="Digital Marketing, Entrepreneurship")
+        interests = interest_response.replace("[", "").replace("]", "").replace('"', "").replace("'", "").strip()
+    except Exception:
+        interests = ", ".join(niche.split(",")[:3])
+
     # Append structured A/B Test Plan
     lines.append("\n---\n")
     lines.append("## A/B Test Plan for Ad Script Variants\n")
     lines.append("To identify the most effective angle before scaling our ad spend, we will execute a 14-day A/B test on Meta Ads Manager using the three generated script variants (Fear/Loss Aversion, Aspiration/Gain, and Social Proof).\n")
     lines.append("### Testing Parameters")
     lines.append("- **Budget Split:** Equal 33.3% split of the daily budget across three separate ad sets ($50/day per variant, $150/day total).")
-    lines.append("- **Target Audience:** Lookalike audience (1-2%) based on existing customer list, combined with interest targeting for Day Trading, Forex, and Technical Analysis.")
+    lines.append(f"- **Target Audience:** Lookalike audience (1-2%) based on existing customer list, combined with interest targeting for {interests}.")
     lines.append("- **Duration:** 14 days to ensure sufficient data gathering across weekdays and weekends.")
     lines.append("- **Estimated Sample Size:** Target ~10,000 impressions per variant to achieve statistical significance.\n")
     lines.append("### Success Metrics")

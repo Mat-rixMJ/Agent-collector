@@ -7,11 +7,17 @@ Improvements:
 """
 import os
 import re
+import json
 from pathlib import Path
 
 from tools.apify_client import get_youtube_transcript
 from tools.llm_client import ask
 from tools import memory
+from tools import config_manager
+
+config = config_manager.load_config()
+COMPANY_NAME = config.get("company_name", "Our Company")
+PRODUCTS = json.dumps(config.get("verified_claims", {}).get("pricing", "")) if config.get("verified_claims") else ""
 
 VAULT = Path(os.getenv("OBSIDIAN_VAULT_PATH", "./obsidian_vault")) / "Content"
 VAULT.mkdir(parents=True, exist_ok=True)
@@ -33,13 +39,21 @@ EXTRACT_PROMPT = (
 )
 
 REPURPOSE_PROMPT = (
-    "Given this insight from a trading-education/market-commentary video, write "
+    "Given this insight from a niche-relevant YouTube video, write "
     "three platform-native assets:\n"
     "1) TWITTER THREAD: 5-7 tweets, hook tweet first, each under 280 chars\n"
     "2) LINKEDIN POST: 150-250 words, analytical/professional tone, include 3 hashtags\n"
     "3) SHORT-FORM VIDEO SCRIPT: 30-45 seconds, HOOK/BODY/CTA structure with "
     "[visual direction] cues in brackets\n"
-    "Clearly label each section with a markdown header."
+    "Clearly label each section with a markdown header.\n\n"
+    "CRITICAL BRAND IDENTITY RULE (BRAND LOCK):\n"
+    f"The client brand is exactly: '{COMPANY_NAME}'\n"
+    f"Product names are exactly: {PRODUCTS}\n\n"
+    "Rules:\n"
+    f"1. Never generate, infer, or substitute any brand name other than the exact strings above. Do not blend, abbreviate, or create variants (e.g. 'Cala', 'Cult Elite Pro', 'CultFit+').\n"
+    f"2. If the source transcript/video content mentions a DIFFERENT brand or product name (competitor, unrelated company, or a name that sounds similar), do NOT merge it with the client brand. Either: a) Attribute it clearly as a third party's product, or b) Omit that reference entirely if attribution is unclear.\n"
+    f"3. Any proper noun appearing in ad-source metadata, creator names, or video titles from EARLIER pipeline stages must not leak into brand references in THIS stage's output.\n\n"
+    "CRITICAL: YOUR OUTPUT LANGUAGE MUST BE IN ENGLISH, even if the source video was in another language."
 )
 
 CALENDAR_PROMPT = (
@@ -48,6 +62,30 @@ CALENDAR_PROMPT = (
     "day and platform (Twitter, LinkedIn, TikTok/Reels). Spread content "
     "evenly. Format as a markdown table with columns: Day | Platform | Asset | Best Time."
 )
+
+ALLOWED_BRAND_TERMS = ["cult.fit", "cult.pass elite", "cult.pass home", "cult.pass", "cult", COMPANY_NAME.lower()]
+
+def check_brand_integrity(text: str) -> bool:
+    # crude fuzzy check for near-miss brand hallucinations (specific to the Cala bug, but can be expanded)
+    suspicious = re.findall(r'\bcala\w*\b', text, re.IGNORECASE)
+    if suspicious:
+        return False  # reject, regenerate or flag for review
+    return True
+
+def check_brand_bleed(content: str, company: str) -> bool:
+    prompt = (
+        f"You are a brand compliance reviewer for '{company}'. "
+        "Review the following content and identify if the AI hallucinated, blended, or invented fake brand names "
+        "(e.g., if the brand is 'Cult.fit' and the source had 'Ocala', did it invent 'Cala Pass' or 'Cala Elite'?).\n\n"
+        f"Content:\n{content}\n\n"
+        f"If the content uses fake or corrupted versions of the brand name instead of '{company}', reply 'FAIL'. "
+        "If the brand identity is correct and clean, reply 'PASS'. Output strictly PASS or FAIL."
+    )
+    try:
+        res = ask(prompt, "").strip().upper()
+        return "FAIL" not in res
+    except:
+        return True
 
 
 def video_id(url: str) -> str:
@@ -75,7 +113,16 @@ def process(url: str) -> bool:
         return False
 
     insights_raw = ask(EXTRACT_PROMPT, transcript[:8000])
-    assets = ask(REPURPOSE_PROMPT, insights_raw)
+    
+    for attempt in range(4):
+        assets = ask(REPURPOSE_PROMPT, insights_raw)
+        if not check_brand_integrity(assets):
+            print(f"  [BRAND VALIDATION] Attempt {attempt+1} failed mechanical check_brand_integrity regex. Retrying...")
+            continue
+        if not check_brand_bleed(assets, COMPANY_NAME):
+            print(f"  [BRAND VALIDATION] Attempt {attempt+1} failed context bleed check (hallucinated brand names). Retrying...")
+            continue
+        break
 
     note = (
         f"# Content repurposing — {vid}\n\n"
@@ -127,8 +174,8 @@ def main() -> None:
             print(f"Failed to load discovered videos: {e}")
             
     if not urls:
-        urls = DEFAULT_TRADING_VIDEOS
-        print("Using curated fallback retail-trading videos for repurposing.")
+        print("No discovered video URLs available for repurposing. Run influencer discovery first.")
+        return
         
     # Deduplicate and limit to 5
     urls = list(dict.fromkeys(urls))[:5]

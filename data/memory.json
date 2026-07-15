@@ -1,119 +1,267 @@
 {
   "processed": {
-    "competitor:Warrior Trading": {
-      "timestamp": "2026-07-15T06:42:58.856564+00:00",
-      "content_hash": "549e65b180e2"
+    "competitor:Gold's Gym India": {
+      "timestamp": "2026-07-15T17:31:13.879318+00:00",
+      "content_hash": "ecf7a56a3d3e"
     },
-    "competitor:Bullish Bears": {
-      "timestamp": "2026-07-15T06:45:01.729604+00:00",
-      "content_hash": "90b26fd7a335"
+    "competitor:Anytime Fitness India": {
+      "timestamp": "2026-07-15T17:32:45.381489+00:00",
+      "content_hash": "d4a76d1b3e55"
     },
-    "competitor:The Trading Channel": {
-      "timestamp": "2026-07-15T06:46:14.978902+00:00",
-      "content_hash": "e222f2f87da7"
+    "competitor:HealthifyMe": {
+      "timestamp": "2026-07-15T17:34:15.501727+00:00",
+      "content_hash": "407879bdf0ff"
     },
-    "competitor:Investors Underground": {
-      "timestamp": "2026-07-15T06:47:40.597344+00:00",
-      "content_hash": "99682811ba62"
+    "competitor:Fittr": {
+      "timestamp": "2026-07-15T17:36:14.537361+00:00",
+      "content_hash": "419a950a8e17"
     },
-    "competitor:FundedNext": {
-      "timestamp": "2026-07-15T06:49:06.739884+00:00",
-      "content_hash": "8398cc0a0890"
+    "competitor:Sarva Yoga": {
+      "timestamp": "2026-07-15T17:37:50.674216+00:00",
+      "content_hash": "de034eca29c0"
     },
-    "ad:1514023606882818": {
-      "timestamp": "2026-07-15T05:54:07.507119+00:00",
+    "ad:849179687889037": {
+      "timestamp": "2026-07-15T17:45:49.220696+00:00",
       "advertiser": "unknown"
     },
-    "ad:1342556074609663": {
-      "timestamp": "2026-07-15T05:54:07.518231+00:00",
+    "ad:27159601310333044": {
+      "timestamp": "2026-07-15T17:45:49.226835+00:00",
       "advertiser": "unknown"
     },
-    "outreach:Scarface Trades": {
-      "timestamp": "2026-07-15T06:04:19.226117+00:00",
+    "ad:1800176764478780": {
+      "timestamp": "2026-07-15T17:45:49.232934+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:1508148071353700": {
+      "timestamp": "2026-07-15T17:45:49.239697+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:895894212852096": {
+      "timestamp": "2026-07-15T17:45:49.247191+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:1917896875577307": {
+      "timestamp": "2026-07-15T17:45:49.254726+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:1018432924386872": {
+      "timestamp": "2026-07-15T17:45:49.262388+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:1825373858425247": {
+      "timestamp": "2026-07-15T17:45:49.271079+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:2063227804612388": {
+      "timestamp": "2026-07-15T17:45:49.281946+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:955778280833227": {
+      "timestamp": "2026-07-15T17:45:49.291897+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:1338743581017241": {
+      "timestamp": "2026-07-15T17:45:49.300289+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:1545353500310355": {
+      "timestamp": "2026-07-15T17:45:49.308031+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:1009445291676380": {
+      "timestamp": "2026-07-15T17:45:49.314881+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:3463436220497352": {
+      "timestamp": "2026-07-15T17:45:49.322192+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:2520562655061244": {
+      "timestamp": "2026-07-15T17:45:49.328428+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:1406668504634767": {
+      "timestamp": "2026-07-15T17:45:49.335589+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:27831323339887668": {
+      "timestamp": "2026-07-15T17:45:49.342052+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:4618561108424953": {
+      "timestamp": "2026-07-15T17:45:49.349498+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:1519859539607625": {
+      "timestamp": "2026-07-15T17:45:49.356602+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:1061126149807294": {
+      "timestamp": "2026-07-15T17:45:49.363235+00:00",
+      "advertiser": "unknown"
+    },
+    "outreach:Nishu Tiwari": {
+      "timestamp": "2026-07-15T18:04:21.522962+00:00",
       "status": "drafted"
     },
-    "outreach:Sierra Aaliyah": {
-      "timestamp": "2026-07-15T06:04:46.088500+00:00",
+    "outreach:Sriman Kotaru": {
+      "timestamp": "2026-07-15T18:04:50.262953+00:00",
       "status": "drafted"
     },
-    "outreach:TradingLab": {
-      "timestamp": "2026-07-15T06:05:13.463960+00:00",
+    "outreach:Discipline Dave": {
+      "timestamp": "2026-07-15T18:05:20.852611+00:00",
       "status": "drafted"
     },
-    "outreach:Craig Percoco": {
-      "timestamp": "2026-07-15T06:05:40.750026+00:00",
+    "outreach:One Crazy Introvert": {
+      "timestamp": "2026-07-15T18:05:48.406258+00:00",
       "status": "drafted"
     },
-    "outreach:TJR": {
-      "timestamp": "2026-07-15T06:06:11.285606+00:00",
+    "outreach:Trace ": {
+      "timestamp": "2026-07-15T18:06:24.723749+00:00",
       "status": "drafted"
     },
-    "outreach:SMB Capital": {
-      "timestamp": "2026-07-15T06:06:40.976467+00:00",
+    "outreach:Shivanidubey": {
+      "timestamp": "2026-07-15T18:06:59.349991+00:00",
       "status": "drafted"
     },
-    "outreach:Ross Cameron - Warrior Trading": {
-      "timestamp": "2026-07-15T06:07:09.919942+00:00",
+    "outreach:Freccero": {
+      "timestamp": "2026-07-15T18:07:27.868799+00:00",
       "status": "drafted"
     },
-    "outreach:Lander Schlessinger": {
-      "timestamp": "2026-07-15T06:07:35.452239+00:00",
+    "outreach:Avinash Kumar": {
+      "timestamp": "2026-07-15T18:07:57.536051+00:00",
       "status": "drafted"
     },
-    "outreach:Data Trader": {
-      "timestamp": "2026-07-15T06:08:02.850036+00:00",
+    "outreach:Rahul Badesra": {
+      "timestamp": "2026-07-15T18:08:30.202490+00:00",
       "status": "drafted"
     },
-    "outreach:Trade with Pat": {
-      "timestamp": "2026-07-15T06:08:29.488121+00:00",
+    "outreach:Rank On Top": {
+      "timestamp": "2026-07-15T18:08:56.798050+00:00",
       "status": "drafted"
     },
-    "outreach:Day Trading Addict": {
-      "timestamp": "2026-07-15T06:08:59.619267+00:00",
+    "outreach:wearecult": {
+      "timestamp": "2026-07-15T18:09:25.109755+00:00",
       "status": "drafted"
     },
-    "outreach:PB Blake": {
-      "timestamp": "2026-07-15T06:09:26.693865+00:00",
+    "outreach:JUYAL VLOGS": {
+      "timestamp": "2026-07-15T18:09:57.181010+00:00",
       "status": "drafted"
     },
-    "outreach:Dan Olinger": {
-      "timestamp": "2026-07-15T06:09:54.662175+00:00",
+    "outreach:WISE MAN": {
+      "timestamp": "2026-07-15T18:10:26.301796+00:00",
       "status": "drafted"
     },
-    "outreach:fxalexg ": {
-      "timestamp": "2026-07-15T06:10:21.155958+00:00",
+    "outreach:LearnWithTravis": {
+      "timestamp": "2026-07-15T18:10:55.428281+00:00",
       "status": "drafted"
     },
-    "outreach:JeaFx": {
-      "timestamp": "2026-07-15T06:10:49.889193+00:00",
+    "outreach:livfitin Media": {
+      "timestamp": "2026-07-15T18:11:23.728210+00:00",
       "status": "drafted"
     },
-    "video:AhPavo5UzEg": {
-      "timestamp": "2026-07-15T06:13:24.191869+00:00",
-      "url": "https://www.youtube.com/watch?v=AhPavo5UzEg"
+    "ad:1718296222497005": {
+      "timestamp": "2026-07-15T19:30:30.520798+00:00",
+      "advertiser": "unknown"
     },
-    "video:HN6frMMfjzE": {
-      "timestamp": "2026-07-15T06:15:25.969974+00:00",
-      "url": "https://www.youtube.com/watch?v=HN6frMMfjzE"
+    "ad:2465308067323077": {
+      "timestamp": "2026-07-15T19:30:30.545929+00:00",
+      "advertiser": "unknown"
     },
-    "video:edfHZq5lrTA": {
-      "timestamp": "2026-07-15T06:17:47.151511+00:00",
-      "url": "https://www.youtube.com/watch?v=edfHZq5lrTA"
+    "ad:2301234493945423": {
+      "timestamp": "2026-07-15T19:30:30.562161+00:00",
+      "advertiser": "unknown"
     },
-    "video:xHU5MHuUSKI": {
-      "timestamp": "2026-07-15T06:19:41.678400+00:00",
-      "url": "https://www.youtube.com/watch?v=xHU5MHuUSKI"
+    "ad:989528853790106": {
+      "timestamp": "2026-07-15T19:30:30.579124+00:00",
+      "advertiser": "unknown"
     },
-    "video:aobHuNcI1QM": {
-      "timestamp": "2026-07-15T06:22:16.938899+00:00",
-      "url": "https://www.youtube.com/watch?v=aobHuNcI1QM"
+    "ad:1030951156018346": {
+      "timestamp": "2026-07-15T19:30:30.599541+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:2174851439977299": {
+      "timestamp": "2026-07-15T19:30:30.617499+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:888043053702932": {
+      "timestamp": "2026-07-15T19:30:30.636091+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:4098488753617882": {
+      "timestamp": "2026-07-15T19:30:30.653687+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:1444153207471191": {
+      "timestamp": "2026-07-15T19:30:30.673252+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:2133736427190011": {
+      "timestamp": "2026-07-15T19:30:30.690558+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:998603296324358": {
+      "timestamp": "2026-07-15T19:30:30.709729+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:1291804272786705": {
+      "timestamp": "2026-07-15T19:30:30.725982+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:1380134140704174": {
+      "timestamp": "2026-07-15T19:30:30.743485+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:4636099386620256": {
+      "timestamp": "2026-07-15T19:30:30.770541+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:1038260025560561": {
+      "timestamp": "2026-07-15T19:30:30.789788+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:1001293576134201": {
+      "timestamp": "2026-07-15T19:30:30.809465+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:1568906481579041": {
+      "timestamp": "2026-07-15T19:30:30.829050+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:1039688251927297": {
+      "timestamp": "2026-07-15T19:30:30.853328+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:1566382838406357": {
+      "timestamp": "2026-07-15T19:30:30.876602+00:00",
+      "advertiser": "unknown"
+    },
+    "ad:772451342598162": {
+      "timestamp": "2026-07-15T19:30:30.903081+00:00",
+      "advertiser": "unknown"
+    },
+    "video:2jNYdotuTDY": {
+      "timestamp": "2026-07-15T19:40:01.536333+00:00",
+      "url": "https://www.youtube.com/watch?v=2jNYdotuTDY"
+    },
+    "video:H7DHoeEjpUA": {
+      "timestamp": "2026-07-15T19:45:19.775672+00:00",
+      "url": "https://www.youtube.com/watch?v=H7DHoeEjpUA"
+    },
+    "video:M-2y5lheCpI": {
+      "timestamp": "2026-07-15T19:48:01.752968+00:00",
+      "url": "https://www.youtube.com/watch?v=M-2y5lheCpI"
+    },
+    "video:amCKjr52FLI": {
+      "timestamp": "2026-07-15T19:50:53.230924+00:00",
+      "url": "https://www.youtube.com/watch?v=amCKjr52FLI"
     }
   },
   "history": [
     {
       "run": 1,
-      "timestamp": "2026-07-15T06:23:29.900347+00:00",
-      "summary": "**Backlog** (4): Marketing strategy brief for crowdwisdomtrading.com, Extract pain/hook/offer concepts from top ads, Draft ad script from best concept, Draft personalized cold outreach per influencer\n**In Progress** (0): \n**Review** (4): Competitor research: top 5 trading-education competitors, Scrape Meta Ads Library \u2014 retail trading niche, last 30 days, Find retail-trading influencers 200K+ subs, Repurpose provided YouTube sources into social content\n**Blocked** (0): \n**Done** (0): "
+      "timestamp": "2026-07-15T18:27:00.258898+00:00",
+      "summary": "**Backlog** (4): Marketing strategy brief for Cult.fit, Extract pain/hook/offer concepts from top ads, Draft ad script from best concept, Draft personalized cold outreach per influencer\n**In Progress** (0): \n**Review** (4): Competitor research: top 5 Fitness centers, workout subscriptions, and D2C health supplements in India competitors, Scrape Meta Ads Library \u2014 Fitness centers, workout subscriptions, and D2C health supplements in India, last 30 days, Find Fitness centers, workout subscriptions, and D2C health supplements in India influencers, Repurpose provided YouTube sources into social content\n**Blocked** (0): \n**Done** (0): "
     }
   ],
   "run_count": 1

@@ -14,6 +14,10 @@ from dotenv import load_dotenv
 from telegram import Bot, Update
 from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
 
+from tools import config_manager
+from tools.llm_client import ask
+from tools import memory
+
 # Import sibling modules explicitly to avoid conflict with hermes-agent's tools package
 def _sibling_import(name, filename):
     path = Path(__file__).parent / filename
@@ -23,9 +27,6 @@ def _sibling_import(name, filename):
     return mod
 
 kanban = _sibling_import("tools.kanban", "kanban.py")
-memory = _sibling_import("tools.memory", "memory.py")
-llm_client = _sibling_import("tools.llm_client", "llm_client.py")
-ask = llm_client.ask
 
 load_dotenv()
 
@@ -131,10 +132,18 @@ async def cmd_outreach(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
     handle = " ".join(context.args)
     await update.message.reply_text(f"Drafting outreach for {handle}...")
 
+    config = config_manager.load_config()
+    company_name = config.get("company_name", "Our Company")
+    niche = config.get("niche", "creators")
+    
+    prompt = (
+        f"You write short, professional cold outreach DMs (under 70 words) from "
+        f"{company_name} to {niche} content creators, asking for their honest "
+        f"opinion on {config.get('target_site', 'our platform')}. Not pitching a paid sponsorship."
+    )
+    
     draft = ask(
-        "You write short, genuine cold outreach messages (under 120 words) from "
-        "CrowdWisdomTrading to trading content creators, asking for their honest "
-        "opinion on crowdwisdomtrading.com. Not pitching a paid sponsorship.",
+        prompt,
         f"Creator: {handle}\nDraft a personalized cold outreach message.",
     )
     await update.message.reply_text(f"📨 *Outreach draft for {handle}:*\n\n{draft}", parse_mode="Markdown")
@@ -190,11 +199,18 @@ async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
 
     full_context = "\n\n".join(context_parts)
 
+    config = config_manager.load_config()
+    company_name = config.get("company_name", "Our Company")
+    
+    system = (
+        f"You are the {company_name} marketing agent team's assistant. "
+        "You run inside a Telegram bot. The user might ask you for status updates, "
+        "or to summarize the latest strategy, or draft something quickly."
+        "If asked to do something (like draft an outreach), do it."
+    )
+
     reply = ask(
-        "You are the CrowdWisdomTrading marketing agent team's assistant. "
-        "Answer questions about current progress, strategy, competitors, ads, "
-        "and influencers using the context given. Be concise and actionable. "
-        "If asked to do something (like draft an outreach), do it.",
+        system,
         f"Context:\n{full_context}\n\nQuestion: {user_text}",
     )
     await update.message.reply_text(reply)

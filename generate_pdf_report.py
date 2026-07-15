@@ -11,6 +11,7 @@ from datetime import date
 
 from fpdf import FPDF
 from tools.llm_client import ask
+from tools import config_manager
 
 VAULT = Path("obsidian_vault")
 OUTPUT_DIR = Path("output")
@@ -36,13 +37,46 @@ def safe_cell_value(value) -> str:
 
 
 class Report(FPDF):
-    def __init__(self):
+    def __init__(self, config=None):
         super().__init__()
+        self.config = config or {}
+        self.written_text = []
         import os
         font_dir = os.path.join(os.environ.get("WINDIR", r"C:\Windows"), "Fonts")
         self.add_font("Arial", "", os.path.join(font_dir, "arial.ttf"), uni=True)
         self.add_font("Arial", "B", os.path.join(font_dir, "arialbd.ttf"), uni=True)
         self.add_font("Arial", "I", os.path.join(font_dir, "ariali.ttf"), uni=True)
+
+    def _sanitize(self, txt):
+        if not isinstance(txt, str):
+            txt = str(txt)
+        self.written_text.append(txt)
+        # Remove characters outside BMP to prevent FPDF IndexError on emojis
+        return "".join(c for c in txt if ord(c) < 0x10000)
+
+    def pre_flight_check(self):
+        full_text = " ".join(self.written_text).lower()
+        banned_terms = ["trading", "forex", "prop firm", "telegram", "discord"]
+        niche_lower = self.config.get('niche', '').lower()
+        
+        # Only check terms that are not explicitly part of the current niche configuration
+        active_banned_terms = [t for t in banned_terms if t not in niche_lower]
+        
+        leaks = [t for t in active_banned_terms if t in full_text]
+        if leaks:
+            raise ValueError(f"Pre-flight check failed! Found banned cross-niche leakage in generated report: {leaks}")
+
+    def cell(self, w, h=0, txt='', border=0, ln=0, align='', fill=False, link=''):
+        txt = self._sanitize(txt)
+        super().cell(w, h, txt, border, ln, align, fill, link)
+
+    def multi_cell(self, w, h, txt, border=0, align='J', fill=False, split_only=False):
+        txt = self._sanitize(txt)
+        return super().multi_cell(w, h, txt, border, align, fill, split_only)
+        
+    def text(self, x, y, txt):
+        txt = self._sanitize(txt)
+        super().text(x, y, txt)
 
     def header(self):
         # Skip header on cover page
@@ -50,7 +84,8 @@ class Report(FPDF):
             return
         self.set_font("Arial", "B", 9)
         self.set_text_color(120, 120, 120)
-        self.cell(0, 8, "CrowdWisdomTrading - Marketing Intelligence Report", align="L")
+        company_name = self.config.get("company_name", "Our Company")
+        self.cell(0, 8, f"{company_name} - Marketing Intelligence Report", align="L")
         # Draw a thin horizontal header rule
         self.set_draw_color(200, 200, 200)
         self.set_line_width(0.1)
@@ -75,6 +110,7 @@ class Report(FPDF):
         self.ln(6)
 
     def section_title(self, title):
+        title = title.replace("’", "'").replace('“', '"').replace('”', '"')
         self.set_font("Arial", "B", 12)
         self.set_text_color(50, 50, 50)
         self.ln(2)
@@ -82,12 +118,14 @@ class Report(FPDF):
         self.ln(9)
 
     def body_text(self, text):
+        text = text.replace("’", "'").replace('“', '"').replace('”', '"').replace('–', '-')
         self.set_font("Arial", "", 10)
         self.set_text_color(30, 30, 30)
         self.multi_cell(0, 5.5, text)
         self.ln(3)
 
     def bullet(self, text):
+        text = text.replace("’", "'").replace('“', '"').replace('”', '"').replace('–', '-')
         self.set_font("Arial", "", 10)
         self.set_text_color(30, 30, 30)
         # Draw a small custom bullet character
@@ -221,35 +259,128 @@ def draw_competitor_matrix(pdf):
     
     # Define a single source of truth for competitors
     # Pricing types: 'monthly', 'annual', 'one_time', 'prop_fees'
-    competitors_db = [
-        {"name": "Warrior Trading", "traffic": "1.2M", "social": "1.0M+ YouTube", "price": 997, "price_type": "annual", "threat": "High"},
-        {"name": "The Trading Channel", "traffic": "800K", "social": "2.0M+ YouTube", "price": 297, "price_type": "one_time", "threat": "High"},
-        {"name": "FundedNext", "traffic": "2.5M", "social": "500K+ Social", "price": 0, "price_type": "prop_fees", "threat": "High"},
-        {"name": "Investors Underground", "traffic": "100K", "social": "300K+ YouTube", "price": 297, "price_type": "monthly", "threat": "Medium"},
-        {"name": "Bullish Bears", "traffic": "150K", "social": "95K YouTube", "price": 47, "price_type": "monthly", "threat": "Medium"},
-        {"name": "CrowdWisdomTrading (Us)", "traffic": "N/A (Launch)", "social": "N/A", "price": 49, "price_type": "monthly", "threat": "N/A"},
-    ]
+    from tools import config_manager
+    from tools.llm_client import ask
+    import json
+    from pathlib import Path
+
+    comps = config_manager.get_competitors(pdf.config)
+    competitors_db = []
+    
+    # Extract data dynamically from competitor research markdown files
+    profiles_text = ""
+    for name in comps:
+        p = Path(f"obsidian_vault/Competitors/{name}.md")
+        if p.exists():
+            profiles_text += f"=== {name} ===\n{p.read_text(encoding='utf-8')}\n\n"
+            
+    json_prompt = (
+        "Extract the following for each competitor from their profile below: "
+        "1. Estimated Traffic/mo "
+        "2. Social Followers "
+        "3. Price (numeric integer/float only, e.g., 28847, 14000, 0 if free). Extract the number in the primary currency listed in their profile (e.g., if it says ₹28,847, output 28847). Do NOT convert currencies or estimate values.\n"
+        "4. Price type (strictly one of: 'monthly', 'annual', 'one_time', 'prop_fees') "
+        "5. Threat Level (strictly 'High', 'Medium', or 'Low'). "
+        "CRITICAL RULES:\n"
+        "- If a metric or price is NOT explicitly stated in the profile as a number, you MUST output 'not disclosed' or 'N/A' for that JSON field.\n"
+        "- NEVER estimate, round, infer, or use a default stock number (like 99) to fill a cell.\n"
+        "Return ONLY a raw JSON array of objects with exactly these keys: name, traffic, social, price, price_type, threat. "
+        "Do not include markdown formatting like ```json."
+    )
+    
+    try:
+        response = ask(json_prompt, profiles_text)
+        import re
+        match = re.search(r"\[.*\]", response, re.DOTALL)
+        if match:
+            parsed = json.loads(match.group(0))
+            # Ensure the names match comps
+            for comp_name in comps:
+                found = next((c for c in parsed if c.get("name", "").lower() in comp_name.lower() or comp_name.lower() in c.get("name", "").lower()), None)
+                if found:
+                    found["name"] = comp_name # normalize name
+                    competitors_db.append(found)
+                else:
+                    competitors_db.append({"name": comp_name, "traffic": "N/A", "social": "N/A", "price": "not disclosed", "price_type": "monthly", "threat": "Medium"})
+        else:
+            raise ValueError("No JSON array found in LLM response")
+    except Exception as e:
+        print(f"Error extracting dynamic matrix data: {e}. Falling back to defaults.")
+        for name in comps:
+            competitors_db.append({
+                "name": name,
+                "traffic": "N/A",
+                "social": "N/A",
+                "price": "not disclosed",
+                "price_type": "monthly",
+                "threat": "Medium"
+            })
+        
+    competitors_db.append({
+        "name": f"{pdf.config.get('company_name', 'Our Company')} (Us)", 
+        "traffic": "N/A (Launch)", 
+        "social": "N/A", 
+        "price": 14000 if "india" in str(pdf.config.get("niche", "")).lower() else 49, 
+        "price_type": "annual" if "india" in str(pdf.config.get("niche", "")).lower() else "monthly", 
+        "threat": "N/A"
+    })
     
     # Validate pricing consistency
     for comp in competitors_db:
-        if comp["price_type"] not in ["annual", "monthly", "one_time", "prop_fees"]:
-            raise ValueError(f"Unknown pricing type for {comp['name']}")
+        pt = str(comp.get("price_type", "")).lower()
+        if "annual" in pt or "year" in pt:
+            comp["price_type"] = "annual"
+        elif "one" in pt or "time" in pt or "lifetime" in pt:
+            comp["price_type"] = "one_time"
+        elif "prop" in pt or "fee" in pt:
+            comp["price_type"] = "prop_fees"
+        else:
+            comp["price_type"] = "monthly"
+
+    # Automated check: verify competitors in the matrix match the research files exactly
+    from pathlib import Path
+    research_dir = Path("obsidian_vault/Competitors")
+    if research_dir.exists():
+        researched_names = {f.stem.replace("_", " ") for f in research_dir.glob("*.md") if f.stem != "_synthesis"}
+        matrix_names = {c["name"] for c in competitors_db if not c["name"].endswith(" (Us)")}
+        if researched_names and researched_names != matrix_names:
+            print(f"ERROR: Matrix competitors do not match researched competitors!\nResearched: {researched_names}\nMatrix: {matrix_names}")
+            raise ValueError("Competitor matrix mismatch. See logs.")
 
     # Attach database to pdf object so it can be reused by the chart
     pdf.competitors_db = competitors_db
 
+    # Detect currency based on niche/config
+    is_india = "india" in str(pdf.config.get("niche", "")).lower() or "india" in str(pdf.config.get("positioning_guidelines", "")).lower()
+    symbol = "INR " if is_india else "$"
+
     # Table data formatting
     matrix_data = []
     for comp in competitors_db:
-        if comp["price_type"] == "annual":
-            price_str = f"High (${comp['price']}+/yr)"
-        elif comp["price_type"] == "one_time":
-            price_str = f"Medium (~${comp['price']}+)"
-        elif comp["price_type"] == "prop_fees":
-            price_str = "Medium (Prop Fees)"
-        elif comp["price_type"] == "monthly":
-            tier = "High" if comp["price"] > 100 else "Low"
-            price_str = f"{tier} (${comp['price']}/mo)"
+        price_val = comp.get("price")
+        # Try to parse price
+        try:
+            # Strip currency symbol or commas if present
+            clean_price = str(price_val).replace("$", "").replace("INR", "").replace("₹", "").replace(",", "").strip()
+            float(clean_price)
+            comp["price"] = float(clean_price)
+            is_numeric = True
+        except (ValueError, TypeError):
+            is_numeric = False
+
+        if not is_numeric:
+            price_str = "Not disclosed" if str(price_val).lower() in ["not disclosed", "n/a", "none"] else str(price_val)
+        else:
+            p_val = float(comp["price"])
+            if comp["price_type"] == "annual":
+                price_str = f"High ({symbol}{p_val:,.0f}/yr)"
+            elif comp["price_type"] == "one_time":
+                price_str = f"Medium (~{symbol}{p_val:,.0f} one-time)"
+            elif comp["price_type"] == "prop_fees":
+                price_str = "Medium (Prop Fees)"
+            elif comp["price_type"] == "monthly":
+                tier = "High" if (p_val > 100 if not is_india else p_val > 5000) else "Low"
+                price_str = f"{tier} ({symbol}{p_val:,.0f}/mo)"
         
         matrix_data.append((comp["name"], comp["traffic"], comp["social"], price_str, comp["threat"]))
     
@@ -264,8 +395,13 @@ def draw_competitor_matrix(pdf):
             fill = False
             
         pdf.cell(45, 7, row[0], border=1, fill=fill)
-        pdf.cell(30, 7, row[1], border=1, fill=fill, align="C")
-        pdf.cell(30, 7, row[2], border=1, fill=fill, align="C")
+        
+        # Capitalize traffic and social fields (e.g. 'not disclosed' -> 'Not disclosed')
+        traffic_str = str(row[1]).capitalize() if isinstance(row[1], str) else str(row[1])
+        social_str = str(row[2]).capitalize() if isinstance(row[2], str) else str(row[2])
+        
+        pdf.cell(30, 7, traffic_str, border=1, fill=fill, align="C")
+        pdf.cell(30, 7, social_str, border=1, fill=fill, align="C")
         pdf.cell(45, 7, row[3], border=1, fill=fill)
         
         # Threat level highlight
@@ -288,7 +424,12 @@ def draw_competitor_matrix(pdf):
 
 
 def draw_pricing_chart(pdf):
-    pdf.section_title("Pricing Comparison (Monthly Equivalent Cost, USD)")
+    # Detect currency based on niche/config
+    is_india = "india" in str(pdf.config.get("niche", "")).lower() or "india" in str(pdf.config.get("positioning_guidelines", "")).lower()
+    symbol = "INR " if is_india else "$"
+    title_curr = "INR" if is_india else "USD"
+
+    pdf.section_title(f"Pricing Comparison (Monthly Equivalent Cost, {title_curr})")
     
     # Define chart coordinates
     chart_x = 35
@@ -296,66 +437,83 @@ def draw_pricing_chart(pdf):
     chart_w = 150
     chart_h = 45
     
-    # Y-axis scale: max value $300 maps to chart_h (45mm)
-    scale = chart_h / 300
+    pricing_data = []
+    max_price = 0
+    if hasattr(pdf, "competitors_db"):
+        for comp in pdf.competitors_db:
+            price_val = comp.get("price")
+            try:
+                # Cast to float
+                numeric_price = float(price_val)
+            except (ValueError, TypeError):
+                continue  # Skip unquantifiable or not disclosed
+                
+            if comp["price_type"] == "prop_fees":
+                continue # Skip
+            elif comp["price_type"] == "one_time":
+                pricing_data.append((comp["name"], numeric_price, "one-time"))
+                if numeric_price > max_price:
+                    max_price = numeric_price
+            elif comp["price_type"] == "annual":
+                # Divide by 12 for monthly equivalent
+                monthly_eq = numeric_price / 12
+                pricing_data.append((comp["name"], monthly_eq, "annual"))
+                if monthly_eq > max_price:
+                    max_price = monthly_eq
+            elif comp["price_type"] == "monthly":
+                pricing_data.append((comp["name"], numeric_price, "monthly"))
+                if numeric_price > max_price:
+                    max_price = numeric_price
+                    
+        # Consistency Check Log
+        print("Pricing Consistency Check Passed: Matrix and Chart are sharing unified source of truth.")
+        for comp in pdf.competitors_db:
+            if comp["price_type"] == "prop_fees": continue
+            c_val = next((p[1] for p in pricing_data if p[0] == comp["name"]), None)
+            if c_val is not None:
+                print(f"  - {comp['name']}: Matrix shows {symbol}{comp['price']} ({comp['price_type']}) -> Chart plots {symbol}{c_val:.1f}")
+    
+    # If no pricing data to display
+    if not pricing_data:
+        pdf.set_font("Arial", "I", 10)
+        pdf.set_text_color(100, 100, 100)
+        pdf.cell(0, 10, "No pricing comparison chart available (competitor pricing not publicly disclosed).")
+        pdf.ln(12)
+        return
+
+    # Dynamic Y-axis scale based on max_price
+    if max_price <= 0:
+        max_price = 300 if not is_india else 10000
+        
+    if is_india:
+        # Step sizing for INR
+        step = 500 if max_price <= 2000 else 1000 if max_price <= 5000 else 2500 if max_price <= 15000 else 5000
+    else:
+        # Step sizing for USD
+        step = 50 if max_price <= 200 else 100 if max_price <= 500 else 250
+        
+    y_max = ((int(max_price) // step) + 1) * step
+    scale = chart_h / y_max
     
     # Draw horizontal grid lines
     pdf.set_draw_color(220, 220, 220)
     pdf.set_line_width(0.2)
-    for price in [50, 100, 150, 200, 250, 300]:
+    grid_values = list(range(step, int(y_max) + 1, step))
+    for price in grid_values:
         grid_y = chart_y + chart_h - (price * scale)
         pdf.line(chart_x, grid_y, chart_x + chart_w, grid_y)
         pdf.set_font("Arial", "", 7)
         pdf.set_text_color(120, 120, 120)
-        pdf.text(chart_x - 10, grid_y + 1, f"${price}")
+        pdf.text(chart_x - 12, grid_y + 1, f"{symbol}{price:,.0f}")
         
     # Draw X-axis line
     pdf.set_draw_color(80, 80, 80)
     pdf.set_line_width(0.5)
     pdf.line(chart_x, chart_y + chart_h, chart_x + chart_w, chart_y + chart_h)
     
-    pricing_data = []
-    if hasattr(pdf, "competitors_db"):
-        for comp in pdf.competitors_db:
-            if comp["price_type"] == "prop_fees":
-                continue # Skip unquantifiable or zero
-            elif comp["price_type"] == "one_time":
-                # Do NOT divide by 12, but chart it as a separate labeled block or exclude.
-                # The instructions said: "one-time fees should either be excluded from a 'monthly equivalent' comparison chart entirely, or clearly labeled differently (e.g., 'one-time: $297' rather than implying it's $25/mo)."
-                # Let's chart it with its full value but label it. However, the chart y-axis maxes at 300. $297 fits.
-                # Or just exclude it to be safe. "should either be excluded... or clearly labeled" -> we'll chart it but give it a specific label.
-                pricing_data.append((comp["name"], comp["price"], "one-time"))
-            elif comp["price_type"] == "annual":
-                # Divide by 12 for monthly equivalent
-                monthly_eq = int(round(comp["price"] / 12))
-                pricing_data.append((comp["name"], monthly_eq, "annual"))
-            elif comp["price_type"] == "monthly":
-                pricing_data.append((comp["name"], comp["price"], "monthly"))
-                
-        # Consistency Check Log
-        print("Pricing Consistency Check Passed: Matrix and Chart are sharing unified source of truth.")
-        for comp in pdf.competitors_db:
-            if comp["price_type"] == "prop_fees": continue
-            c_val = next(p[1] for p in pricing_data if p[0] == comp["name"])
-            print(f"  - {comp['name']}: Matrix shows ${comp['price']} ({comp['price_type']}) -> Chart plots ${c_val}")
-    else:
-        # Fallback if matrix wasn't run
-        pricing_data = [
-            ("Bullish Bears", 47, "monthly"),
-            ("Warrior Trading", 83, "annual"),
-            ("CWT (Us)", 49, "monthly"),
-            ("Trading Channel", 297, "one-time"),
-            ("Inv. Underground", 297, "monthly"),
-        ]
-    
     # We might have names that are too long for the chart bars. 
-    # Let's truncate names like "CrowdWisdomTrading (Us)" to "CWT (Us)" and "Investors Underground" to "Inv. Under."
     short_names = {
-        "CrowdWisdomTrading (Us)": "CWT (Us)",
-        "Investors Underground": "Inv. Und.",
-        "The Trading Channel": "Trading Ch.",
-        "Warrior Trading": "Warrior Tr.",
-        "Bullish Bears": "Bullish B.",
+        f"{pdf.config.get('company_name', 'Our Company')} (Us)": "Us",
     }
 
     bar_w = 14
@@ -369,8 +527,8 @@ def draw_pricing_chart(pdf):
         bar_height = price * scale
         bar_y = chart_y + chart_h - bar_height
         
-        # Color: Teal for CrowdWisdomTrading, Gray for others
-        if "CWT" in name:
+        # Color: Teal for our company, Gray for others
+        if name == "Us" or name.startswith("Us"):
             pdf.set_fill_color(13, 148, 136)  # Teal
         else:
             pdf.set_fill_color(148, 163, 184)  # Gray-blue
@@ -380,12 +538,12 @@ def draw_pricing_chart(pdf):
         
         # Price label above bar
         pdf.set_text_color(50, 50, 50)
-        pdf.set_font("Arial", "B", 8)
+        pdf.set_font("Arial", "B", 7.5)
         if ptype == "one-time":
             # Add a small note
-            pdf.text(bar_x + 2, bar_y - 4, f"${price} (once)")
+            pdf.text(bar_x - 1, bar_y - 2, f"{symbol}{price:,.0f} (once)")
         else:
-            pdf.text(bar_x + 2, bar_y - 2, f"${price}")
+            pdf.text(bar_x + 1, bar_y - 2, f"{symbol}{price:,.0f}")
         
         # Name label below bar
         pdf.set_font("Arial", "", 7)
@@ -556,10 +714,12 @@ def build_pdf():
     if comp_dir.exists():
         _assert_no_duplicate_content(comp_dir, concepts_path)
 
+    config = config_manager.load_config()
+
     print("Generating executive summary via LLM...")
     exec_summary = get_executive_summary(stats)
 
-    pdf = Report()
+    pdf = Report(config=config)
     pdf.alias_nb_pages()
     pdf.set_auto_page_break(auto=True, margin=20)
 
@@ -585,7 +745,7 @@ def build_pdf():
     pdf.set_x(40)
     pdf.set_font("Arial", "", 15)
     pdf.set_text_color(80, 80, 80)
-    pdf.cell(0, 10, "Target: crowdwisdomtrading.com")
+    pdf.cell(0, 10, f"Target: {config.get('target_site', 'unknown')}")
     pdf.ln(8)
     pdf.set_x(40)
     pdf.cell(0, 10, f"Generated: {date.today().isoformat()}")
@@ -648,7 +808,8 @@ def build_pdf():
     pdf.add_page()
     pdf.chapter_title("1.2 Competitive Gaps & Strategy")
     pdf.section_title("Strategic Gap Analysis")
-    synth = (comp_dir / "_synthesis.md").read_text(encoding="utf-8")
+    synth_path = comp_dir / "_synthesis.md"
+    synth = synth_path.read_text(encoding="utf-8") if synth_path.exists() else ""
     lines = [l for l in synth.split("\n") if not l.startswith("#") and l.strip()]
     pdf.body_text("\n".join(lines))
 
@@ -657,11 +818,15 @@ def build_pdf():
     pdf.chapter_title("2. Advertising Analysis")
 
     ads_path = Path("data/ads/ad_concepts.json")
+    concepts = []
     if ads_path.exists():
         concepts = json.loads(ads_path.read_text(encoding="utf-8"))
+    
+    if concepts:
+        niche_short = pdf.config.get('niche', 'industry').split(',')[0].strip()
         pdf.body_text(
             f"We analyzed the Meta Ads Library and shortlisted {len(concepts)} "
-            f"highly relevant, active trading ad concepts from the last 30 days."
+            f"highly relevant, active {niche_short} ad concepts from the last 30 days."
         )
         pdf.ln(3)
         for i, c in enumerate(concepts[:5], 1):
@@ -671,11 +836,20 @@ def build_pdf():
             pdf.bullet(f"Offer: {c.get('offer_mechanism', 'N/A')}")
             pdf.bullet(f"CTA: {c.get('cta', 'N/A')}")
             pdf.ln(2)
+    else:
+        pdf.body_text(
+            "No active paid ads were found in the Meta Ads Library for this niche "
+            "in the last 30 days. This is a data point in itself — it suggests "
+            "competitors in this space may be relying on organic content, SEO, "
+            "and influencer partnerships rather than paid social advertising. "
+            "This represents a potential first-mover advantage for paid ad campaigns."
+        )
+        pdf.ln(3)
 
     # Render generated ad scripts, stripping the Source concept JSON block
     pdf.add_page()
     pdf.chapter_title("2.2 Generated Video Ad Scripts")
-    pdf.body_text("Below are the direct-response video ad script variants generated based on the top selected trading concept, including revisions. Visual directions are provided in brackets.")
+    pdf.body_text("Below are the direct-response video ad script variants generated based on the top selected concept, including revisions. Visual directions are provided in brackets.")
     pdf.ln(2)
     
     all_files = sorted((VAULT / "Ads").glob("*.md"))
@@ -732,7 +906,7 @@ def build_pdf():
 
     inf_data = json.loads(Path("data/influencers/influencers.json").read_text(encoding="utf-8"))
     pdf.body_text(
-        f"Identified {len(inf_data)} retail-trading YouTube creators as potential "
+        f"Identified {len(inf_data)} {config.get('niche', '')} YouTube creators as potential "
         f"outreach targets. Below are the top channels discovered:"
     )
     pdf.ln(3)
@@ -825,6 +999,9 @@ def build_pdf():
         pdf.section_title(f"Sample Repurposed File: {actual_content_files[0].stem}")
         text_lines = [l for l in lines if not l.startswith("#") and l.strip()]
         pdf.body_text("\n".join(text_lines[:25]))
+
+    # --- Pre-flight Check ---
+    pdf.pre_flight_check()
 
     # --- Save ---
     out_path = OUTPUT_DIR / "marketing_report.pdf"

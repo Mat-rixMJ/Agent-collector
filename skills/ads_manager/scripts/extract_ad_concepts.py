@@ -3,9 +3,13 @@ import json
 from pathlib import Path
 
 from tools.llm_client import ask
+from tools import config_manager
 
 IN_PATH = Path("data/ads/meta_ads_shortlist.json")
 OUT_PATH = Path("data/ads/ad_concepts.json")
+
+config = config_manager.load_config()
+niche = config.get("niche", "unknown")
 
 SYSTEM_PROMPT = (
     "You are a direct-response marketing analyst. Given one ad's text/creative "
@@ -15,10 +19,10 @@ SYSTEM_PROMPT = (
 
 
 def is_relevant_trading_ad(advertiser: str, ad_text: str) -> bool:
+    company_name = config.get("company_name", "Our Company")
     prompt = (
-        "You are an ad classification filter. Analyze if this ad is about retail trading, forex, prop firms, "
-        "investing, stock market education, or trading bots/indicators. "
-        "Answer with strictly 'yes' or 'no'. Do not include any other words."
+        f"You are an ad classification filter. Analyze if this ad's target audience and offer strictly match [{company_name}: {niche}]. "
+        "Does the target audience and offer match? Answer strictly 'yes' or 'no'. Do not include any other words."
     )
     try:
         res = ask(prompt, f"Advertiser: {advertiser}\nAd text: {ad_text}").strip().lower()

@@ -1,6 +1,6 @@
 ---
 name: influencer-outreach
-description: Find retail-trading influencers and draft personalized cold outreach for crowdwisdomtrading.com
+description: Find influencers in any niche and draft personalized cold outreach
 version: 1.0.0
 metadata:
   hermes:
@@ -12,7 +12,7 @@ metadata:
 # Influencer Cold Outreach Agent
 
 ## When to Use
-Use when you need to: discover retail-trading content creators, build influencer dossiers, or draft personalized cold outreach asking their opinion about crowdwisdomtrading.com.
+Use when you need to: discover content creators in your target niche, build influencer dossiers, or draft personalized cold outreach asking their opinion about your product.
 
 ## Procedure
 

@@ -8,17 +8,12 @@ from pathlib import Path
 
 from tools.apify_client import scrape_meta_ads
 from tools import memory
+from tools import config_manager
 
 OUT_DIR = Path("data/ads")
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-SEARCH_TERMS = [
-    "trading signals",
-    "prop firm challenge",
-    "learn day trading",
-    "forex trading course",
-    "trading bot",
-]
+
 
 
 def within_last_30_days(ad: dict) -> bool:
@@ -54,6 +49,8 @@ def rank(ads: list[dict]) -> list[dict]:
 
 
 def main() -> None:
+    config = config_manager.load_config()
+    SEARCH_TERMS = config_manager.get_meta_ads_queries(config)
     all_ads = []
 
     # ponytail: in demo mode each search term returns the ENTIRE cached file,
@@ -64,10 +61,14 @@ def main() -> None:
             print("[DEMO] Loading cached raw Meta ads (single load, no accumulation)")
             all_ads = json.loads(raw_cache_path.read_text(encoding="utf-8"))
     else:
+        # Detect India for geo-targeting
+        is_india = "india" in str(config.get("niche", "")).lower() or "india" in str(config.get("positioning_guidelines", "")).lower()
+        target_country = ["IN"] if is_india else ["US"]
+        
         for term in SEARCH_TERMS:
-            print(f"Searching Meta Ads Library: {term!r}")
+            print(f"Searching Meta Ads Library: {term!r} (Geo: {target_country[0]})")
             try:
-                results = scrape_meta_ads([term], max_results=50)
+                results = scrape_meta_ads([term], countries=target_country, max_results=50)
                 all_ads.extend(results)
             except Exception as e:
                 print(f"  failed for {term!r}: {e}")
@@ -93,13 +94,13 @@ def main() -> None:
     discarded_no_text = 0
     discarded_off_topic = 0
     
-    keywords = [
-        "trading", "trade", "forex", "stocks", "investing", "prop firm", 
-        "funded", "day trading", "chart", "market", "crypto", "algo", 
-        "indicators", "futures", "options", "brokerage", "day trader", 
-        "swing trading", "funded next", "blue guardian", "funding pips",
-        "smrt algo", "luxalgo", "price action", "pips"
-    ]
+    keywords = set([w for w in config.get("niche", "").lower().split() if len(w) > 3])
+    for term in SEARCH_TERMS:
+        keywords.update([w for w in term.lower().split() if len(w) > 3])
+    # Ensure some fallback keywords exist
+    if not keywords:
+        keywords = set(["app", "service", "product", "platform"])
+    keywords = list(keywords)
     
     for ad in recent:
         ad_text = ad.get("adText") or ""
@@ -122,9 +123,7 @@ def main() -> None:
         
         page_name = (ad.get("pageName") or ad.get("page_name") or "").lower()
         page_cat = (ad.get("pageCategory") or "").lower()
-        has_page_keyword = any(kw in page_name or kw in page_cat for kw in [
-            "trading", "trade", "forex", "prop firm", "funded", "investing", "brokerage", "financial", "algo"
-        ])
+        has_page_keyword = any(kw in page_name or kw in page_cat for kw in keywords)
         
         if has_keyword or has_page_keyword:
             ad["adText_cleaned"] = ad_text

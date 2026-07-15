@@ -1,6 +1,6 @@
 ---
 name: marketing-manager
-description: Competitor research and strategy briefs for crowdwisdomtrading.com
+description: Competitor research and strategy briefs for any target company/niche
 version: 1.0.0
 metadata:
   hermes:

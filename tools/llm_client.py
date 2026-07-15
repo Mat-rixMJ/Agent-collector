@@ -10,8 +10,11 @@ Rate limit strategy:
 import json
 import os
 import time
-
+import uuid
+import sys
 import requests
+from pathlib import Path
+from tools import config_manager
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -60,10 +63,10 @@ _CONCEPT_VARIANTS = [
         "notes": "Loss aversion angle targeting prop firm traders."
     },
     {
-        "pain_point": "Beginner day traders lose money copying alerts from expensive gurus with no plan.",
-        "hook": "Your guru is charging $297/mo and you are still in the red. There is a better way.",
-        "offer_mechanism": "Crowd-sourced trading intelligence and pre-market analysis for $49/mo.",
-        "cta": "Join CrowdWisdomTrading for $49/mo",
+        "pain_point": "Beginner day traders lose money copying",
+        "hook": "Tired of guessing the market direction?",
+        "offer_mechanism": "company_name premium signals",
+        "cta": "Join company_name today",
         "notes": "Price comparison angle targeting guru-fatigued traders."
     },
     {
@@ -97,101 +100,13 @@ _CONCEPT_VARIANTS = [
     {
         "pain_point": "Part-time traders miss the best setups because they cannot watch charts all day.",
         "hook": "What if you could get pre-screened setups delivered before the market opens?",
-        "offer_mechanism": "Pre-market watchlist and alert service so you never miss a move, for $49/mo.",
-        "cta": "Get alerts on your phone",
-        "notes": "Time-scarcity angle targeting employed traders."
-    },
-    {
-        "pain_point": "Crypto traders jump between strategies and never build consistent results.",
-        "hook": "Consistency beats brilliance in crypto. Here is the repeatable system top traders use.",
-        "offer_mechanism": "Daily crypto market bias and community-verified setups for $49/mo.",
-        "cta": "Join the CWT crypto community",
-        "notes": "Consistency angle for crypto-crossover audience."
-    },
-    {
-        "pain_point": "Traders waste hours watching YouTube instead of having a clear market bias before open.",
-        "hook": "Stop spending your morning on YouTube. Get a clear directional bias in 5 minutes.",
-        "offer_mechanism": "CWT pre-market report and bias summary delivered to Telegram by 8am for $49/mo.",
-        "cta": "Get your morning edge",
-        "notes": "Time efficiency angle for morning routine improvement."
-    },
-    {
-        "pain_point": "Funded traders fail to scale because they do not have a risk-adjusted position sizing system.",
-        "hook": "Passing the challenge is step one. Keeping the account is the real test.",
-        "offer_mechanism": "Post-funding position sizing guidance and community support for $49/mo.",
-        "cta": "Protect your funded account",
-        "notes": "Post-challenge retention angle for funded traders."
-    },
-    {
-        "pain_point": "Retail traders ignore the news and get blindsided by earnings and macro events.",
-        "hook": "Macro events move markets. Most retail traders find out after the fact.",
-        "offer_mechanism": "Weekly macro calendar and event-driven trade ideas delivered via Telegram for $49/mo.",
-        "cta": "Trade the news, not the reaction",
-        "notes": "Macro awareness angle for fundamentals-interested traders."
-    },
-    {
-        "pain_point": "Solo traders feel isolated and have no one to review their trades or strategy with.",
-        "hook": "Trading alone is hard. Trading with 5,000 people who share your setups is better.",
-        "offer_mechanism": "Active Discord trading community with daily shared setups and peer review for $49/mo.",
-        "cta": "Join the community",
-        "notes": "Isolation angle with community belonging as the hook."
-    },
-    {
-        "pain_point": "Algorithmic trading beginners buy expensive bots that lose money on live accounts.",
-        "hook": "Most retail trading bots are backtested on history they will never see again.",
-        "offer_mechanism": "Human-curated alerts that beat algo noise for $49/mo.",
-        "cta": "Ditch the bot. Trade with intelligence.",
-        "notes": "Anti-algo angle for bot-skeptic audience."
-    },
-    {
-        "pain_point": "Traders get faked out by false breakouts because they trade without volume context.",
-        "hook": "Volume does not lie. Price action without volume is just noise.",
-        "offer_mechanism": "Volume-confirmed breakout alerts and pre-market analysis for $49/mo.",
-        "cta": "Trade breakouts with confidence",
-        "notes": "Volume analysis angle for technical traders."
-    },
-    {
-        "pain_point": "Traders keep journaling but never identify the actual patterns causing their losses.",
-        "hook": "You have a journal. You still lose. The pattern is not in the entries.",
-        "offer_mechanism": "Community trade review sessions and pattern coaching calls for $49/mo.",
-        "cta": "Find your edge with us",
-        "notes": "Journaling-frustration angle targeting self-improvement-focused traders."
-    },
-    {
-        "pain_point": "Day traders overtrade during low-volume sessions and give back all their gains.",
-        "hook": "The best trade is sometimes no trade. But knowing which session to skip requires data.",
-        "offer_mechanism": "Session quality scores and optimal trading window alerts for $49/mo.",
-        "cta": "Trade only the A-grade setups",
-        "notes": "Overtrading prevention angle for experienced but losing traders."
-    },
-    {
-        "pain_point": "Traders spend more on courses than they make in their first year of trading.",
-        "hook": "You spent $2,000 on courses. You lost $3,000 trading. Something has to change.",
-        "offer_mechanism": "One affordable community membership that replaces five expensive courses for $49/mo.",
-        "cta": "Stop buying courses. Start trading.",
-        "notes": "Course-fatigue angle targeting over-educated under-performing traders."
-    },
-    {
-        "pain_point": "Prop firm candidates fail the evaluation because their risk management breaks under pressure.",
-        "hook": "You know the rules. You break them when it matters. That is the real problem.",
-        "offer_mechanism": "Accountability partner system and daily risk check-in community for $49/mo.",
-        "cta": "Pass your next challenge",
-        "notes": "Accountability angle for repeat prop firm challenge takers."
-    },
-    {
-        "pain_point": "Traders chase momentum and buy tops because they have no systematic entry criteria.",
-        "hook": "Buying the top is not a strategy. It is a symptom of having no system.",
-        "offer_mechanism": "Rule-based entry alert system with community confirmation for $49/mo.",
-        "cta": "Get a real system",
-        "notes": "FOMO/chasing angle for impulsive traders."
-    },
-    {
-        "pain_point": "Experienced traders plateau and cannot figure out why their edge has stopped working.",
-        "hook": "You used to be profitable. The market changed. Your system did not.",
-        "offer_mechanism": "Monthly strategy adaptation workshops and live market analysis for $49/mo.",
-        "cta": "Adapt your edge with CWT",
-        "notes": "Plateauing experienced trader angle for advanced audience."
-    },
+        "advertiser": "Mock Advertiser",
+        "pain_point": "Users struggle with generic mock data.",
+        "hook": "Stop looking at old trading examples.",
+        "offer_mechanism": "Dynamic generated mock.",
+        "cta": "Click here.",
+        "notes": "Mock data."
+    }
 ]
 
 
@@ -200,27 +115,19 @@ def _call_api(url: str, headers: dict, payload: dict) -> requests.Response:
     return requests.post(url, headers=headers, json=payload, timeout=300)
 
 
-def get_demo_response(messages: list[dict]) -> str:
-    prompt = messages[-1]["content"] if messages else ""
-    sys_prompt = messages[0]["content"] if len(messages) > 1 and messages[0]["role"] == "system" else ""
-    combined = (sys_prompt + "\n" + prompt).lower()
+def _get_demo_response(system: str, prompt: str) -> str:
+    config = config_manager.load_config()
+    company = config.get("company_name", "Our Company")
+    combined = (system + "\n" + prompt).lower()
 
-    # Branch order matters: narrow/specific matches FIRST, broad competitor-name
-    # matches LAST.  Competitor names appear inside prompts for synthesis,
-    # outreach (e.g. Ross Cameron → "Warrior Trading"), and the executive
-    # summary, so they must not shadow the real intent of those calls.
-
-    # --- 1. Boolean / classification (most specific, no false-positive risk) ---
     if "classification filter" in combined or "yes or no" in combined or "coherence" in combined or "coherent" in combined:
         return "yes"
 
-    # --- 2. Ad concept extraction (keyword "extract"/"json") ---
     elif "extract" in combined and "pain_point" in combined:
         _demo_extract_counter[0] = (_demo_extract_counter[0] + 1) % len(_CONCEPT_VARIANTS)
         chosen = _CONCEPT_VARIANTS[_demo_extract_counter[0]]
         return json.dumps(chosen)
 
-    # --- 3. Scoring (keyword "score"/"rubric") ---
     elif ("score" in combined or "rubric" in combined) and "revising an ad script" not in combined:
         if "output as clean json" in combined or ("hook" in combined and "pain" in combined and "mechanism" in combined):
             import random as _random
@@ -285,58 +192,37 @@ Ranked by total score (out of 50). Higher = more likely to convert.
 - **Duration:** 14 days.
 """
 
-    # --- 4. Revision ---
     elif "revise" in combined or "revision" in combined:
-        return """# Ad Script — Revised Version
+        return f"""# Ad Script — Revised Version
 
 ## Script
-[Visual: A trader looking at a chart, then opening the CrowdWisdomTrading dashboard.]
-Narrator (Voiceover): "Blowing trading accounts? Guru fees are eating your profits. Let's change that."
-Narrator: "Get institutional-grade pre-market analysis and real-time alerts. All for just $49 a month."
+[Visual: A person looking at a chart, then opening the {company} dashboard.]
+Narrator: "Are you tired of guessing the market direction?"
+[Visual: Screen recording showing {company} signals hitting targets.]
+Narrator: "Stop guessing. Start knowing. Our community provides the exact setups you need."
+[Visual: Text on screen: Join today.]
+Narrator: "Join {company} today."
 """
 
-    # --- 5. Outreach (BEFORE "angle"/"script" — outreach user_context contains "angle") ---
-    elif "cold outreach emails" in combined or "platform dms" in combined:
-        creator_name = "[Creator]"
-        for m in messages:
-            import re
-            match = re.search(r"Creator:\s*([^\(]+)", m["content"])
-            if match:
-                creator_name = match.group(1).strip()
-                break
-                
-        # Heuristic greeting formatting
-        raw_lower = creator_name.lower()
-        brand_signals = [" and ", " & ", "team", "crew", "official", "tv", "media", "group"]
-        is_brand = any(sig in raw_lower for sig in brand_signals)
-        words = creator_name.split()
-        
-        if is_brand or len(words) > 3:
-            greeting = "Hi there,"
-            hey_greeting = "Hey there,"
-        else:
-            first_name = words[0] if words else creator_name
-            greeting = f"Hi {first_name},"
-            hey_greeting = f"Hey {first_name},"
+    elif "cold outreach EMAILS" in system:
+        return f"""Subject: Sponsored segment proposal / Affiliate partnership with {company}
 
-        if "cold outreach emails" in combined:
-            return f"""Subject: Sponsored segment proposal / Affiliate partnership with CrowdWisdomTrading
+Hi,
 
-{greeting}
-We love your channel. We want to propose a paid sponsorship segment ($500 base rate + 30% affiliate commission) to showcase CWT to your audience."""
+I love the recent videos you've been putting out. I'm reaching out from {company} because our audience overlaps heavily with yours. We're looking to sponsor a segment in an upcoming video or set up an affiliate partnership. We offer competitive base rates and a high-converting affiliate commission structure, plus free lifetime premium access for you and your audience.
 
-        else:
-            return f"""{hey_greeting} love your recent video on prop firm challenges! We'd love to partner with you for a sponsored segment on your channel. We pay a competitive base rate plus affiliate commissions. Drop us an email if interested!"""
+Let me know if you're open to checking out details, or reply to set up a brief chat!
 
-    # --- 6. Executive summary (BEFORE competitor names — prompt includes synth text) ---
-    elif "executive summary" in combined or "funnel" in combined or "ingestion" in combined:
-        return """We successfully conducted competitive research across 5 major trading-education platforms, identifying pricing and positioning gaps for CrowdWisdomTrading's launch.
+Best,
+The {company} Team"""
 
-By analyzing raw ad concepts, we created 3 optimized ad script variants targeting pain points in prop challenges, scored and refined for maximum conversions.
+    elif "Synthesize these competitor summaries" in prompt:
+        return f"""We successfully conducted competitive research across 5 major platforms, identifying pricing and positioning gaps for {company}'s launch.
 
-Finally, we identified 74 high-potential influencer partners and created targeted outreach campaigns to accelerate brand adoption."""
+1. **Pricing:** Most competitors charge $100-$200/mo. At a lower price point, {company} is highly disruptive.
+2. **Community:** Competitors offer basic Discord rooms. We can emphasize our interactive, mentor-led environment.
+3. **Unbiased Strategy Reviews:** Competitors promote their own indicator systems. {company} can stand out by providing transparent, crowd-sourced alerts."""
 
-    # --- 7. Synthesis (BEFORE competitor names — prompt includes all competitor text) ---
     elif "synthesis" in combined or "synthesize" in combined:
         return """# Competitive Strategy & Gap Analysis
 
@@ -345,42 +231,42 @@ Finally, we identified 74 high-potential influencer partners and created targete
 2. **Community-First Learning:** Many platforms are centered around a single guru. Building a decentralized, peer-to-peer sharing community offers a unique value proposition.
 3. **Unbiased Strategy Reviews:** Competitors promote their own indicator systems. CrowdWisdomTrading can stand out by providing transparent, crowd-sourced trading alerts."""
 
-    # --- 8. Strategy brief ---
-    elif "strategy brief" in combined or "brand profile" in combined:
-        return """# Marketing Strategy Brief: CrowdWisdomTrading
+    elif "Marketing Strategy Brief" in system or "marketing strategist" in system:
+        return f"""# Marketing Strategy Brief: {company}
 
-## 1. Brand Positioning
-CrowdWisdomTrading (CWT) is the ultimate community-driven retail trading hub. We offer real-time trading alerts, daily pre-market analysis, and educational resources for just $49/mo, contrasting sharply with high-cost competitor plans.
+{company} is the ultimate community-driven hub. We offer real-time alerts, daily analysis, and educational resources, contrasting sharply with high-cost competitor plans.
 
-## 2. Target Audience
-Retail traders, forex enthusiasts, and prop firm evaluators looking for a collaborative, high-accuracy signaling community without paying thousands of dollars in upfront fees.
+## Target Audience Segments
+- **Beginners:** Overwhelmed by jargon.
+- **Intermediate:** Struggling with consistency.
+- **Pros:** Looking for community and networking.
 
-## 3. Compliance Notice
-All marketing materials must state: *Trading contains substantial risk. Past performance is not indicative of future results. CrowdWisdomTrading is not a registered broker-dealer or financial advisor.*"""
+## Positioning Statements
+- More affordable than the rest.
+- Better community support.
+- Transparent and real-time.
 
-    # --- 9. Ad script generation ---
+## Compliance and Regulatory Notice
+All marketing materials must state: *Trading contains substantial risk. Past performance is not indicative of future results. {company} is not a registered broker-dealer or financial advisor.*"""
+
     elif "original 30-45 second video ad script" in combined:
-        if "angle: fear" in combined:
-            return """# Ad Script — Fear & Loss Aversion Angle
-        
-## Script
-[Visual: A close-up of a trader staring at a red chart, looking stressed.]
-Narrator (Voiceover): "Are you tired of blowing trading accounts? Watching your hard-earned cash disappear on failed prop challenges?"
-[Visual: Text on screen reads: '$297/mo? Not anymore.']
-Narrator: "Stop paying gurus thousands. Join CrowdWisdomTrading. Real-time community alerts, support, and pre-market prep for just $49 a month."
-[Visual: CTA button reads 'Claim Your Trial Now'.]
-Narrator: "Click the link and stop trading alone."
+        if "FEAR and LOSS AVERSION" in prompt:
+            return f"""[Visual: Red charts and frustrated person]
+Narrator: "Stop paying gurus thousands. Join {company}. Real-time community alerts, support, and pre-market prep."
+[Visual: Logo]
+Narrator: "Click here to stop losing."
 """
-        elif "angle: aspiration" in combined:
-            return """# Ad Script — Aspiration & Gain Angle
-
-## Script
-[Visual: A trader waking up, opening a laptop, and looking satisfied at a blue chart.]
-Narrator (Voiceover): "Imagine trading with a global community of experts backing your every play."
-[Visual: Screen shows real-time chat alerts and support signals.]
-Narrator: "No expensive memberships. Just $49 a month for institutional-grade market prep and high-accuracy alerts."
-[Visual: CTA button reads 'Join the Crowd'].
-Narrator: "Unlock your potential with CrowdWisdomTrading today."
+        elif "ASPIRATION and DESIRE" in prompt:
+            return f"""[Visual: Green charts and happy person]
+Narrator: "Imagine knowing the move before it happens."
+[Visual: Showing {company} dashboard]
+Narrator: "Unlock your potential with {company} today."
+"""
+        elif "SOCIAL PROOF" in prompt:
+            return f"""[Visual: Discord chat scrolling quickly]
+Narrator: "Join thousands of members who are already seeing results."
+[Visual: Showing {company} dashboard]
+Narrator: "{company} gives you real-time alerts, daily pre-market prep, and a community that actually shares what works."
 """
         else:
             return """# Ad Script — Social Proof Angle

@@ -1,0 +1,42 @@
+{
+  "company_name": "Cult.fit",
+  "target_site": "cult.fit",
+  "niche": "Fitness centers, workout subscriptions, and D2C health supplements in India",
+  "competitors": ["Gold's Gym India", "Anytime Fitness India", "HealthifyMe", "Fittr", "Sarva Yoga"],
+  "youtube_search_queries": [
+    "cult fit review",
+    "cult fit vs anytime fitness",
+    "healthifyme vs fittr review",
+    "best gym subscription India 2025",
+    "cult.fit home workout reviews"
+  ],
+  "meta_ads_search_queries": [
+    "cult fit subscription",
+    "online workout classes",
+    "weight loss diet plan India",
+    "home gym workout subscription",
+    "personal fitness trainer online"
+  ],
+  "verified_claims": {
+    "product_offering": "Provides group workouts (yoga, strength, dance, boxing), gym access, home workouts, and personalized diet/fitness coaching.",
+    "pricing": "Cultpass Elite subscription from INR 14,000 to INR 18,000 per year.",
+    "key_benefits": [
+      "Access to premium centers across major Indian cities",
+      "Unlimited group classes and gym workouts",
+      "Interactive home workout sessions via the Cult app",
+      "Personalized nutrition advice and habit tracking"
+    ],
+    "prohibited_claims": [
+      "DO NOT guarantee specific weight loss numbers.",
+      "DO NOT claim workout sessions are effortless or require no discipline.",
+      "DO NOT promise medical outcomes or cure diseases."
+    ]
+  },
+  "positioning_guidelines": "Focus on community, variety of group classes, premium facilities, and holistic health (mind and body) in India. All pricing in INR.",
+  "hard_blocked_patterns": [
+    "lose \\d+kg in",
+    "guaranteed weight loss",
+    "effortless"
+  ],
+  "_blocked_patterns_note": "These regex patterns are checked post-generation in generate_ad_script.py. Any script matching one of these patterns is blocked."
+}

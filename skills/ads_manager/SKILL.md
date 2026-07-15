@@ -1,6 +1,6 @@
 ---
 name: ads-manager
-description: Find working competitor ads, extract marketing psychology, write ad scripts for crowdwisdomtrading.com
+description: Find working competitor ads, extract marketing psychology, write ad scripts for any target company
 version: 1.0.0
 metadata:
   hermes:
