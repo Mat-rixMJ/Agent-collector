@@ -34,13 +34,89 @@ An autonomous, multi-agent intelligence and campaign distribution engine designe
 
 ## 📸 Demo Walkthrough
 
-### Terminal Execution (`python main.py --demo`)
-![Terminal Run Demo](https://raw.githubusercontent.com/Mat-rixMJ/Agent-collector/main/docs/terminal_demo.gif)
+### Terminal Execution
 
-### Interactive Telegram Bot & Polished Report
-| Telegram Status Webhook | Generated PDF Cover Page | FPDF pricing chart |
-| :---: | :---: | :---: |
-| ![Telegram Bot](https://raw.githubusercontent.com/Mat-rixMJ/Agent-collector/main/docs/telegram_screenshot.png) | ![PDF Cover](https://raw.githubusercontent.com/Mat-rixMJ/Agent-collector/main/docs/pdf_cover_screenshot.png) | ![PDF Chart](https://raw.githubusercontent.com/Mat-rixMJ/Agent-collector/main/docs/pdf_chart_screenshot.png) |
+```bash
+$ python main.py --fresh
+
+==================================================
+MARKETING INTELLIGENCE AGENTS
+==================================================
+Select run mode:
+  1. Fresh start (wipe all data, run from scratch)
+  2. Incremental (use memory, skip already-processed items)
+
+[FRESH START] All previous data cleared.
+
+──────────────────────────────────────────────────
+PIPELINE RUNNING
+──────────────────────────────────────────────────
+
+┌─ Agent 1/4: Marketing Manager
+│  Card: Competitor research: top 5 competitors
+│  Status: Backlog → In Progress
+  [1/2] Competitor research... ✓
+  [2/2] Generate strategy brief... ✓
+└─ Status: In Progress → Review ✓
+
+┌─ Agent 2/4: Ads Manager
+│  Card: Scrape Meta Ads Library — last 30 days
+│  Status: Backlog → In Progress
+  [1/5] Scrape Meta ads... ✓  (274 ads, 11 shortlisted)
+  [2/5] Extract ad concepts... ✓  (11 concepts)
+  [3/5] Generate ad scripts (3 variants)... ✓
+  [4/5] Score ad scripts... ✓  (Top: 39/50)
+  [5/5] Auto-revise weak scripts... ✓
+└─ Status: In Progress → Review ✓
+
+┌─ Agent 3/4: Influencer Outreach
+│  Card: Find influencers in target niche
+│  Status: Backlog → In Progress
+  [1/2] Find influencers... ✓  (68 channels)
+  [2/2] Draft outreach... ✓  (15 drafted)
+└─ Status: In Progress → Review ✓
+
+┌─ Agent 4/4: Content Repurposer
+│  Card: Repurpose video sources into social content
+│  Status: Backlog → In Progress
+  [1/1] Repurpose content... ✓  (5 videos → calendar)
+└─ Status: In Progress → Review ✓
+
+══════════════════════════════════════════════════
+KANBAN BOARD — FINAL STATE
+══════════════════════════════════════════════════
+**Backlog** (0) | **In Progress** (0) | **Review** (8) ✓
+```
+
+### Telegram Integration
+
+The pipeline pushes a detailed status report + PDF attachment to Telegram on every run:
+
+```
+📊 Pipeline Run Complete
+
+Outputs Generated:
+- Competitor briefs: 6
+- Ad scripts (incl. revisions): 5
+- Influencer outreach drafts: 15
+- Content pieces: 5
+
+Memory: 45 items tracked | Run #3
+
+📎 marketing_report.pdf attached
+```
+
+**Interactive commands:** `/status` · `/score` · `/competitors` · `/outreach @handle` · `/changes`
+
+### Generated PDF Reports
+
+The pipeline produces executive-ready PDF reports with:
+- Competitive positioning matrices with pricing comparison
+- Ad script scorecard with A/B test recommendations
+- Influencer discovery table with view counts and outreach templates
+- Content calendar with platform-specific posting schedule
+
+👉 **[View Cult.fit Report (PDF)](sample_reports/Cultfit_Marketing_Report_Clean.pdf)** · **[View Trading Report (PDF)](sample_reports/CrowdWisdomTrading_Marketing_Report_Clean.pdf)**
 
 ---
 
