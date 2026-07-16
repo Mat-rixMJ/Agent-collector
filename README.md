@@ -1,6 +1,6 @@
 # Autonomous Multi-Agent Marketing & Intelligence Pipeline
 
-[![CI Pipeline](https://github.com/Mat-rixMJ/Agent-collector/actions/workflows/ci.yml/badge.svg)](https://github.com/Mat-rixMJ/Agent-collector/actions/workflows/ci.yml)
+[![CI Pipeline](https://github.com/Mat-rixMJ/Multi-Agent-Marketing-Automation-System/actions/workflows/ci.yml/badge.svg)](https://github.com/Mat-rixMJ/Multi-Agent-Marketing-Automation-System/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 
@@ -15,7 +15,7 @@ An autonomous, multi-agent intelligence and campaign distribution engine designe
 | Report | Target | What's inside |
 |--------|--------|---------------|
 | **[Cult.fit Marketing Report](sample_reports/Cultfit_Marketing_Report_Clean.pdf)** | Indian fitness market | 5 competitors analyzed, 206 Meta ads scraped, 15 influencers discovered, A/B test plan, content calendar |
-| **[CrowdWisdomTrading Report](sample_reports/CrowdWisdomTrading_Marketing_Report_Clean.pdf)** | Retail trading education | 5 competitors with pricing, 235 ads analyzed, 73 YouTube creators, 3 ad script variants scored |
+| **[target company Report](sample_reports/target company_Marketing_Report_Clean.pdf)** | Retail trading education | 5 competitors with pricing, 235 ads analyzed, 73 YouTube creators, 3 ad script variants scored |
 
 > *These reports were generated end-to-end by the pipeline with zero manual editing. Hallucinated data is flagged with [VERIFICATION NEEDED] placeholders rather than published.*
 
@@ -116,7 +116,7 @@ The pipeline produces executive-ready PDF reports with:
 - Influencer discovery table with view counts and outreach templates
 - Content calendar with platform-specific posting schedule
 
-👉 **[View Cult.fit Report (PDF)](sample_reports/Cultfit_Marketing_Report_Clean.pdf)** · **[View Trading Report (PDF)](sample_reports/CrowdWisdomTrading_Marketing_Report_Clean.pdf)**
+👉 **[View Cult.fit Report (PDF)](sample_reports/Cultfit_Marketing_Report_Clean.pdf)** · **[View Trading Report (PDF)](sample_reports/target company_Marketing_Report_Clean.pdf)**
 
 ---
 
@@ -179,8 +179,8 @@ Enables interactive control over the pipeline. Interact with the active memory i
 You can run the full 4-agent pipeline end-to-end **without requiring any API keys or scraper tokens**:
 ```bash
 # Clone the repository
-git clone https://github.com/Mat-rixMJ/Agent-collector.git
-cd Agent-collector
+git clone https://github.com/Mat-rixMJ/Multi-Agent-Marketing-Automation-System.git
+cd Multi-Agent-Marketing-Automation-System
 
 # Set up virtual environment
 python -m venv .venv
