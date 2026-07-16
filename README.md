@@ -14,8 +14,8 @@ An autonomous, multi-agent intelligence and campaign distribution engine designe
 
 | Report | Target | What's inside |
 |--------|--------|---------------|
-| **[Cult.fit Marketing Report](sample_reports/Cultfit-Marketing-Report.pdf)** | Indian fitness market | 5 competitors analyzed, 206 Meta ads scraped, 15 influencers discovered, A/B test plan, content calendar |
-| **[CrowdWisdomTrading Report](sample_reports/CrowdWisdomTrading-Report.pdf)** | Retail trading education | 5 competitors with pricing, 235 ads analyzed, 73 YouTube creators, 3 ad script variants scored |
+| **[Cult.fit Marketing Report](sample_reports/Cultfit_Marketing_Report_Clean.pdf)** | Indian fitness market | 5 competitors analyzed, 206 Meta ads scraped, 15 influencers discovered, A/B test plan, content calendar |
+| **[CrowdWisdomTrading Report](sample_reports/CrowdWisdomTrading_Marketing_Report_Clean.pdf)** | Retail trading education | 5 competitors with pricing, 235 ads analyzed, 73 YouTube creators, 3 ad script variants scored |
 
 > *These reports were generated end-to-end by the pipeline with zero manual editing. Hallucinated data is flagged with [VERIFICATION NEEDED] placeholders rather than published.*
 
@@ -28,7 +28,7 @@ An autonomous, multi-agent intelligence and campaign distribution engine designe
   * 🎬 [Ad Script Scorecard](sample_output/obsidian_vault/Ads/_scorecard.md) & [Generated Script Variants](sample_output/obsidian_vault/Ads/)
   * ✉️ [Influencer Discovery & Outreach Drafts](sample_output/obsidian_vault/Outreach/)
   * 📅 [Social Media Content Calendar](sample_output/obsidian_vault/Content/_calendar.md)
-  * 📄 [Generated PDF Executive Report](sample_reports/Cultfit-Marketing-Report.pdf)
+  * 📄 [Generated PDF Executive Report](sample_reports/Cultfit_Marketing_Report_Clean.pdf)
 
 ---
 
