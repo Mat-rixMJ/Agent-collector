@@ -10,14 +10,25 @@ An autonomous, multi-agent intelligence and campaign distribution engine designe
 
 ## ⚡ See It in Action (No Setup Required)
 
+### 📄 Sample Reports (AI-Generated, Production Quality)
+
+| Report | Target | What's inside |
+|--------|--------|---------------|
+| **[Cult.fit Marketing Report](sample_reports/Cultfit-Marketing-Report.pdf)** | Indian fitness market | 5 competitors analyzed, 206 Meta ads scraped, 15 influencers discovered, A/B test plan, content calendar |
+| **[CrowdWisdomTrading Report](sample_reports/CrowdWisdomTrading-Report.pdf)** | Retail trading education | 5 competitors with pricing, 235 ads analyzed, 73 YouTube creators, 3 ad script variants scored |
+
+> *These reports were generated end-to-end by the pipeline with zero manual editing. Hallucinated data is flagged with [VERIFICATION NEEDED] placeholders rather than published.*
+
+---
+
 * **Live Interactive Dashboard:** [View Live Streamlit Dashboard](https://marketing-agents-dashboard.streamlit.app) *(Visualizes the current Kanban states, scorecard, competitor comparisons, and outreach drafts in your browser).*
 * **Zero-Setup Sample Outputs:** Explore the raw agent outputs produced in a full pipeline run:
-  * 📋 [Visual Kanban Task Board](file:///sample_output/kanban/board.json)
-  * 📈 [Competitor Intelligence Briefs](file:///sample_output/obsidian_vault/Competitors/) & [Strategy Brief](file:///sample_output/obsidian_vault/Strategy/brief.md)
-  * 🎬 [Ad Script Scorecard](file:///sample_output/obsidian_vault/Ads/_scorecard.md) & [Generated Script Variants](file:///sample_output/obsidian_vault/Ads/)
-  * ✉️ [Influencer Discovery & Outreach Drafts](file:///sample_output/obsidian_vault/Outreach/)
-  * 📅 [Social Media Content Calendar](file:///sample_output/obsidian_vault/Content/_calendar.md)
-  * 📄 [Generated PDF Executive Report](file:///sample_output/output/marketing_report.pdf)
+  * 📋 [Visual Kanban Task Board](sample_output/kanban/board.json)
+  * 📈 [Competitor Intelligence Briefs](sample_output/obsidian_vault/Competitors/) & [Strategy Brief](sample_output/obsidian_vault/Strategy/brief.md)
+  * 🎬 [Ad Script Scorecard](sample_output/obsidian_vault/Ads/_scorecard.md) & [Generated Script Variants](sample_output/obsidian_vault/Ads/)
+  * ✉️ [Influencer Discovery & Outreach Drafts](sample_output/obsidian_vault/Outreach/)
+  * 📅 [Social Media Content Calendar](sample_output/obsidian_vault/Content/_calendar.md)
+  * 📄 [Generated PDF Executive Report](sample_reports/Cultfit-Marketing-Report.pdf)
 
 ---
 
